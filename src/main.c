@@ -6,7 +6,7 @@
 /*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 20:45:02 by acaren            #+#    #+#             */
-/*   Updated: 2021/09/01 14:36:44 by acaren           ###   ########.fr       */
+/*   Updated: 2021/09/01 15:40:32 by acaren           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	//hello
 	int		n;
 	int		m;
 	char	**str;

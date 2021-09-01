@@ -6,7 +6,7 @@
 /*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 19:48:41 by acaren            #+#    #+#             */
-/*   Updated: 2021/08/31 18:32:10 by acaren           ###   ########.fr       */
+/*   Updated: 2021/09/01 15:49:04 by acaren           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # include "./minishell_a.h"
 # include "./minishell_s.h"
 
-
+void	*ms_malloc_x(size_t size);
 
 #endif

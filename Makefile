@@ -6,13 +6,13 @@
 #    By: acaren <acaren@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/20 17:33:58 by acaren            #+#    #+#              #
-#    Updated: 2021/08/31 18:19:03 by acaren           ###   ########.fr        #
+#    Updated: 2021/08/31 22:10:09 by acaren           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= 	minishell
 
-SRCS			=	./src/main.c	./src/ms_print_envp.c
+SRCS			=	./src/main.c	./src/ms_print_envp.c	./src/ms_return_error.c \
 
 OBJS			=	$(SRCS:.c=.o)
 

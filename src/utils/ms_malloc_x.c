@@ -1,4 +1,6 @@
-#include "../inc/minishell.h"
+// allocates memory & exit if failed
+
+#include "../../inc/minishell.h"
 
 void	*ms_malloc_x(size_t size)
 {
@@ -8,7 +10,7 @@ void	*ms_malloc_x(size_t size)
 	if (!ptr)
 	{
 		perror("minishell");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	return (ptr);
 }

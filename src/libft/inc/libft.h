@@ -6,7 +6,7 @@
 /*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 16:44:34 by acaren            #+#    #+#             */
-/*   Updated: 2021/08/05 06:38:05 by acaren           ###   ########.fr       */
+/*   Updated: 2021/09/03 00:54:27 by acaren           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdarg.h>
 # include <string.h>
-# include <sys/errno.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024

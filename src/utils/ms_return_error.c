@@ -1,6 +1,6 @@
 // prints in STD_ERROR error's description ("message") & returns "return_value"
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	*ms_return_null(char *message)
 {

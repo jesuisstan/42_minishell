@@ -6,11 +6,7 @@
 /*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 21:53:27 by acaren            #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2021/09/01 14:50:51 by acaren           ###   ########.fr       */
-=======
-/*   Updated: 2021/09/01 15:22:56 by acaren           ###   ########.fr       */
->>>>>>> parsing
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +14,7 @@
 
 #include "../inc/minishell.h"
 
-void	*ft_return_null(char *message)
+void	*ms_return_null(char *message)
 {
 	write(STDERR_FILENO, "minishell: ", 11);
 	write(STDERR_FILENO, message, ft_strlen(message));
@@ -26,7 +22,7 @@ void	*ft_return_null(char *message)
 	return (NULL);
 }
 
-int	ft_return_nbr(int return_value, char *message)
+int	ms_return_nbr(int return_value, char *message)
 {
 	write(STDERR_FILENO, "minishell: ", 11);
 	write(STDERR_FILENO, message, ft_strlen(message));

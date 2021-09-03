@@ -103,7 +103,6 @@ int	ms_exit(char **argv)
 
 int	main(int argc, char **argv)
 {
-	//printf("%d\n" , ft_atoi_char("-123"));
 	ms_exit(argv);
 	while (1)
 		;

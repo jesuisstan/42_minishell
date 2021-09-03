@@ -13,13 +13,14 @@ int	ms_pwd(void)
 	{
 		ft_putendl_fd(pwd, STDOUT_FILENO);
 		free(pwd);
-		return (1);
+		return (0);
 	}
 	else
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		free(pwd);
+		return (1);
 	}
-	return (0);
 }
 
 int	main(int agrc, char *argv[])

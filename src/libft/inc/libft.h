@@ -63,7 +63,7 @@ int		**ft_malloc_int_array(int height, int width);
 char	*ft_strrev(char *str);
 void	ft_free_array(char ***array);
 void	ft_putnbr_uns_fd(unsigned int n, int fd);
-int		ft_strcmp(const char *s1, const char *s2)
+int		ft_strcmp(const char *s1, const char *s2);
 
 
 #endif

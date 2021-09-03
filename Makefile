@@ -1,6 +1,6 @@
 NAME			= 	minishell
 
-SRCS			=	./src/main.c	./src/ms_print_envp.c	./src/ms_return_error.c		./src/ms_malloc_x.c\
+SRCS			=	./src/main.c	./src/utils/ms_return_error.c		./src/utils/ms_malloc_x.c\
 
 OBJS			=	$(SRCS:.c=.o)
 

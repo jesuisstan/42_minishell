@@ -25,9 +25,9 @@ int	main(int argc, char **argv, char **envp)
 	
 	n = ft_atoi(argv[1]);
 	string = ms_malloc_x(sizeof(string) * n);
+	(void)envp;
 	// if (!(string = malloc(sizeof(char *) * n)))
 	// 	return(ft_return_nbr(EXIT_FAILURE, strerror(errno)));
-	ms_print_envp(envp);
 	free(string);
 	return (0);
 }

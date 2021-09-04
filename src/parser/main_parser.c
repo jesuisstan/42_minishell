@@ -1,4 +1,4 @@
-// gcc *.c ../libft/libft.a -o parser
+// gcc *.c ../utils/*.c ../libft/libft.a -o parser
 #include "../../inc/minishell.h"
 
 int	main(void)

@@ -3,7 +3,7 @@
 void	ms_cp_envp(char **envp, t_msh *msh)
 {
 	int	i = 0;
-	int	i1 = 0;
+
 	int	len;
 
 	len = ms_arrlen(envp);
@@ -18,16 +18,36 @@ void	ms_cp_envp(char **envp, t_msh *msh)
 	return ;
 }
 
-//int	main(int argc, char **argv, char **envp)
-//{
-//	t_msh	msh;
-//	int	i = 0;
+void	ms_putlst(char **envp, t_msh *msh)
+{
+	int	i = 0;
+	int	len;
 
-//	ms_cp_envp(envp, &msh);
-//	while (msh.cp_envp[i])
-//	{
-//		printf("%s\n", msh.cp_envp[i]);
-//		i++;
-//	}
-//	return (0);
-//}
+	len = ms_arrlen(envp);
+	msh->env = ms_malloc_x(sizeof(msh->env) * len + 1);
+	while (len)
+	{
+		msh->env->val = ms_find_envp(envp, ft_strrchr(envp[i], '='));
+		i++;
+		len--;
+		printf("%s\n", msh->env->val);
+	}
+	msh->env = NULL;
+	return ;
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_msh	msh;
+	int	i = 0;
+
+	ms_cp_envp(envp, &msh);
+	ms_putlst(envp, &msh);
+	while (msh.env)
+	{
+		printf("%s\n", msh.cp_envp[i]);
+		msh.env = msh.env->next;
+		i++;
+	}
+	return (0);
+}

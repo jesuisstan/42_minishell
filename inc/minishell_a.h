@@ -5,10 +5,18 @@
 
 # define MSH "minishell: "
 
+typedef struct s_lst
+{
+	char			*name;
+	char			*val;
+	struct s_lst	*next;
+}			t_lst;
+
 typedef struct s_msh
 {
 	char	**cp_envp;
 	char	*path_oldpwd;
+	t_lst	*env;
 }			t_msh;
 
 char	*ms_find_envp(char **envp, char *key);

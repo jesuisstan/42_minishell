@@ -7,26 +7,27 @@ void	ms_cp_envp(char **envp, t_msh *msh)
 	int	len;
 
 	len = ms_arrlen(envp);
-	msh->cp_envp = ms_malloc_x(sizeof(msh->cp_envp) * len);
+	msh->cp_envp = ms_malloc_x(sizeof(msh->cp_envp) * len + 1);
 	while (len)
 	{
 		msh->cp_envp[i] = ft_strdup(envp[i]);
 		i++;
 		len--;
 	}
+	msh->cp_envp[i] = NULL;
 	return ;
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_msh	msh;
-	int	i = 0;
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_msh	msh;
+//	int	i = 0;
 
-	ms_cp_envp(envp, &msh);
-	while (msh.cp_envp[i])
-	{
-		printf("%s\n", msh.cp_envp[i]);
-		i++;
-	}
-	return (0);
-}
+//	ms_cp_envp(envp, &msh);
+//	while (msh.cp_envp[i])
+//	{
+//		printf("%s\n", msh.cp_envp[i]);
+//		i++;
+//	}
+//	return (0);
+//}

@@ -18,7 +18,7 @@ char	*ms_find_envp(char **envp, char *key)
 	while (envp[i])
 	{
 		i1 = 0;
-		if (!ft_strncmp(key, envp[i], ft_strlen(key)))
+		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
 		{
 			while (envp[i][i1] != '=' && envp[i][i1] != 0)
 				i1++;

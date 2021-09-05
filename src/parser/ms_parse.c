@@ -1,4 +1,3 @@
-
 #include "../../inc/minishell.h"
 
 static char	*read_line(char *line)
@@ -10,17 +9,10 @@ static char	*read_line(char *line)
 
 void	ms_parse(t_arguments *arguments)
 {
-	char *line;
-	
+	char	*line;
+
 	line = read_line(line);
-
-	//printf("%s\n", line);//todo
-
 	if (ms_protoparse(line))
 		exit (EXIT_FAILURE);
-
-	
-	//printf("%s\n", line);//todo
 	free (line);
 }
-

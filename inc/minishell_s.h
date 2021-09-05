@@ -10,6 +10,8 @@ typedef struct s_arguments
 	/* data */
 }	t_arguments;
 
+int		ms_pass_whitespaces(char *line);
+int		ms_protoparse(char *line);
 void	ms_parse(t_arguments *arguments);
 
 void	*ms_return_null(char *message);

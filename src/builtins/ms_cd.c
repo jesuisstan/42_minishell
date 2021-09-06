@@ -7,18 +7,10 @@ static int	ms_not_set(void)
 	return (1);
 }
 
-static int	sm_choose_dir(char *path, t_msh *msh)
-{
-	char	*oldpwd;
-	return(0);
-
-}
-
 static int	ms_choose_dir(char *path, t_msh *msh)
 {
 	char	*oldpwd;
 
-	(void)path;
 	if(!(oldpwd = getcwd(NULL, 2048)))
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);

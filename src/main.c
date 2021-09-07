@@ -1,33 +1,21 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/30 20:45:02 by acaren            #+#    #+#             */
-/*   Updated: 2021/09/01 15:55:31 by acaren           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// gcc main.c ./utils/*.c ./parser/*.c ./libft/libft.a -lreadline -o minishell
 
 #include "../inc/minishell.h"
 
+t_arguments	*arg;
+
 int	main(int argc, char **argv, char **envp)
 {
-	//hello
-	int		n;
-	int		m;
-	char	**str;
-	char	*string;
+	arg = ms_malloc_x(sizeof(t_arguments));
+	ms_parse(arg, envp);
 	
-	m = argc;
-	str = argv;
-	
-	n = ft_atoi(argv[1]);
-	string = ms_malloc_x(sizeof(string) * n);
-	(void)envp;
-	// if (!(string = malloc(sizeof(char *) * n)))
-	// 	return(ft_return_nbr(EXIT_FAILURE, strerror(errno)));
-	free(string);
+	while (arg->envp_l->next)
+	{
+		printf("%s\n", arg->envp_l->content);
+		printf("%s ", arg->envp_l->key);
+		printf("%s\n", arg->envp_l->value);
+		arg->envp_l = arg->envp_l->next;
+	}
+
 	return (0);
 }

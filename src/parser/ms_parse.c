@@ -11,7 +11,7 @@ static char	*read_line(char *line)
 	return (line);
 }
 
-int	ms_parse(t_arguments *arg, char **envp)
+void	ms_parse(t_arguments *arg, char **envp)
 {
 	char	*line;
 	int i;
@@ -21,5 +21,4 @@ int	ms_parse(t_arguments *arg, char **envp)
 	ms_protoparse(line);
 
 	free (line);
-	return (0);
 }

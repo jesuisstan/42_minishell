@@ -42,7 +42,7 @@ t_envp	*ms_clone_envp(char **envp)
 {
 	t_envp	*envp_l;
 	int		i;
-	
+
 	i = 0;
 	envp_l = lstnew_envp(envp[i]);
 	while (envp[++i])

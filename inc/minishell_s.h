@@ -22,8 +22,9 @@ typedef struct s_envp
 }	t_envp;
 
 int		ms_pass_whitespaces(char *line);
-int		ms_protoparse(char *line);
-void	ms_parse(t_arguments *arguments, char **envp);
+void	ms_protoparse(char *line);
+//void	ms_parse(t_arguments *arguments, char **envp);
+int		ms_parse(t_arguments *arguments, char **envp);
 t_envp	*ms_clone_envp(char **envp);
 
 t_envp	*ft_lstlast(t_envp *lst);

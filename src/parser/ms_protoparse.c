@@ -1,5 +1,47 @@
 #include "../../inc/minishell.h"
 
+static int	check_quote(char *line, int *index)
+{
+	int		i;
+	char	*str;
+
+	str = &line[*index + 1];
+	*index += 1;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != '\"')
+		{
+			*index += 1;
+			i++;
+		}
+		if (str[i] == '\"')
+			return (EXIT_SUCCESS);
+	}
+	return (ms_return_nbr(1, "syntax error with unclosed quotes"));
+}
+
+static int	check_apostrophe(char *line, int *index)
+{
+	int		i;
+	char	*str;
+
+	str = &line[*index + 1];
+	*index += 1;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != '\'')
+		{
+			*index += 1;
+			i++;
+		}
+		if (str[i] == '\'')
+			return (EXIT_SUCCESS);
+	}
+	return (ms_return_nbr(1, "syntax error with unclosed quotes"));
+}
+
 static int	check_pipe(char *line, int index)
 {
 	int		i;
@@ -21,25 +63,29 @@ static int	check_pipe(char *line, int index)
 	}
 	if (str[i] == '|' && str[i + 1] == '|')
 		return (ms_return_nbr(1, "syntax error near unexpected token `|'"));
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
-void	ms_protoparse(char *line)
+int	ms_protoparse(char *line)
 {
 	int	i;
-	int	n;
 
 	i = ms_pass_whitespaces(line);
 	if (line[i] == '|')
 	{
 		ft_putendl_fd("minishell: syntax error near unexpected token `|'",
 			STDERR_FILENO);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	while (line[i])
 	{
 		if (line[i] == '|' && check_pipe(line, i + 1))
-			break ;
+			return (EXIT_FAILURE);
+		if (line[i] == '\'' && check_apostrophe(line, &i))
+			return (EXIT_FAILURE);
+		if (line[i] == '\"' && check_quote(line, &i))
+			return (EXIT_FAILURE);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }

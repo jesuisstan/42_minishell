@@ -10,6 +10,7 @@
 typedef struct s_arguments
 {
 	/* data */
+	char			*line;
 	struct s_envp	*envp_l;
 }	t_arguments;
 
@@ -25,6 +26,7 @@ int		ms_pass_whitespaces(char *line);
 int		ms_protoparse(char *line);
 void	ms_parse(t_arguments *arguments, char **envp);
 t_envp	*ms_clone_envp(char **envp);
+char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l);
 
 t_envp	*ft_lstlast(t_envp *lst);
 void	ft_lstadd_back(t_envp **lst, t_envp *new);

@@ -12,6 +12,8 @@ int	ms_chech_builtins(char *key)
 		return (0);
 	else if (!ft_strcmp(key, "unset"))
 		return (0);
+	else if (!ft_strcmp(key, "env"))
+		return (0);
 	else if (!ft_strcmp(key, "exit"))
 		return (0);
 	else 

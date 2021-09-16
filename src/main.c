@@ -2,18 +2,25 @@
 // $USER123 'gfgf     "h'
 #include "../inc/minishell.h"
 
-t_arguments	*arg;
+t_msh	*msh;
 
 int	main(int argc, char **argv, char **envp)
 {
 	int	i;
 
-	arg = ms_malloc_x(sizeof(t_arguments));
+	msh = ms_malloc_x(sizeof(t_msh));
 	rl_outstream = stderr;
 	while (1)
 	{
-		ms_parse(arg, envp);
-		printf("%s\n", arg->line); // todo
+		ms_parse(msh, envp);
+		printf("PARSED LINE is: %s\n", msh->line); // todo
+		//printf("\n"); // todo
+		//while (msh->arg) //todo
+		//{
+		//	printf("index = %d\n", msh->arg->index);
+		//	printf("argument = %s\n", msh->arg->arg_rare);
+		//	msh->arg = msh->arg->next;
+		//}
 		
 	}
 	return (0);

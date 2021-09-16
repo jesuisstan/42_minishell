@@ -9,7 +9,7 @@ static char	*manage_space(char *line, int *i)
 	
 	j = *i;
 	while(line[++(*i)])
-		if (line[*i] != ' ')//todo
+		if (!ft_iswhitespace(line[*i]))
 			break ;
 	tmp = ft_substr(line, 0, j);
 	if (line[*i] == '\0')
@@ -26,7 +26,7 @@ static char	*manage_space(char *line, int *i)
 	return (line_new);
 }
 
-static char	*manage_quotes(char *line, int *i, t_envp *envp_l)
+static char	*manage_quotes(char *line, int *i, t_msh *msh)
 {
 	int		j;
 	char	*line_new;
@@ -36,7 +36,10 @@ static char	*manage_quotes(char *line, int *i, t_envp *envp_l)
 	while(line[++(*i)])
 	{
 		if (line[*i] == '$')
-			line = ms_manage_dollar(line, i, envp_l);
+		{
+			msh->flag_dollar = 1;
+			line = ms_manage_dollar(line, i, msh);
+		}
 		if (line[*i] == '\"')
 			break ;
 	}
@@ -76,7 +79,7 @@ static char	*read_line_safely(char *line)
 	char	*final_line;
 
 	line = NULL;
-	line = readline("minishell > ");
+	line = readline("minishell § ");
 	if (!line)
 		exit (0); //replace 0 to actual last error status
 	if (*line)
@@ -91,27 +94,28 @@ static char	*read_line_safely(char *line)
 	return (line);
 }
 
-void	ms_parse(t_arguments *arg, char **envp)
+void	ms_parse(t_msh *msh, char **envp)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
-	arg->line = read_line_safely(arg->line);
-	if (!ms_protoparse(arg->line))
+	msh->line = read_line_safely(msh->line);
+	if (!ms_protoparse(msh->line))
 	{
-		arg->envp_l = ms_clone_envp(envp);
+		msh->envp_l = ms_clone_envp(envp);
+		//msh->arg = ms_split_line(msh->line);
 		i = -1;
-		while (arg->line[++i])
+		while (msh->line[++i])
 		{
-			if (arg->line[i] == ' ') // заменить на defined WHITESPACE
-				arg->line = manage_space(arg->line, &i);
-			else if (arg->line[i] == '$')
-				arg->line = ms_manage_dollar(arg->line, &i, arg->envp_l);
-			else if (arg->line[i] == '\'')
-				arg->line = manage_apostrophe(arg->line, &i);
-			else if (arg->line[i] == '\"')
-				arg->line = manage_quotes(arg->line, &i, arg->envp_l);
+			if (ft_iswhitespace(msh->line[i]))
+				msh->line = manage_space(msh->line, &i);
+			if (msh->line[i] == '$')
+				msh->line = ms_manage_dollar(msh->line, &i, msh);
+			if (msh->line[i] == '\'')
+				msh->line = manage_apostrophe(msh->line, &i);
+			if (msh->line[i] == '\"')
+				msh->line = manage_quotes(msh->line, &i, msh);
 		}
 
 	}

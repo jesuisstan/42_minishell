@@ -17,7 +17,6 @@ typedef struct s_msh
 
 typedef struct s_arg
 {
-	int				index;
 	char			*arg_rare;
 	char			*arg_pure;
 	struct s_arg	*next;
@@ -33,12 +32,13 @@ typedef struct s_envp
 
 int		ms_pass_whitespaces(char *line);
 int		ms_protoparse(char *line);
-int		check_redirect(char *line, int *index, char symbol);
-void	ms_parse(t_msh *mshell, char **envp);
+int		ms_check_redirect(char *line, int *index, char symbol);
+void	ms_parse(t_msh *g_msh, char **envp);
 t_envp	*ms_clone_envp(char **envp);
-t_arg	*ms_split_line(char *line);
-char	*ms_manage_dollar(char *line, int *i, t_msh *mshell);
-
+void	ms_cut_arguments(char *line, t_arg *arg, t_msh *g_msh);
+t_arg	*lstnew_arg(char *content, t_msh *g_msh);
+char	*ms_manage_dollar(char *line, int *i, t_msh *g_msh);
+char	*ms_purify_argument(char *arg_rare, t_msh *g_msh);
 
 void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);

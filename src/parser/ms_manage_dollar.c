@@ -7,7 +7,7 @@ static int	if_key(char c)
 	return (0);
 }
 
-char	*ms_manage_dollar(char *line, int *i, t_msh *msh)
+char	*ms_manage_dollar(char *line, int *i, t_msh *g_msh)
 {
 	int		j;
 	char	*line_new;
@@ -41,20 +41,20 @@ char	*ms_manage_dollar(char *line, int *i, t_msh *msh)
 		return (line_new);
 	}
 
-	while (msh->envp_l)
+	while (g_msh->envp_l)
 	{
-		if (ft_strcmp(key, msh->envp_l->key) == 0)
+		if (ft_strcmp(key, g_msh->envp_l->key) == 0)
 		{
-			line_new = ft_strjoin(line_new, msh->envp_l->value);
+			line_new = ft_strjoin(line_new, g_msh->envp_l->value);
 			line_new = ft_strjoin(line_new, ft_strdup(&line[*i]));
-			*i = j + ft_strlen(msh->envp_l->value) - 1;
+			*i = j + ft_strlen(g_msh->envp_l->value) - 1;
 			free (key);
 			free (line);
 			return (line_new);
 		}
-		msh->envp_l = msh->envp_l->next;
+		g_msh->envp_l = g_msh->envp_l->next;
 	}
-	if (msh->flag_dollar != 1)
+	if (g_msh->flag_dollar != 1)
 		*i += ms_pass_whitespaces(&line[*i]);
 	line_new = ft_strjoin(line_new, ft_strdup(&line[*i]));
 	*i = j - 1;

@@ -85,6 +85,9 @@ int	ms_protoparse(char *line)
 			return (EXIT_FAILURE);
 		if (line[i] == '\"' && check_quote(line, &i))
 			return (EXIT_FAILURE);
+		if ((line[i] == '<' || line[i] == '>')
+			&& check_redirect(line, &i, line[i]))
+			return (EXIT_FAILURE);
 		i++;
 	}
 	return (EXIT_SUCCESS);

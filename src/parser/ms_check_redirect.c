@@ -50,7 +50,7 @@ static int	handle_right(char *str, int i, int spaces_passed, int *index)
 	return (EXIT_SUCCESS);
 }
 
-int	check_redirect(char *line, int *index, char symbol)
+int	ms_check_redirect(char *line, int *index, char symbol)
 {
 	int		i;
 	int		n;

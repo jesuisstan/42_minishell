@@ -13,8 +13,7 @@ int	ms_pass_whitespaces(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'
-		   || line[i] == '\v' || line[i] == '\r' || line[i] == '\f')
+	while(ft_strchr("\t ", line[i]))
 		i++;
 	return (i);
 }

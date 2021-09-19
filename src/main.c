@@ -11,6 +11,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ms_parse(g_msh, envp);
+		printf("line XXX = %s\n", g_msh->line);
 		while (g_msh->arg) //todo распечатывает связ. список с аргументами line
 		{
 			printf("arg rare = %s\n", g_msh->arg->arg_rare);

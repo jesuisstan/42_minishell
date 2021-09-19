@@ -7,14 +7,17 @@ static int	if_key(char c)
 	return (0);
 }
 
-char	*ms_manage_dollar(char *line, int *i, t_msh *g_msh)
+char	*ms_manage_dollar(char *line, int *i, t_envp **envp_l)
 {
 	int		j;
 	char	*line_new;
 	char	*key;
+	char	*tmp_one;
+	char	*tmp_two;
 
 	j = *i;
-	line_new = ft_substr(line, 0, j);
+printf("i в начале обработки = %d\n", *i);
+	tmp_one = ft_substr(line, 0, j);
 	while(line[++(*i)])
 		if (!if_key(line[*i]))
 			break ;
@@ -25,40 +28,53 @@ char	*ms_manage_dollar(char *line, int *i, t_msh *g_msh)
 	{
 		if (key[0] == '0')
 		{
-			line_new = ft_strjoin(line_new, ft_strjoin("minishell", &key[1]));
-			line_new = ft_strjoin(line_new, ft_strdup(&line[*i]));
+			tmp_two = ft_strjoin(tmp_one, ft_strjoin("minishell", &key[1]));
+			line_new = ft_strjoin(tmp_two, ft_strdup(&line[*i]));
 			*i = j + ft_strlen(key) + ft_strlen("minishell") - 2;
+			free (tmp_one);
+			free (tmp_two);
 		}
 		else
 		{
 			if (ft_strlen(key) > 1)
-				line_new = ft_strjoin(line_new, &key[1]);
-			line_new = ft_strjoin(line_new, ft_strdup(&line[*i]));
-			*i = j + ft_strlen(key) - 3;
+			{
+				tmp_two = ft_strjoin(tmp_one, &key[1]);
+				line_new = ft_strjoin(tmp_two, ft_strdup(&line[*i]));
+				*i = j + ft_strlen(key) - 2;
+				free (tmp_one);
+				free (tmp_two);
+			}
+			else
+			{
+				line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+				*i = j - 1;
+				free (tmp_one);
+			}
 		}
 		free (key);
-		free (line);
+//		free (line);
 		return (line_new);
 	}
 
-	while (g_msh->envp_l)
+	while (*envp_l)
 	{
-		if (ft_strcmp(key, g_msh->envp_l->key) == 0)
+		if (ft_strcmp(key, (*envp_l)->key) == 0)
 		{
-			line_new = ft_strjoin(line_new, g_msh->envp_l->value);
-			line_new = ft_strjoin(line_new, ft_strdup(&line[*i]));
-			*i = j + ft_strlen(g_msh->envp_l->value) - 1;
+			tmp_two = ft_strjoin(tmp_one, (*envp_l)->value);
+			line_new = ft_strjoin(tmp_two, ft_strdup(&line[*i]));
+			*i = j + ft_strlen(((*envp_l)->value)) - 1;
 			free (key);
-			free (line);
+	//		free (line);
 			return (line_new);
 		}
-		g_msh->envp_l = g_msh->envp_l->next;
+		(*envp_l) = (*envp_l)->next;
 	}
-	if (g_msh->flag_dollar != 1)
-		*i += ms_pass_whitespaces(&line[*i]);
-	line_new = ft_strjoin(line_new, ft_strdup(&line[*i]));
+	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+	printf("i = %d\n", *i);
+	printf("line_NEW = %s\n", line_new);
 	*i = j - 1;
+	printf("i в конце = %d\n", *i);
 	free (key);
-	free (line);
+//	free (line);
 	return (line_new);
 }

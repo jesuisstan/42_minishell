@@ -36,11 +36,11 @@ static char	*manage_quotes(char *line, int *i, t_msh *g_msh)
 	j = *i;
 	while (line[++(*i)])
 	{
-		if (line[*i] == '$')
-		{
-			g_msh->flag_dollar = 1;
-			line = ms_manage_dollar(line, i, g_msh);
-		}
+		//if (line[*i] == '$')
+		//{
+		//	g_msh->flag_dollar = 1;
+		//	line = ms_manage_dollar(line, i, g_msh);
+		//}
 		if (line[*i] == '\"')
 			break ;
 	}
@@ -87,17 +87,17 @@ char	*ms_purify_argument(char *arg, t_msh *g_msh)
 	i = -1;
 	while (arg[++i])
 	{
-		if (arg[i] == '$')
-		{
-			arg = ms_manage_dollar(arg, &i, g_msh);
-			arg_pure = arg;
-		}
+		//if (arg[i] == '$')
+		//{
+		//	arg = ms_manage_dollar(arg, &i, g_msh);
+		//	arg_pure = arg;
+		//}
 		if (arg[i] == '\'')
 		{
 			arg = manage_apostrophe(arg, &i);
 			arg_pure = arg;
 		}
-		if (arg[i] == '\"')
+		else if (arg[i] == '\"')
 		{
 			arg = manage_quotes(arg, &i, g_msh);
 			arg_pure = arg;

@@ -1,34 +1,36 @@
 #include "../../inc/minishell.h"
 
 /*
-**	@brief		funtion finded the key in envp possable leaks
+**	@brief		funtion finded the key in copy envp
 **
-**	@param		arr pointer two dimensional array
-**	@return		copy 
+**	@param		lst and key envp
+**	@return		value
 */
-char	*ms_find_envp(char **envp, char *key)
-{
-	int		i;
-	int		i1;
-	char	*temp;
 
-	i = 0;
-	i1 = 0;
-	temp = NULL;
-	while (envp[i])
+char	*ms_find_envp(t_envp **lst, char *key)
+{
+	t_envp *tmp;
+
+	if (lst && (*lst) && key)
 	{
-		i1 = 0;
-		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
+		tmp = *lst;
+		while (tmp)
 		{
-			while (envp[i][i1] != '=' && envp[i][i1] != 0)
-				i1++;
-			if (i1 == ft_strlen(key))
-			{
-				temp = ft_strdup(envp[i] + i1 + 1);
-				return (temp);
-			}
+			if (!ft_strcmp(tmp->key, key))
+				return (tmp->value);
+			tmp = tmp->next;
 		}
-		i++;
 	}
 	return (NULL);
 }
+
+
+//int	main(int agrc, char **argv, char **envp)
+//{
+//	t_msh	*g_msh;
+
+//	g_msh = ms_malloc_x(sizeof(t_msh));
+//	g_msh->envp_l = ms_clone_envp(envp);
+//	printf("%s\n", ms_find_envp(&g_msh->envp_l, argv[1]));
+//	return (0);
+//}

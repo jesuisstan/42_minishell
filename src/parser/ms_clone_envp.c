@@ -42,7 +42,7 @@ static void	lstadd_back_envp(t_envp **lst, t_envp *new)
 	}
 }
 
-static t_envp	*lstnew_envp(char *content)
+t_envp	*lstnew_envp(char *content)
 {
 	t_envp	*list;
 

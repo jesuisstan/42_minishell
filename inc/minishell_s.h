@@ -10,7 +10,7 @@
 typedef struct s_msh
 {
 	char			*line;
-	char			**cp_envp;
+	char			**envp_m;
 	struct s_envp	*envp_l;
 	struct s_arg	*arg;
 	int				flag_dollar;

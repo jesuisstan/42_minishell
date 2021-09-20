@@ -7,43 +7,17 @@ static int	ms_not_set(void)
 	return (1);
 }
 
-void	update_envp(t_msh *msh, char *key)
-{
-	t_list	*tmp;
-
-	tmp = ms_find_envp(&msh->envp_l, key);
-	if (tmp)
-	{
-
-	}
-
-}
-
-int	ms_oldpwd(char *oldpwd, t_msh *msh)
-{
-	char	*pwd;
-	
-	pwd = ft_strjoin("OLDPWD=", oldpwd);
-	if (ms_find_envp(msh->cp_envp, "OLDPWD"))
-	{
-		msh->envp_l->content = pwd;
-	}
-	else
-		lstadd_back_envp(&msh->envp_l, lstnew_envp(pwd));
-	return (0);
-}
-
-
-static int	ms_choose_dir(char *path, t_msh *msh)
+static int	ms_change_dir(t_msh *msh, char *path)
 {
 	char	*oldpwd;
 
-	if(!(oldpwd = getcwd(NULL, 2048)))
+	oldpwd = getcwd(NULL, 2048);
+	if (!oldpwd)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		return (1);
 	}
-	if(chdir(path) == -1)
+	if (chdir(path))
 	{
 		ft_putstr_fd(MSH, STDERR_FILENO);
 		ft_putstr_fd("cd:", STDERR_FILENO);
@@ -54,73 +28,75 @@ static int	ms_choose_dir(char *path, t_msh *msh)
 	}
 	else
 	{
-		ms_oldpwd(oldpwd, msh);
-		//msh->path_oldpwd = ft_strdup(oldpwd);
+		ms_oldpwd(msh, oldpwd);
+		free(oldpwd);
+		return (ms_new_pwd(msh));
 	}
-
+	free(oldpwd);
 	return (0);
 }
 
-static int	ms_cd_oldpwd(t_msh *msh) // пока не юзаем)
+static int	ms_cd_oldpwd(t_msh *msh)
 {
 	char	*value;
 
-	value = ms_find_envp(&msh->envp_l, "OLDPWD");
+	value = ms_find_envp_m(msh->envp_m, "OLDPWD");
 	if (!value)
 	{
 		ft_putstr_fd(MSH, STDERR_FILENO);
 		ft_putendl_fd("cd : OLDPWD not set", STDERR_FILENO);
-		return(1);
+		return (1);
 	}
 	else
 	{
-		return(0);
-		//return(sm_choose_dir(value, msh));
+		return (ms_change_dir(msh, value));
 	}
 }
 
-int	ms_cd(char **argv, t_msh *msh)
+static int	change_way(t_msh *msh, char **argv)
+{
+	char	*cd[2];
+
+	if (argv[1][0] == '-')
+		return (ms_cd_oldpwd(msh));
+	else if (argv[1][0] == '~')
+	{
+		cd[0] = "cd";
+		cd[1] = NULL;
+		return (ms_cd(msh, cd));
+	}
+	return (ms_change_dir(msh, argv[1]));
+}
+
+int	ms_cd(t_msh *msh, char **argv)
 {
 	char	*home;
 	int		res;
-	
+
 	home = NULL;
 	if (ms_arrlen(argv) > 1)
 	{
-		return(0);
-		//return(ft_argv_cd());
+		return (change_way(msh, argv));
 	}
 	else
 	{
-		home = ms_find_envp(&msh->envp_l, "HOME");
+		home = ms_find_envp_m(msh->envp_m, "HOME");
 		if (!home)
 			return (ms_not_set());
-		res = ms_choose_dir(home, msh); /////////////////////////
+		res = ms_change_dir(msh, home);
 		free(home);
 		return (res);
 	}
 	return (0);
 }
 
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_msh	msh;
 
-
-int	main(int agrc, char *argv[], char **envp)
-{
-	t_msh	*msh;
-	msh = ms_malloc_x(sizeof(t_msh));
-	msh->envp_l = ms_clone_envp(envp);
-
-	ms_oldpwd("ᕦ(♥_♥)ᕤ", msh);
-	//ms_cd(argv, msh);
-	//ms_choose_dir("/Users/mshmelly/21/", &msh);
-	t_envp *tmp = msh->envp_l;
-	while (tmp)
-	{
-		printf("%s\n", tmp->content);
-		tmp = tmp->next;
-	}
-	printf("%s\n", ms_find_envp(&msh->envp_l, "OLDPWD"));
-	//printf("%s\n", msh.path_oldpwd);
-	
-	return (0);
-}
+//	(void)argc;
+//	ms_cp_envp(&msh, envp);
+//	ms_cd(&msh, argv);
+//	printf("%s\n", getcwd(NULL, 2048));
+//	return (0);
+//}

@@ -27,7 +27,7 @@ static t_arg	*ms_split_line(char *line, t_msh *g_msh)
 	return (arg);
 }
 
-static char	*replace_dollar(char *line, t_envp **envp_l)
+static char	*replace_dollar(char *line, char **envp)
 {
 	int		i;
 	int		flag_quote;
@@ -38,7 +38,7 @@ static char	*replace_dollar(char *line, t_envp **envp_l)
 	{
 		if (line[i] == '$')
 		{
-			line = ms_manage_dollar(line, &i, envp_l);
+			line = ms_manage_dollar(line, &i, envp);
 			printf("line after baks = %s\n", line);}//todo
 		else if (line[i] == '\"' && flag_quote == 0)
 		{
@@ -99,7 +99,7 @@ void	ms_parse(t_msh *g_msh, char **envp)
 	if (!ms_protoparse(g_msh->line))
 	{
 		g_msh->envp_l = ms_clone_envp(envp);
-		g_msh->line = replace_dollar(g_msh->line, &(g_msh->envp_l));
+		g_msh->line = replace_dollar(g_msh->line, envp);
 printf("line после замены $ = %s\n", g_msh->line);//todo
 		g_msh->arg = ms_split_line(g_msh->line, g_msh);
 	}

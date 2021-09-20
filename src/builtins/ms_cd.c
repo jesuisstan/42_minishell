@@ -7,8 +7,15 @@ static int	ms_not_set(void)
 	return (1);
 }
 
-void	update_envp(char *oldpwd, t_msh)
+void	update_envp(t_msh *msh, char *key)
 {
+	t_list	*tmp;
+
+	tmp = ms_find_envp(&msh->envp_l, key);
+	if (tmp)
+	{
+
+	}
 
 }
 
@@ -17,8 +24,13 @@ int	ms_oldpwd(char *oldpwd, t_msh *msh)
 	char	*pwd;
 	
 	pwd = ft_strjoin("OLDPWD=", oldpwd);
-	lstadd_back_envp(msh->envp_l, lstnew_envp(pwd));
-	
+	if (ms_find_envp(msh->cp_envp, "OLDPWD"))
+	{
+		msh->envp_l->content = pwd;
+	}
+	else
+		lstadd_back_envp(&msh->envp_l, lstnew_envp(pwd));
+	return (0);
 }
 
 
@@ -75,7 +87,8 @@ int	ms_cd(char **argv, t_msh *msh)
 	home = NULL;
 	if (ms_arrlen(argv) > 1)
 	{
-		return(ft_argv_cd());
+		return(0);
+		//return(ft_argv_cd());
 	}
 	else
 	{
@@ -97,9 +110,15 @@ int	main(int agrc, char *argv[], char **envp)
 	msh = ms_malloc_x(sizeof(t_msh));
 	msh->envp_l = ms_clone_envp(envp);
 
-	ms_cd(argv, msh);
+	ms_oldpwd("ᕦ(♥_♥)ᕤ", msh);
+	//ms_cd(argv, msh);
 	//ms_choose_dir("/Users/mshmelly/21/", &msh);
-
+	t_envp *tmp = msh->envp_l;
+	while (tmp)
+	{
+		printf("%s\n", tmp->content);
+		tmp = tmp->next;
+	}
 	printf("%s\n", ms_find_envp(&msh->envp_l, "OLDPWD"));
 	//printf("%s\n", msh.path_oldpwd);
 	

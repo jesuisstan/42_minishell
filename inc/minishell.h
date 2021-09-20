@@ -12,8 +12,10 @@
 # include "./minishell_s.h"
 
 void	*ms_malloc_x(size_t size);
-char	*ms_find_envp(t_envp **lst, char *key);
+char	*ms_find_envp_l(t_envp **lst, char *key);
+char	*ms_find_envp(char **envp, char *key);
 int		ms_arrlen(char **arr);
 t_envp	*lstnew_envp(char *content);
+void	lstadd_back_envp(t_envp **lst, t_envp *new);
 
 #endif

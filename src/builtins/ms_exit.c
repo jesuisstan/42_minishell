@@ -65,7 +65,7 @@ static unsigned char	ms_atoi_char(char *str)
 
 int	ms_msg(char *argv1, char *str)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(MSH, STDERR_FILENO);
 	ft_putstr_fd("exit: ", STDERR_FILENO);
 	if (argv1 != NULL)
 	{

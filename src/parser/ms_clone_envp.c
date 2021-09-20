@@ -24,7 +24,7 @@ static char	*get_value(char *content)
 	return (value);
 }
 
-static void	lstadd_back_envp(t_envp **lst, t_envp *new)
+void	lstadd_back_envp(t_envp **lst, t_envp *new)
 {
 	t_envp	*last;
 
@@ -42,7 +42,7 @@ static void	lstadd_back_envp(t_envp **lst, t_envp *new)
 	}
 }
 
-static t_envp	*lstnew_envp(char *content)
+t_envp	*lstnew_envp(char *content)
 {
 	t_envp	*list;
 

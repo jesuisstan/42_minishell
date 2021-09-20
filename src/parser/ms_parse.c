@@ -99,7 +99,8 @@ void	ms_parse(t_msh *g_msh, char **envp)
 	if (!ms_protoparse(g_msh->line))
 	{
 		g_msh->envp_l = ms_clone_envp(envp);
-		g_msh->line = replace_dollar(g_msh->line, envp);
+		g_msh->line = replace_dollar(g_msh->line,
+						ms_envplist_to_array(&(g_msh->envp_l)));
 printf("line после замены $ = %s\n", g_msh->line);//todo
 		g_msh->arg = ms_split_line(g_msh->line, g_msh);
 	}

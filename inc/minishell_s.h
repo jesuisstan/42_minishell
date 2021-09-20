@@ -44,6 +44,7 @@ char	*ms_purify_argument(char *arg_rare, t_msh *g_msh);
 void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);
 int		ft_iswhitespace(int c);
-char	**ms_envplist_to_array(char **envp_arr, t_envp **envp_l);
+char	**ms_envplist_to_array(t_envp **envp_l);
+char 	**ms_arglist_to_array(t_arg **arg);
 
 #endif

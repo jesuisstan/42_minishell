@@ -1,5 +1,19 @@
 #include "../../inc/minishell.h"
 
+t_arg	*lstnew_arg(char *content, t_msh *g_msh)
+{
+	t_arg	*arg;
+	
+	arg = (t_arg *)malloc(sizeof(t_arg));
+	if (!arg)
+		return (NULL);
+	arg->arg_rare = content;
+	arg->arg_pure = ft_strdup(content);
+	arg->arg_pure = ms_purify_argument(arg->arg_pure, g_msh);
+	arg->next = NULL;
+	return (arg);
+}
+
 static void	lstadd_back_arg(t_arg **lst, t_arg *new)
 {
 	t_arg	*last;

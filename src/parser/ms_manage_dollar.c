@@ -7,8 +7,7 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 
 	if (!value)
 	{
-		tmp_one = ft_strjoin(ft_substr(line, 0, j), "");
-		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
 		*i = j - 1;
 	}
 	else
@@ -22,14 +21,15 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 	return (line_new);
 }
 
-static char	*handle_digital_key(char *line, char *key, int	j, int *i)
+static char	*handle_digital_key(char *line, char *key, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
 
 	if (key[0] == '0')
 	{
-		tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_strjoin("minishell", &key[1]));
+		tmp_one = ft_strjoin(ft_substr(line, 0, j),
+				ft_strjoin("minishell", &key[1]));
 		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 		*i = j + ft_strlen(key) + ft_strlen("minishell") - 2;
 		free (tmp_one);
@@ -57,7 +57,18 @@ static int	if_key(char c)
 	return (0);
 }
 
-char	*ms_manage_dollar(char *line, int *i, char **envp)
+static char	*handle_question_mark(char *line, t_msh *g_msh, int j, int *i)
+{
+	char	*line_new;
+	char	*tmp_one;
+
+	tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_itoa(g_msh->last_exit_status));
+	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+	free (tmp_one);
+	return (line_new);
+}
+
+char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *g_msh)
 {
 	int		j;
 	char	*key;
@@ -65,7 +76,12 @@ char	*ms_manage_dollar(char *line, int *i, char **envp)
 	char	*line_new;
 
 	j = *i;
-	while(line[++(*i)])
+	if (ft_strchr("?", line[j + 1]))
+	{
+		*i += 2; 
+		return (handle_question_mark(line, g_msh, j, i));
+	}
+	while (line[++(*i)])
 		if (!if_key(line[*i]))
 			break ;
 	if (*i == j + 1)
@@ -73,7 +89,8 @@ char	*ms_manage_dollar(char *line, int *i, char **envp)
 	key = ft_substr(line, j + 1, *i - j - 1);
 	if (ft_isdigit(key[0]))
 		return (handle_digital_key(line, key, j, i));
-	value = ms_find_envp_m(envp, key);
+	else
+		value = ms_find_envp_m(ms_envplist_to_array(envp_l), key);
 	line_new = handle_char_key(line, value, j, i);
 	free (key);
 	return (line_new);

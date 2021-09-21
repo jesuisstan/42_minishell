@@ -70,6 +70,8 @@ int	ms_protoparse(char *line)
 {
 	int	i;
 
+	if (!line)
+		return (EXIT_FAILURE);
 	i = ms_pass_whitespaces(line);
 	if (line[i] == '|')
 	{

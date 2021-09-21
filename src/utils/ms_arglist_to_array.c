@@ -2,14 +2,14 @@
 
 #include "../../inc/minishell.h"
 
-static size_t	ms_lstsize_arg(t_arg **arg)
+static size_t	ms_lstsize_arg(t_arg *arg)
 {
 	size_t	i;
 	t_arg	*tmp;
 
-	if (!arg || !(*arg))
+	if (!arg)
 		return (-1);
-	tmp = *arg;
+	tmp = arg;
 	i = 0;
 	while (tmp)
 	{
@@ -19,25 +19,27 @@ static size_t	ms_lstsize_arg(t_arg **arg)
 	return (i);
 }
 
-char **ms_arglist_to_array(t_arg **arg)
+char **ms_arglist_to_array(t_arg *arg)
 {
 	int		size;
 	int		i;
 	char	**arg_arr;
+	t_arg	*tmp;
 
-	if(*arg == NULL)
+	if(arg == NULL)
 		return (NULL);
-	size = ms_lstsize_arg(arg);
+	tmp = arg;
+	size = ms_lstsize_arg(tmp);
 	arg_arr = malloc(sizeof(char *) * size + 1);
 	if (!arg_arr)
 		return (NULL);
 	i = 0;
-	while (*arg && (size != 0))
+	while (tmp && (size != 0))
 	{
-		arg_arr[i] = ft_strdup((*arg)->arg_pure);
+		arg_arr[i] = ft_strdup(tmp->arg_pure);
 		i++;
 		size--;
-		*arg = (*arg)->next;
+		tmp = tmp->next;
 	}
 	arg_arr[i] = NULL;
 	return (arg_arr);

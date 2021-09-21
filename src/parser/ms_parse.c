@@ -1,19 +1,5 @@
 #include "../../inc/minishell.h"
 
-t_arg	*lstnew_arg(char *content, t_msh *g_msh)
-{
-	t_arg	*arg;
-	
-	arg = (t_arg *)malloc(sizeof(t_arg));
-	if (!arg)
-		return (NULL);
-	arg->arg_rare = content;
-	arg->arg_pure = ft_strdup(content);
-	arg->arg_pure = ms_purify_argument(arg->arg_pure, g_msh);
-	arg->next = NULL;
-	return (arg);
-}
-
 static t_arg	*ms_split_line(char *line, t_msh *g_msh)
 {
 	int		i;
@@ -27,23 +13,41 @@ static t_arg	*ms_split_line(char *line, t_msh *g_msh)
 	return (arg);
 }
 
-static char	*replace_dollar(char *line, char **envp)
+static char	*clear_endwhitespaces(char *line)
+{
+	char	*line_new;
+	int		i;
+	int		end;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (ft_strchr(" \t", line[i]))
+		{
+			end = i;
+			i += ms_pass_whitespaces(&line[i]);
+			if (line[i + 1] == '\0' && !ft_isprint(line[i]))
+				return (ft_substr(line, 0, end));
+		}
+	}
+	return (line);
+}
+
+static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *g_msh)
 {
 	int		i;
 	int		flag_quote;
 
+	if (!line)
+		return (NULL);
 	flag_quote = 0;
 	i = -1;
 	while (line[++i] != '\0')
 	{
 		if (line[i] == '$')
-		{
-			line = ms_manage_dollar(line, &i, envp);
-			printf("line after baks = %s\n", line);}//todo
+			line = ms_manage_dollar(line, &i, envp_l, g_msh);
 		else if (line[i] == '\"' && flag_quote == 0)
-		{
 			flag_quote = 1;
-	printf("line = %s\n", line);}//todo
 		else if (line[i] == '\"' && flag_quote == 1)
 			flag_quote = 0;
 		else if (line[i] == '\'' && flag_quote == 0)
@@ -69,40 +73,16 @@ static char	*read_line_safely(char *line)
 	return (line);
 }
 
-//static char	*pass_end(char *line)
-//{
-//	char	*line_new;
-//	int		i;
-//	int		start;
-
-//	i = -1;
-//	while (line[++i])
-//	{
-//		if (line[i] == ' ')//todo
-//		{
-//			start = i;
-//			i += ms_pass_whitespaces(&line[i]);
-//			if (line[i] == '\0')
-//				return (line_new = ft_substr(line, 0, start));
-//		}
-//	}
-//	return (line);
-//}
-
-void	ms_parse(t_msh *g_msh, char **envp)
+void	ms_parse(t_msh *g_msh, t_envp *envp_l)
 {
 	int		i;
 	int		j;
 
 	g_msh->line = read_line_safely(g_msh->line);
-//	g_msh->line = pass_end(g_msh->line);
 	if (!ms_protoparse(g_msh->line))
 	{
-		g_msh->envp_l = ms_clone_envp(envp);
-		g_msh->line = replace_dollar(g_msh->line,
-						ms_envplist_to_array(&(g_msh->envp_l)));
-printf("line после замены $ = %s\n", g_msh->line);//todo
+		g_msh->line = replace_dollars(g_msh->line, envp_l, g_msh);
+		g_msh->line = clear_endwhitespaces(g_msh->line);
 		g_msh->arg = ms_split_line(g_msh->line, g_msh);
 	}
-	free (g_msh->line);
 }

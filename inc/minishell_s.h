@@ -38,11 +38,13 @@ void	ms_parse(t_msh *g_msh, char **envp);
 t_envp	*ms_clone_envp(char **envp);
 void	ms_cut_arguments(char *line, t_arg *arg, t_msh *g_msh);
 t_arg	*lstnew_arg(char *content, t_msh *g_msh);
-char	*ms_manage_dollar(char *line, int *i, t_msh *g_msh);
+char	*ms_manage_dollar(char *line, int *i, char **envp);
 char	*ms_purify_argument(char *arg_rare, t_msh *g_msh);
 
 void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);
 int		ft_iswhitespace(int c);
+char	**ms_envplist_to_array(t_envp **envp_l);
+char 	**ms_arglist_to_array(t_arg **arg);
 
 #endif

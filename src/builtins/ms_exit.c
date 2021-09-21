@@ -101,11 +101,11 @@ int	ms_exit(char **argv)
 	return (0);
 }
 
-int	main(int argc, char **argv)
-{
-	ms_exit(argv);
-	while (1)
-		;
-	return (0);
-}
+//int	main(int argc, char **argv)
+//{
+//	ms_exit(argv);
+//	while (1)
+//		;
+//	return (0);
+//}
 // gcc ms_exit.c ./../ms_return_error.c ./../../src/libft/libft.a && ./a.out

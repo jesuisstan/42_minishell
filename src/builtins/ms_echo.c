@@ -26,10 +26,10 @@ int	ms_echo(char **arr)
 	return (0);
 }
 
-int	main(int argc, char **argv)
-{
-	ms_echo(argv);
-	//while (1)
-	//	;
-	return (0);
-}
+//int	main(int argc, char **argv)
+//{
+//	ms_echo(argv);
+//	//while (1)
+//	//	;
+//	return (0);
+//}

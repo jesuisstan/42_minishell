@@ -97,6 +97,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	ms_cp_envp(&msh, envp);
 	ms_cd(&msh, argv);
-	printf("%s\n", getcwd(NULL, 2048));
+	printf("PWD=%s\n", getcwd(NULL, 2048));
 	return (0);
 }

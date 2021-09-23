@@ -29,12 +29,12 @@ char	*ms_env_l(t_envp **lst) // на всякий
 	return (NULL);
 }
 
-//int	main(int argc, char **argv, char **envp)
-//{
-//	t_msh	msh;
+int	main(int argc, char **argv, char **envp)
+{
+	t_msh	msh;
 
-//	(void)argc;
-//	msh.envp_l = ms_clone_envp(envp);
-//	ms_env_l(&msh.envp_l);
-//	return (0);
-//}
+	(void)argc;
+	msh.envp_l = ms_clone_envp(envp);
+	ms_env_l(&msh.envp_l);
+	return (0);
+}

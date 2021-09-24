@@ -16,7 +16,7 @@ void	swap_action(t_envp **lst)
 {
 	t_envp	*tmp;
 
-	if ((*lst) || (*lst)->next)
+	if ((*lst) || (*lst)->next || (*lst)->next->next)
 	{
 		tmp = (*lst)->next;
 		(*lst)->next = (*lst)->next->next;
@@ -25,56 +25,27 @@ void	swap_action(t_envp **lst)
 	}
 }
 
-static size_t	ms_lstsize_env(t_envp **lst)
-{
-	size_t	i;
-	t_envp	*tmp;
-
-	if (!lst || !(*lst))
-		return (-1);
-	tmp = (*lst);
-	i = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
-}
-
 static void	sorting(t_envp **lst)
 {
-	t_envp	*a, *b, *p, *h, *i = NULL;
-
-	if (!lst)
+	int flag = 0;
+	t_envp	*cur;
+	
+	if (!(*lst) || !(*lst)->next)
 		return ;
-	//int len = ms_lstsize_env(&lst);
-	for (i = (*lst); i != NULL; )
+	if (ft_strcmp((*lst)->content, (*lst)->next->content) > 0)
+		swap_action(lst);
+	cur = (*lst);
+	while (cur->next->next)
 	{
-		a = i;
-		i = i->next;
-		b = h;
-		for (p = NULL; ((b != NULL) && (strcmp(b->key, a->key))); )
+		if (strcmp(cur->next->content, cur->next->next->content) > 0)
 		{
-			p = b;
-			b = b->next;
-			//if (ft_strcmp_env(tmp->key, tmp->next->key) > 0)
-			//	swap_action(&tmp);
+			swap_action(&(cur->next));
+			flag++;
 		}
-		if (p == NULL)
-		{
-			a->next = h;
-			h = a;
-		}
-		else
-		{
-			a->next = b;
-			p->next = a;
-		}
+		cur = cur->next;
 	}
-	if (h != NULL)
-		(*lst) = h;
-	return ;
+	if (flag)
+		sorting(lst);
 }
 
 int	ms_export(t_msh *msh, char **argv)
@@ -94,11 +65,11 @@ int	main(int argc, char **argv, char **envp)
 	msh.envp_l = ms_clone_envp(envp);
 	ms_export(&msh, argv);
 
-	//while (msh.envp_l)
-	//{
-	//	printf ("%s\n", msh.envp_l->key);
-	//	msh.envp_l = msh.envp_l->next;
-	//}
+	while (msh.envp_l)
+	{
+		printf ("%s\n", msh.envp_l->content);
+		msh.envp_l = msh.envp_l->next;
+	}
 	
 	
 	return (0);

@@ -1,40 +1,37 @@
 #include "../../inc/minishell.h"
 
-void	ms_env(char **envp)
+void	ms_env(t_envp *lst)
 {
-	int	i;
-
-	i = 0;
-	while (envp[i])
+	if (!lst)
+		return ;
+	while (lst)
 	{
-		ft_putendl_fd(envp[i], STDOUT_FILENO);
-		i++;
-	}
-	return ;
-}
-
-char	*ms_env_l(t_envp **lst) // на всякий
-{
-	t_envp *tmp;
-
-	if (lst && (*lst))
-	{
-		tmp = *lst;
-		while (tmp)
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(lst->key, STDOUT_FILENO);
+		if (lst->value)
 		{
-			ft_putendl_fd(tmp->content, STDOUT_FILENO);
-			tmp = tmp->next;
+			ft_putstr_fd("=", STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
+			ft_putstr_fd(lst->value, STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
 		}
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		lst = lst->next;
 	}
-	return (NULL);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_msh	msh;
-
-	(void)argc;
-	msh.envp_l = ms_clone_envp(envp);
-	ms_env_l(&msh.envp_l);
-	return (0);
-}
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_msh	msh;
+//
+//	(void)argc;
+//	msh.envp_l = ms_clone_envp(envp);
+//	ms_env(msh.envp_l);
+//	ft_putendl_fd("\n", 1);
+//	ms_env(msh.envp_l);
+//	ft_putendl_fd("\n", 1);
+//	ms_env(msh.envp_l);
+//	ft_putendl_fd("\n", 1);
+//	ms_env(msh.envp_l);
+//	return (0);
+//}

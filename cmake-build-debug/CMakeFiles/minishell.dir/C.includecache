@@ -34,7 +34,7 @@ readline/readline.h
 readline/history.h
 -
 
-/Users/artem/Coding/21/minishell/src/builtins/ms_export.c
+/Users/artem/Coding/21/minishell/src/builtins/ms_unset.c
 ../../inc/minishell.h
 /Users/artem/Coding/21/minishell/inc/minishell.h
 

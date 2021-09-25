@@ -153,6 +153,30 @@ src/builtins/ms_export.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/builtins/ms_export.c.s
 .PHONY : src/builtins/ms_export.c.s
 
+src/builtins/ms_unset.o: src/builtins/ms_unset.c.o
+.PHONY : src/builtins/ms_unset.o
+
+# target to build an object file
+src/builtins/ms_unset.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o
+.PHONY : src/builtins/ms_unset.c.o
+
+src/builtins/ms_unset.i: src/builtins/ms_unset.c.i
+.PHONY : src/builtins/ms_unset.i
+
+# target to preprocess a source file
+src/builtins/ms_unset.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/builtins/ms_unset.c.i
+.PHONY : src/builtins/ms_unset.c.i
+
+src/builtins/ms_unset.s: src/builtins/ms_unset.c.s
+.PHONY : src/builtins/ms_unset.s
+
+# target to generate assembly for a file
+src/builtins/ms_unset.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/builtins/ms_unset.c.s
+.PHONY : src/builtins/ms_unset.c.s
+
 src/parser/ms_clone_envp.o: src/parser/ms_clone_envp.c.o
 .PHONY : src/parser/ms_clone_envp.o
 
@@ -261,6 +285,9 @@ help:
 	@echo "... src/builtins/ms_export.o"
 	@echo "... src/builtins/ms_export.i"
 	@echo "... src/builtins/ms_export.s"
+	@echo "... src/builtins/ms_unset.o"
+	@echo "... src/builtins/ms_unset.i"
+	@echo "... src/builtins/ms_unset.s"
 	@echo "... src/parser/ms_clone_envp.o"
 	@echo "... src/parser/ms_clone_envp.i"
 	@echo "... src/parser/ms_clone_envp.s"

@@ -20,6 +20,7 @@ void	ms_cp_envp(t_msh *msh, char **envp);
 int		ms_arrlen(char **arr);
 t_envp	*lstnew_envp(char *content);
 void	lstadd_back_envp(t_envp **lst, t_envp *new);
+void	print_env_l(t_envp *lst);
 
 
 

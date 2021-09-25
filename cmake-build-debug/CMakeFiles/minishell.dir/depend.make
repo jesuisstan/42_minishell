@@ -7,6 +7,12 @@ CMakeFiles/minishell.dir/src/builtins/ms_export.c.o: \
  ../inc/minishell_s.h \
  ../src/builtins/ms_export.c \
  ../src/libft/inc/libft.h
+CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o: \
+ ../inc/minishell.h \
+ ../inc/minishell_a.h \
+ ../inc/minishell_s.h \
+ ../src/builtins/ms_unset.c \
+ ../src/libft/inc/libft.h
 CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o: \
  ../inc/minishell.h \
  ../inc/minishell_a.h \

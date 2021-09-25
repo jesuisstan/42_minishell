@@ -83,6 +83,9 @@
 		<Unit filename="/Users/artem/Coding/21/minishell/src/builtins/ms_export.c">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/artem/Coding/21/minishell/src/builtins/ms_unset.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/artem/Coding/21/minishell/src/parser/ms_clone_envp.c">
 			<Option target="minishell"/>
 		</Unit>

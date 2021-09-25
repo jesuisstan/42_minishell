@@ -66,9 +66,22 @@ include CMakeFiles/minishell.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/minishell.dir/flags.make
 
+CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o: ../src/builtins/ms_unset.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o -c /Users/artem/Coding/21/minishell/src/builtins/ms_unset.c
+
+CMakeFiles/minishell.dir/src/builtins/ms_unset.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/src/builtins/ms_unset.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/artem/Coding/21/minishell/src/builtins/ms_unset.c > CMakeFiles/minishell.dir/src/builtins/ms_unset.c.i
+
+CMakeFiles/minishell.dir/src/builtins/ms_unset.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/src/builtins/ms_unset.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/artem/Coding/21/minishell/src/builtins/ms_unset.c -o CMakeFiles/minishell.dir/src/builtins/ms_unset.c.s
+
 CMakeFiles/minishell.dir/src/builtins/ms_export.c.o: CMakeFiles/minishell.dir/flags.make
 CMakeFiles/minishell.dir/src/builtins/ms_export.c.o: ../src/builtins/ms_export.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/minishell.dir/src/builtins/ms_export.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/minishell.dir/src/builtins/ms_export.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/src/builtins/ms_export.c.o -c /Users/artem/Coding/21/minishell/src/builtins/ms_export.c
 
 CMakeFiles/minishell.dir/src/builtins/ms_export.c.i: cmake_force
@@ -81,7 +94,7 @@ CMakeFiles/minishell.dir/src/builtins/ms_export.c.s: cmake_force
 
 CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o: CMakeFiles/minishell.dir/flags.make
 CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o: ../src/utils/ms_arrlen.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o -c /Users/artem/Coding/21/minishell/src/utils/ms_arrlen.c
 
 CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.i: cmake_force
@@ -94,7 +107,7 @@ CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.s: cmake_force
 
 CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o: CMakeFiles/minishell.dir/flags.make
 CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o: ../src/parser/ms_clone_envp.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o -c /Users/artem/Coding/21/minishell/src/parser/ms_clone_envp.c
 
 CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.i: cmake_force
@@ -107,7 +120,7 @@ CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.s: cmake_force
 
 CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.o: CMakeFiles/minishell.dir/flags.make
 CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.o: ../src/utils/ms_find_envp.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.o -c /Users/artem/Coding/21/minishell/src/utils/ms_find_envp.c
 
 CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.i: cmake_force
@@ -120,7 +133,7 @@ CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.s: cmake_force
 
 CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.o: CMakeFiles/minishell.dir/flags.make
 CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.o: ../src/utils/ms_malloc_x.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.o -c /Users/artem/Coding/21/minishell/src/utils/ms_malloc_x.c
 
 CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.i: cmake_force
@@ -133,6 +146,7 @@ CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.s: cmake_force
 
 # Object files for target minishell
 minishell_OBJECTS = \
+"CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o" \
 "CMakeFiles/minishell.dir/src/builtins/ms_export.c.o" \
 "CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o" \
 "CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o" \
@@ -142,6 +156,7 @@ minishell_OBJECTS = \
 # External object files for target minishell
 minishell_EXTERNAL_OBJECTS =
 
+minishell: CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o
 minishell: CMakeFiles/minishell.dir/src/builtins/ms_export.c.o
 minishell: CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o
 minishell: CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o
@@ -150,7 +165,7 @@ minishell: CMakeFiles/minishell.dir/src/utils/ms_malloc_x.c.o
 minishell: CMakeFiles/minishell.dir/build.make
 minishell: ../src/libft/libft.a
 minishell: CMakeFiles/minishell.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable minishell"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable minishell"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/minishell.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

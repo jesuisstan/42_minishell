@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/artem/Coding/21/minishell/src/builtins/ms_export.c" "/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles/minishell.dir/src/builtins/ms_export.c.o"
+  "/Users/artem/Coding/21/minishell/src/builtins/ms_unset.c" "/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o"
   "/Users/artem/Coding/21/minishell/src/parser/ms_clone_envp.c" "/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o"
   "/Users/artem/Coding/21/minishell/src/utils/ms_arrlen.c" "/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles/minishell.dir/src/utils/ms_arrlen.c.o"
   "/Users/artem/Coding/21/minishell/src/utils/ms_find_envp.c" "/Users/artem/Coding/21/minishell/cmake-build-debug/CMakeFiles/minishell.dir/src/utils/ms_find_envp.c.o"

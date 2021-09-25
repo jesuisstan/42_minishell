@@ -7,6 +7,12 @@ CMakeFiles/minishell.dir/src/builtins/ms_export.c.o
  /Users/artem/Coding/21/minishell/inc/minishell_s.h
  /Users/artem/Coding/21/minishell/src/builtins/ms_export.c
  /Users/artem/Coding/21/minishell/src/libft/inc/libft.h
+CMakeFiles/minishell.dir/src/builtins/ms_unset.c.o
+ /Users/artem/Coding/21/minishell/inc/minishell.h
+ /Users/artem/Coding/21/minishell/inc/minishell_a.h
+ /Users/artem/Coding/21/minishell/inc/minishell_s.h
+ /Users/artem/Coding/21/minishell/src/builtins/ms_unset.c
+ /Users/artem/Coding/21/minishell/src/libft/inc/libft.h
 CMakeFiles/minishell.dir/src/parser/ms_clone_envp.c.o
  /Users/artem/Coding/21/minishell/inc/minishell.h
  /Users/artem/Coding/21/minishell/inc/minishell_a.h

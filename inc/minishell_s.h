@@ -7,6 +7,25 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct s_lst
+{
+	struct s_lst	*next;
+	char			*val;
+}			t_lst;
+
+typedef struct s_cmnd
+{
+	struct s_cmnd	*next;
+	char			**arg;
+	t_lst			*lst_arg;
+	t_lst			*rdrc;
+	int				pipe[2];
+	int				in;
+	int				out;
+	pid_t			pid;
+	int 			is_fork;
+}			t_cmnd;
+
 typedef struct s_msh
 {
 	char			*line;
@@ -14,14 +33,15 @@ typedef struct s_msh
 	struct s_envp	*envp_l;
 	struct s_arg	*arg;
 	int				flag_dollar;
-}	t_msh;
+	t_cmnd			*cmnd;
+}			t_msh;
 
 typedef struct s_arg
 {
 	char			*arg_rare;
 	char			*arg_pure;
 	struct s_arg	*next;
-}	t_arg;
+}			t_arg;
 
 typedef struct s_envp
 {

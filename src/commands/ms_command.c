@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-int	ms_chech_builtins(char *key)
+int	ms_check_builtins(char *key)
 {
 	if (!ft_strcmp(key, "echo"))
 		return (0);
@@ -16,12 +16,14 @@ int	ms_chech_builtins(char *key)
 		return (0);
 	else if (!ft_strcmp(key, "exit"))
 		return (0);
-	else 
+	else
 		return(1);
 }
 
-//int main(int agrc, char **agrv)
-//{
-//	printf("%d\n", ms_chech_builtins(agrv[1]));
-//	return(0);
-//}
+void	run_command(t_msh *msh)git log
+{
+	char	**paths;
+	char	*name;
+	
+	if (msh->cmnd->lst_arg)
+}

@@ -4,7 +4,7 @@ SRCS			=	./src/main.c	./src/utils/ms_return_error.c		./src/utils/ms_malloc_x.c\
 
 OBJS			=	$(SRCS:.c=.o)
 
-HEADERS			=	-I./inc/minishell.h
+HEADERS			=	./inc/minishell.h
 
 CC				=	gcc
 

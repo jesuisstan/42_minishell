@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	del_elem(t_envp **head) // удаляет весь список
+void	del_elem(t_envp **head)
 {
 	t_envp	*prev = NULL;
 	prev = (*head);
@@ -31,9 +31,6 @@ void	del_Nth(t_envp **head, int n)
 		del_elem(&(cur->next));
 	}
 }
-
-
-
 
 int	ms_find_envp_l_ind(t_envp *lst, char *key)
 {

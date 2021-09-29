@@ -34,6 +34,7 @@ typedef struct s_msh
 	struct s_arg	*arg;
 	int				flag_dollar;
 	t_cmnd			*cmnd;
+	char			*name;
 }			t_msh;
 
 typedef struct s_arg
@@ -66,5 +67,8 @@ int		ms_return_nbr(int return_value, char *message);
 int		ft_iswhitespace(int c);
 char	**ms_envplist_to_array(t_envp **envp_l);
 char 	**ms_arglist_to_array(t_arg **arg);
+
+char	**get_path(t_msh *msh);
+int	take_next_path(char **argv, char **paths, char *name);
 
 #endif

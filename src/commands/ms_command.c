@@ -1,5 +1,14 @@
 #include "../../inc/minishell.h"
 
+static void		ms_no_such(char *name)
+{
+	ft_putstr_fd(MSH, STDERR_FILENO);
+	ft_putstr_fd(name, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+}
+
+
 int	ms_check_builtins(char *key)
 {
 	if (!ft_strcmp(key, "echo"))
@@ -20,10 +29,6 @@ int	ms_check_builtins(char *key)
 		return(1);
 }
 
-
-
-
-
 void	run_command(t_msh *msh, t_cmnd *cmnd)
 {
 	char	**paths;
@@ -36,7 +41,10 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 	while (gen_next_path(cmnd->arg, paths, name))
 	{
 		execve(cmnd->arg[0], cmnd->arg, msh->envp_m);
+//		if (errno != 2)
+//			ft
 	}
+	ms_no_such(name);
 	exit(127);
 }
 

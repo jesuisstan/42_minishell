@@ -15,12 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ed27f5a-8929-40d3-9f95-19331bb17556" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commands/ms_path.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commands/ms_pipe.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/minishell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/minishell_s.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/minishell_s.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_command.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_command.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +94,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/commands/ms_command.c</url>
-          <line>34</line>
+          <line>39</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">

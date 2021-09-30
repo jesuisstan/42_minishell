@@ -14,7 +14,7 @@
 void	*ms_malloc_x(size_t size);
 char	*ms_find_envp_l(t_envp **lst, char *key);
 char	*ms_find_envp_m(char **envp, char *key);
-int	ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
+int		ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
 
 void	ms_cp_envp(t_msh *msh, char **envp);
 int		ms_arrlen(char **arr);
@@ -22,8 +22,9 @@ t_envp	*lstnew_envp(char *content);
 void	lstadd_back_envp(t_envp **lst, t_envp *new);
 void	print_env_l(t_envp *lst);
 int		gen_next_path(char **argv, char **paths, char *name);
-void	run_command(t_msh *msh, t_cmnd *cmnd);
-
+void	run_command(t_msh *msh, t_cmd *cmd);
+char	**get_path(t_msh *msh);
+int	take_next_path(char **argv, char **paths, char *name);
 
 
 //cd

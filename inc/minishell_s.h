@@ -13,18 +13,18 @@ typedef struct s_lst
 	char			*val;
 }			t_lst;
 
-typedef struct s_cmnd
+typedef struct s_cmd
 {
-	struct s_cmnd	*next;
-	char			**arg;
+	char			**arg; //
 	t_lst			*lst_arg;
-	t_lst			*rdrc;
-	int				pipe[2];
+	t_lst			*rdrct;
+	int				pipes[2];
 	int				in;
 	int				out;
 	pid_t			pid;
 	int 			is_fork;
-}			t_cmnd;
+	struct s_cmd	*next;
+}			t_cmd;
 
 typedef struct s_msh
 {
@@ -33,8 +33,11 @@ typedef struct s_msh
 	struct s_envp	*envp_l;
 	struct s_arg	*arg;
 	int				flag_dollar;
-	t_cmnd			*cmnd;
+	t_cmd			*cmd;
 	char			*name;
+	int			old_in;
+	int			old_out;
+	int			flag_pipe;
 }			t_msh;
 
 typedef struct s_arg
@@ -68,7 +71,5 @@ int		ft_iswhitespace(int c);
 char	**ms_envplist_to_array(t_envp **envp_l);
 char 	**ms_arglist_to_array(t_arg **arg);
 
-char	**get_path(t_msh *msh);
-int	take_next_path(char **argv, char **paths, char *name);
 
 #endif

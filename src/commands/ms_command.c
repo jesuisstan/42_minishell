@@ -29,7 +29,7 @@ int	ms_check_builtins(char *key)
 		return(1);
 }
 
-void	run_command(t_msh *msh, t_cmnd *cmnd)
+void	run_command(t_msh *msh, t_cmd *cmd)
 {
 	char	**paths;
 	char	*name;
@@ -37,10 +37,11 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 //	if (!cmnd->lst_arg)
 //		exit (0);
 	paths = get_path(msh);
-	name = cmnd->arg[0];
-	while (gen_next_path(cmnd->arg, paths, name))
+	name = cmd->arg[0];
+	while (gen_next_path(cmd->arg, paths, name))
 	{
-		execve(cmnd->arg[0], cmnd->arg, msh->envp_m);
+		if (execve(cmd->arg[0], cmd->arg, msh->envp_m) < 0)
+			write(1, "pidoras\n", 8);
 //		if (errno != 2)
 //			ft
 	}

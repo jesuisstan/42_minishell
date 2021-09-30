@@ -104,7 +104,6 @@ int	main(int argc, char **argv, char **envp)
 	msh.cmd = &cmd;
 	(void)argc;
 	msh.cmd->arg = ft_split("ls", ' ');
-	msh.cmd->next = malloc(sizeof ())
 	msh.envp_l = ms_clone_envp(envp);
 	ms_cp_envp(&msh, envp);
 	ms_pipex(&msh, &cmd);
@@ -114,7 +113,3 @@ int	main(int argc, char **argv, char **envp)
 //	print_env_l(msh.envp_l);
 	return (0);
 }
-
-list 1ls
-list 3-l
-a

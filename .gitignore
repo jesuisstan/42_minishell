@@ -46,7 +46,7 @@
 
 # Debug files
 *.dSYM/i
-idea/
+.idea/
 /cmake-build-debug/
 *.su
 *.idb

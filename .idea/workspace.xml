@@ -15,8 +15,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ed27f5a-8929-40d3-9f95-19331bb17556" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commands/ms_pipe.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/ms_command.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_command.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/ms_pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_pipe.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +66,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishell" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="minishell" RUN_TARGET_NAME="minishell">
+    <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="in ls wc out" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishell" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="minishell" RUN_TARGET_NAME="minishell">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>

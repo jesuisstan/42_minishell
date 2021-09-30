@@ -22,6 +22,7 @@ t_envp	*lstnew_envp(char *content);
 void	lstadd_back_envp(t_envp **lst, t_envp *new);
 void	print_env_l(t_envp *lst);
 int		gen_next_path(char **argv, char **paths, char *name);
+void	run_command(t_msh *msh, t_cmnd *cmnd);
 
 
 

@@ -13,10 +13,10 @@ void	child_pros(char **argv, char **envp, int *fd, t_msh *msh)
 	in = open(argv[1], O_RDONLY, 0777);
 	if (in == -1)
 		error();
-	dup2(fd[1], STDOUT_FILENO);
+	dup2(msh->cmd->out, STDOUT_FILENO);
 	dup2(in, STDIN_FILENO);
-	close(fd[0]);
-	run_command(msh, msh->cmnd);
+	close(msh->cmd->in);
+	run_command(msh, msh->cmd);
 }
 
 void	parent_pros(char **argv, char **envp, int *fd, t_msh *msh)
@@ -26,16 +26,16 @@ void	parent_pros(char **argv, char **envp, int *fd, t_msh *msh)
 	out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (out == -1)
 		error();
-	dup2(fd[0], STDIN_FILENO);
+	dup2(msh->cmd->in, STDIN_FILENO);
 	dup2(out, STDOUT_FILENO);
-	close(fd[1]);
-	run_command(msh, msh->cmnd);
+	close(msh->cmd->out);
+	run_command(msh, msh->cmd);
 }
 
 int ms_pipe(char **argv, char **envp, t_msh *msh)
 {
 	int		fd[2];
-	int	pid;
+	int		pid;
 	
 	if (pipe(fd) == -1)
 		error();
@@ -54,24 +54,21 @@ int ms_pipe(char **argv, char **envp, t_msh *msh)
 }
 
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_msh	msh;
-	t_cmnd	cmnd;
+	t_cmd	cmd;
 	char **path;
 	int i = 0;
 	
-	msh.cmnd = &cmnd;
+	msh.cmd = &cmd;
 	(void)argc;
-	msh.cmnd->arg = ft_split("ls", ' ');
-	msh.cmnd->next = NULL;
-	msh.cmnd->next->arg = ft_split("wc", ' ');
+	msh.cmd->arg = ft_split("ls", ' ');
 	
 	msh.envp_l = ms_clone_envp(envp);
 	ms_cp_envp(&msh, envp);
 	ms_pipe(argv, envp, &msh);
-	//	run_command(&msh, msh.cmnd);
+	//	run_command(&msh, msh.cmd);
 //	while(path[i++])
 //		printf("%s\n", path[i]);
 //	print_env_l(msh.envp_l);

@@ -8,16 +8,16 @@
       <config projectName="minishell" targetName="minishell" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="true">
+  <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ed27f5a-8929-40d3-9f95-19331bb17556" name="Changes" comment="">
+    <list default="true" id="9ad361ea-b452-4f15-810e-bbb90e84fbca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/minishell_s.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/minishell_s.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/ms_command.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_command.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/ms_pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_pipe.c" afterDir="false" />
     </list>
@@ -41,7 +41,7 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProjectId" id="1yjQaUUrXMRRbMTz6sXKp6fFOQ7" />
+  <component name="ProjectId" id="1yr17KG3hMC0yrc5poPbSk323Pp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,13 +59,9 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="in ls wc out" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishell" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="minishell" RUN_TARGET_NAME="minishell">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -80,12 +76,14 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0ed27f5a-8929-40d3-9f95-19331bb17556" name="Changes" comment="" />
-      <created>1632762581212</created>
+      <changelist id="9ad361ea-b452-4f15-810e-bbb90e84fbca" name="Changes" comment="" />
+      <created>1632994724241</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1632762581212</updated>
-      <workItem from="1632762583275" duration="14091000" />
+      <updated>1632994724241</updated>
+      <workItem from="1632994725526" duration="45000" />
+      <workItem from="1633006641024" duration="2903000" />
+      <workItem from="1633015140585" duration="946000" />
     </task>
     <servers />
   </component>
@@ -96,14 +94,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/commands/ms_command.c</url>
-          <line>39</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/commands/ms_path.c</url>
-          <line>41</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/src/commands/ms_pipe.c</url>
+          <line>65</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

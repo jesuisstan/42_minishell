@@ -54,7 +54,7 @@ static int	check_pipe(char *line, int index)
 	i += n;
 	if (str[i] == '\0')
 		return (ms_return_nbr(1, "syntax error near unexpected token `|'"));
-	if (str[i] == '|' && n > 0)
+	if (str[i] == '|')
 	{
 		if (str[i + 1] == '|')
 			return (ms_return_nbr(1,

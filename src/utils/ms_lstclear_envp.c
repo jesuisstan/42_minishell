@@ -5,9 +5,15 @@ static void	ms_lstdelone_envp(t_envp *envp_l)
 	if (!envp_l)
 		return ;
 	free (envp_l->content);
+	envp_l->content = NULL;
 	free (envp_l->key);
+	envp_l->key = NULL;
 	free (envp_l->value);
+	envp_l->value = NULL;
+	free(envp_l->next);
+	envp_l->next = NULL;
 	free (envp_l);
+	envp_l = NULL;
 }
 
 void	ms_lstclear_envp(t_envp **envp_l)

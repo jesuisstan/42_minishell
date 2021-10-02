@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-t_arg	*lstnew_arg(char *content, t_msh *g_msh)
+t_arg	*ms_lstnew_arg(char *content, t_msh *g_msh)
 {
 	t_arg	*arg;
 	
@@ -51,6 +51,8 @@ static int	find_end(char *line, int *flag)
 		{
 			if (ft_strchr("<|>", line[i]))
 				*flag = 1;
+			if (ft_strchr("<|>", line[i]) && ft_strchr("<>", line[i + 1]))
+				*flag = 2;
 			i += ms_pass_whitespaces(&line[i]);
 			return (i);
 		}
@@ -75,13 +77,13 @@ void	ms_cut_arguments(char *line, t_arg *arg, t_msh *g_msh)
 		{
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
-				lstadd_back_arg(&arg, lstnew_arg(str, g_msh));
-			lstadd_back_arg(&arg, lstnew_arg(ft_substr(line, end, 1), g_msh));
-			line += 1;
+				lstadd_back_arg(&arg, ms_lstnew_arg(str, g_msh));
+			lstadd_back_arg(&arg, ms_lstnew_arg(ft_substr(line, end, flag), g_msh));
+			line += flag;
 			flag = 0;
 		}
 		else
-			lstadd_back_arg(&arg, lstnew_arg(ft_substr(line, 0, end), g_msh));
+			lstadd_back_arg(&arg, ms_lstnew_arg(ft_substr(line, 0, end), g_msh));
 		line += end;
 	}
 }

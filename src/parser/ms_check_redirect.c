@@ -4,9 +4,7 @@ static int	handle_left(char *str, int i, int spaces_passed, int *index)
 {
 	if (spaces_passed == 0)
 	{
-		if (str[i] == '>')
-			return (EXIT_SUCCESS);
-		if (str[i] == '\0' || str[i] == '|')
+		if (str[i] == '\0' || str[i] == '|' || str[i] == '>')
 			return (EXIT_FAILURE);
 		if (str[i] == '<')
 		{

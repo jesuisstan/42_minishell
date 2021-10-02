@@ -6,10 +6,10 @@ static t_arg	*ms_split_line(char *line, t_msh *g_msh)
 	t_arg	*tmp;
 	t_arg	*arg;
 	
-	tmp = lstnew_arg(line, g_msh);
+	tmp = ms_lstnew_arg(line, g_msh);
 	ms_cut_arguments(line, tmp, g_msh);
 	arg = tmp->next;
-	free (tmp);
+	free(tmp);
 	return (arg);
 }
 
@@ -27,7 +27,12 @@ static char	*clear_endwhitespaces(char *line)
 			end = i;
 			i += ms_pass_whitespaces(&line[i]);
 			if (line[i + 1] == '\0' && !ft_isprint(line[i]))
-				return (ft_substr(line, 0, end));
+			{
+				line_new = ft_substr(line, 0, end);
+				free(line);
+				line = NULL;
+				return (line_new);
+			}
 		}
 	}
 	return (line);
@@ -67,7 +72,7 @@ static char	*read_line_safely(char *line)
 	line = NULL;
 	line = readline("minishell § ");
 	if (!line)
-		exit (0); //replace 0 to actual last error status
+		exit(0); // todo replace 0 to actual last error status
 	if (*line)
 		add_history(line);
 	return (line);
@@ -75,14 +80,14 @@ static char	*read_line_safely(char *line)
 
 void	ms_parse(t_msh *g_msh, t_envp *envp_l)
 {
-	int		i;
-	int		j;
-
 	g_msh->line = read_line_safely(g_msh->line);
+	g_msh->line = clear_endwhitespaces(g_msh->line);
 	if (!ms_protoparse(g_msh->line))
 	{
 		g_msh->line = replace_dollars(g_msh->line, envp_l, g_msh);
-		g_msh->line = clear_endwhitespaces(g_msh->line);
 		g_msh->arg = ms_split_line(g_msh->line, g_msh);
+	//	g_msh->cmd = ms_get_commands(g_msh->arg);
 	}
+	free(g_msh->line);
+	g_msh->line = NULL;
 }

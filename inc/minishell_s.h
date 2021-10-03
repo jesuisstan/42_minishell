@@ -17,8 +17,7 @@ typedef struct s_cmd
 {
 	char			**arg; //
 	t_lst			*lst_arg;
-	t_lst			*rdrct;
-	int				pipes[2];
+	int				pipe_fd[2];
 	int				in;
 	int				out;
 	pid_t			pid;
@@ -32,12 +31,11 @@ typedef struct s_msh
 	char			**envp_m;
 	struct s_envp	*envp_l;
 	struct s_arg	*arg;
-	int				flag_dollar;
 	t_cmd			*cmd;
+	t_cmd			*lst_cmd;
 	char			*name;
 	int			old_in;
 	int			old_out;
-	int			flag_pipe;
 }			t_msh;
 
 typedef struct s_arg

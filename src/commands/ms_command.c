@@ -40,8 +40,8 @@ void	run_command(t_msh *msh, t_cmd *cmd)
 	name = cmd->arg[0];
 	while (gen_next_path(cmd->arg, paths, name))
 	{
-		if (execve(cmd->arg[0], cmd->arg, msh->envp_m) < 0)
-			write(1, "pidoras\n", 8);
+		execve(cmd->arg[0], cmd->arg, msh->envp_m);
+	
 //		if (errno != 2)
 //			ft
 	}
@@ -52,17 +52,17 @@ void	run_command(t_msh *msh, t_cmd *cmd)
 //int	main(int argc, char **argv, char **envp)
 //{
 //	t_msh	msh;
-//	t_cmnd	cmnd;
+//	t_cmd	cmd;
 //	char **path;
 //	int i = 0;
 //
-//	msh.cmnd = &cmnd;
+//	msh.cmd = &cmd;
 //	(void)argc;
-//	msh.cmnd->arg = ft_split("ls -la", ' ');
+//	msh.cmd->arg = ft_split("ls a", ' ');
 //
 //	msh.envp_l = ms_clone_envp(envp);
 //	ms_cp_envp(&msh, envp);
-//	run_command(&msh, msh.cmnd);
+//	run_command(&msh, msh.cmd);
 ////	while(path[i++])
 ////		printf("%s\n", path[i]);
 ////	print_env_l(msh.envp_l);

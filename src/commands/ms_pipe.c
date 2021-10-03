@@ -8,6 +8,21 @@ void	ms_error(char *str)
 		perror("Error");
 	exit(EXIT_FAILURE);
 }
+
+size_t	ms_lstsize(t_cmd *arg)
+{
+	size_t	i;
+
+	if (!arg)
+		return (0);
+	i = 0;
+	while (arg)
+	{
+		arg = arg->next;
+		i++;
+	}
+	return (i);
+}
 //
 //void	child_pros(char **argv, char **envp, int *fd, t_msh *msh)
 //{
@@ -58,38 +73,59 @@ void	ms_error(char *str)
 
 int ms_pipex(t_msh *msh, t_cmd *cmd)
 {
-	pid_t pid;
-	int	status;
-	int	pipe_open;
+	int	len, i, first_cmd = 0;
+	t_cmd *start;
 	
-	pipe_open = 0;
-	if (msh->flag_pipe)
+	start = cmd;
+	len = ms_lstsize(cmd);
+	while (cmd->next)
 	{
-		pipe_open = 1;
-		if (pipe(cmd->pipes))
+		if (pipe(cmd->pipe_fd) == -1)
 			ms_error(NULL);
+		cmd = cmd->next;
+		i++;
 	}
-	pid = fork();
-	if (pid < 0)
-		ms_error(NULL);
-	else if (pid == 0)
+	cmd = start;
+	while (len--)
 	{
-		dup2(cmd->pipes[STDOUT_FILENO], STDOUT_FILENO);
-		dup2(msh->old_in, STDIN_FILENO);
-		run_command(msh, cmd);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (pipe_open)
+		first_cmd++;
+		
+		
+		cmd->pid = fork();
+		if (cmd->pid < 0)
+			ms_error(NULL);
+		else if (cmd->pid == 0)
 		{
-			close(cmd->pipes[STDOUT_FILENO]);
+			if (first_cmd == 1)
+			{
+				dup2(cmd->pipe_fd[1], 1);//Теперь stdout (1) указывает на дескриптор fd,хотя он все еще равен 1, но теперь вывод перенаправляется.
+			}
 			if (!cmd->next)
-				close (cmd->pipes[STDIN_FILENO]);
+			{
+				dup2(msh->old_out, 0);
+			}
+//			else if (first_cmd == 1 && cmd->next)
+//			{
+//				dup2(cmd->pipe_fd[1], 1)
+//			}
+			while (start->next)
+			{
+				close(start->pipe_fd[0]);
+				close(start->pipe_fd[1]);
+				start = start->next;
+			}
+			run_command(msh, cmd);
 		}
-		close(msh->old_in);
+		msh->old_out = cmd->pipe_fd[0];
+		msh->old_in = cmd->pipe_fd[1];
+		cmd = cmd->next;
 	}
+	waitpid(start->pid, &i, 0);
+	
+	
+	return (0);
 }
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -98,12 +134,17 @@ int	main(int argc, char **argv, char **envp)
 	char **path;
 	int i = 0;
 	
-	msh.flag_pipe = 1;
-	msh.old_in = 0;
-	msh.old_out = 1;
+//	msh.old_in = 0;
+//	msh.old_out = 1;
 	msh.cmd = &cmd;
 	(void)argc;
-	msh.cmd->arg = ft_split("ls", ' ');
+	msh.cmd->arg = ft_split("ls -la", ' ');
+	msh.cmd->next = malloc(sizeof(*msh.cmd) * 1);
+	msh.cmd->next->arg = ft_split("wc", ' ');
+	msh.cmd->next->next = NULL;
+//	msh.cmd->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->arg = ft_split("cat -e", ' ');
+//	msh.cmd->next->next->next = NULL;
 	msh.envp_l = ms_clone_envp(envp);
 	ms_cp_envp(&msh, envp);
 	ms_pipex(&msh, &cmd);

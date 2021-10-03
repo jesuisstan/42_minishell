@@ -16,7 +16,6 @@ char	**get_path(t_msh *msh)
 	char	**paths;
 	
 	lst_path = ms_find_envp_l(&msh->envp_l, "PATH");
-	printf("PATH	%s\n", lst_path);
 	paths = ft_split(lst_path, ':');
 	return (paths);
 }

@@ -20,7 +20,7 @@ static int	ms_change_dir(t_msh *msh, char *path)
 	if (chdir(path))
 	{
 		ft_putstr_fd(MSH, STDERR_FILENO);
-		ft_putstr_fd("cd:", STDERR_FILENO);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -93,10 +93,10 @@ int	ms_cd(t_msh *msh, char **argv)
 //int	main(int argc, char **argv, char **envp)
 //{
 //	t_msh	msh;
-
+//
 //	(void)argc;
 //	ms_cp_envp(&msh, envp);
 //	ms_cd(&msh, argv);
-//	printf("%s\n", getcwd(NULL, 2048));
+//	printf("PWD=%s\n", getcwd(NULL, 2048));
 //	return (0);
 //}

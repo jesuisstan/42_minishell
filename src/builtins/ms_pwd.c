@@ -22,11 +22,3 @@ int	ms_pwd(void)
 		return (1);
 	}
 }
-
-int	main(int agrc, char *argv[])
-{
-	ms_pwd();
-	return (0);
-}
-
-//gcc ms_pwd.c ./../../src/utils/ms_malloc_x.c ./../../src/libft/libft.a && ./a.out

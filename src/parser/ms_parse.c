@@ -3,13 +3,10 @@
 static t_arg	*ms_split_line(char *line, t_msh *g_msh)
 {
 	int		i;
-	t_arg	*tmp;
 	t_arg	*arg;
 	
-	tmp = ms_lstnew_arg(line, g_msh);
-	ms_cut_arguments(line, tmp, g_msh);
-	arg = tmp->next;
-	free(tmp);
+	arg = NULL;
+	ms_cut_arguments(line, &arg, g_msh);
 	return (arg);
 }
 
@@ -86,7 +83,7 @@ void	ms_parse(t_msh *g_msh, t_envp *envp_l)
 	{
 		g_msh->line = replace_dollars(g_msh->line, envp_l, g_msh);
 		g_msh->arg = ms_split_line(g_msh->line, g_msh);
-	//	g_msh->cmd = ms_get_commands(g_msh->arg);
+		g_msh->cmd_l = ms_get_commands(g_msh->arg);
 	}
 	free(g_msh->line);
 	g_msh->line = NULL;

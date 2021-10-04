@@ -19,9 +19,9 @@ static size_t	ms_lstsize_arg(t_arg *arg)
 	return (i);
 }
 
-char **ms_arglist_to_array(t_arg *arg)
+char **ms_arglist_to_array(t_arg *arg, int size)
 {
-	int		size;
+	int		sz;
 	int		i;
 	char	**arg_arr;
 	t_arg	*tmp;
@@ -29,7 +29,10 @@ char **ms_arglist_to_array(t_arg *arg)
 	if(arg == NULL)
 		return (NULL);
 	tmp = arg;
-	size = ms_lstsize_arg(tmp);
+	if (size <= 0)
+		sz = ms_lstsize_arg(tmp);
+	else
+		sz = size;
 	arg_arr = malloc(sizeof(char *) * size + 1);
 	if (!arg_arr)
 		return (NULL);

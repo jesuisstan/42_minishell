@@ -20,9 +20,9 @@ static void	lstadd_back_arg(t_arg **lst, t_arg *new)
 
 	if (lst && (*lst) && new)
 	{
-		last = (*lst);
+		last = *lst;
 		if (last == NULL)
-			(*lst) = new;
+			*lst = new;
 		else
 		{
 			while (last->next)
@@ -30,6 +30,8 @@ static void	lstadd_back_arg(t_arg **lst, t_arg *new)
 			last->next = new;
 		}
 	}
+	else if (*lst == NULL)
+		*lst = new;
 }
 
 static int	find_end(char *line, int *flag)
@@ -60,7 +62,7 @@ static int	find_end(char *line, int *flag)
 	return (i);
 }
 
-void	ms_cut_arguments(char *line, t_arg *arg, t_msh *g_msh)
+void	ms_cut_arguments(char *line, t_arg **arg, t_msh *g_msh)
 {
 	int		end;
 	int		flag;
@@ -77,13 +79,13 @@ void	ms_cut_arguments(char *line, t_arg *arg, t_msh *g_msh)
 		{
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
-				lstadd_back_arg(&arg, ms_lstnew_arg(str, g_msh));
-			lstadd_back_arg(&arg, ms_lstnew_arg(ft_substr(line, end, flag), g_msh));
+				lstadd_back_arg(arg, ms_lstnew_arg(str, g_msh));
+			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, end, flag), g_msh));
 			line += flag;
 			flag = 0;
 		}
 		else
-			lstadd_back_arg(&arg, ms_lstnew_arg(ft_substr(line, 0, end), g_msh));
+			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, 0, end), g_msh));
 		line += end;
 	}
 }

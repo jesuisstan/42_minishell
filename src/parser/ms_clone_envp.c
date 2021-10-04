@@ -30,9 +30,9 @@ void	lstadd_back_envp(t_envp **lst, t_envp *new)
 
 	if (lst && (*lst) && new)
 	{
-		last = (*lst);
+		last = *lst;
 		if (last == NULL)
-			(*lst) = new;
+			*lst = new;
 		else
 		{
 			while (last->next)
@@ -40,6 +40,8 @@ void	lstadd_back_envp(t_envp **lst, t_envp *new)
 			last->next = new;
 		}
 	}
+	else if (*lst == NULL)
+		*lst = new;
 }
 
 t_envp	*lstnew_envp(char *content)
@@ -61,8 +63,8 @@ t_envp	*ms_clone_envp(char **envp)
 	t_envp	*envp_l;
 	int		i;
 
-	i = 0;
-	envp_l = lstnew_envp(envp[i]);
+	envp_l = NULL;
+	i = -1;
 	while (envp[++i])
 		lstadd_back_envp(&envp_l, lstnew_envp(envp[i]));
 	return (envp_l);

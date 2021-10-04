@@ -1,9 +1,9 @@
 #include "../../inc/minishell.h"
 
-void	ms_env(t_envp *lst)
+int	ms_env(t_envp *lst)
 {
 	if (!lst)
-		return ;
+		return (0);
 	while (lst)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
@@ -18,6 +18,7 @@ void	ms_env(t_envp *lst)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		lst = lst->next;
 	}
+	return (0);
 }
 
 //int	main(int argc, char **argv, char **envp)

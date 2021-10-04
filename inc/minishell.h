@@ -22,16 +22,34 @@ t_envp	*lstnew_envp(char *content);
 void	lstadd_back_envp(t_envp **lst, t_envp *new);
 void	print_env_l(t_envp *lst);
 int		gen_next_path(char **argv, char **paths, char *name);
-void	run_command(t_msh *msh, t_cmd *cmd);
+void	ms_command(t_msh *msh, t_cmd *cmd);
 char	**get_path(t_msh *msh);
 int	take_next_path(char **argv, char **paths, char *name);
 
-
 //cd
 int	ms_cd(t_msh *msh, char **argv);
-
 void	ms_oldpwd(t_msh *msh, char *oldpwd);
 int		ms_new_pwd(t_msh *msh);
+
+//echo
+int	ms_echo(char **arr);
+
+// env
+int	ms_env(t_envp *lst);
+
+//exit
+int	ms_exit(char **argv);
+
+//pwd
+int	ms_pwd(void);
+
+//unset
+int	ms_unset(t_msh *msh, char **argv);
+
+//export
+int	ms_export(t_msh *msh, char **argv);
+
+void	ms_builtins(t_msh *msh, t_cmd *cmd);
 
 
 #endif

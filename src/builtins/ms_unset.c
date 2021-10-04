@@ -70,19 +70,19 @@ int	ms_unset(t_msh *msh, char **argv)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_msh	msh;
-	int i = 0;
-	
-	(void)argc;
-	msh.envp_l = ms_clone_envp(envp);
-	print_env_l(msh.envp_l);
-	write(1, "\n\n",2);
-	write(1, "Next\n",5);
-	ms_unset(&msh, argv);
-//	while(envp[i++])
-//		printf("%s\n", envp[i]);
-	print_env_l(msh.envp_l);
-	return (0);
-}
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_msh	msh;
+//	int i = 0;
+//
+//	(void)argc;
+//	msh.envp_l = ms_clone_envp(envp);
+//	print_env_l(msh.envp_l);
+//	write(1, "\n\n",2);
+//	write(1, "Next\n",5);
+//	ms_unset(&msh, argv);
+////	while(envp[i++])
+////		printf("%s\n", envp[i]);
+//	print_env_l(msh.envp_l);
+//	return (0);
+//}

@@ -9,27 +9,27 @@ static void		ms_no_such(char *name)
 }
 
 
-int	ms_check_builtins(char *key)
+int	is_builtins(char *key)
 {
 	if (!ft_strcmp(key, "echo"))
-		return (0);
+		return (1);
 	else if (!ft_strcmp(key, "cd"))
-		return (0);
+		return (1);
 	else if (!ft_strcmp(key, "pwd"))
-		return (0);
+		return (1);
 	else if (!ft_strcmp(key, "export"))
-		return (0);
+		return (1);
 	else if (!ft_strcmp(key, "unset"))
-		return (0);
+		return (1);
 	else if (!ft_strcmp(key, "env"))
-		return (0);
+		return (1);
 	else if (!ft_strcmp(key, "exit"))
-		return (0);
+		return (1);
 	else
-		return(1);
+		return(0);
 }
 
-void	run_command(t_msh *msh, t_cmd *cmd)
+void	ms_command(t_msh *msh, t_cmd *cmd)
 {
 	char	**paths;
 	char	*name;
@@ -38,12 +38,20 @@ void	run_command(t_msh *msh, t_cmd *cmd)
 //		exit (0);
 	paths = get_path(msh);
 	name = cmd->arg[0];
-	while (gen_next_path(cmd->arg, paths, name))
+	if (is_builtins(cmd->arg[0]))
 	{
-		execve(cmd->arg[0], cmd->arg, msh->envp_m);
-	
+//		ft_putendl_fd("\nPIZDA", msh->old_out);
+		ms_builtins(msh, cmd);
+//		exit(g_status);
+		exit(0);
+	}
+	else
+	{
+		while (gen_next_path(cmd->arg, paths, name)) {
+			execve(cmd->arg[0], cmd->arg, msh->envp_m);
 //		if (errno != 2)
 //			ft
+		}
 	}
 	ms_no_such(name);
 	exit(127);
@@ -62,9 +70,9 @@ void	run_command(t_msh *msh, t_cmd *cmd)
 //
 //	msh.envp_l = ms_clone_envp(envp);
 //	ms_cp_envp(&msh, envp);
-//	run_command(&msh, msh.cmd);
-////	while(path[i++])
-////		printf("%s\n", path[i]);
-////	print_env_l(msh.envp_l);
+//	ms_command(&msh, msh.cmd);
+///	while(path[i++])
+///		printf("%s\n", path[i]);
+///	print_env_l(msh.envp_l);
 //	return (0);
 //}

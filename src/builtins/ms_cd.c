@@ -90,13 +90,13 @@ int	ms_cd(t_msh *msh, char **argv)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_msh	msh;
-
-	(void)argc;
-	ms_cp_envp(&msh, envp);
-	ms_cd(&msh, argv);
-	printf("PWD=%s\n", getcwd(NULL, 2048));
-	return (0);
-}
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_msh	msh;
+//
+//	(void)argc;
+//	ms_cp_envp(&msh, envp);
+//	ms_cd(&msh, argv);
+//	printf("PWD=%s\n", getcwd(NULL, 2048));
+//	return (0);
+//}

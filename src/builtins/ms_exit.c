@@ -6,17 +6,17 @@
 **	@param		arr pointer two dimensional array
 **	@return		lenght array
 */
-static int	ms_arrlen(char **arr)
-{
-	int	len;
-
-	len = 0;
-	if (arr == NULL)
-		return (0);
-	while (arr[len])
-		len++;
-	return (len);
-}
+//static int	ms_arrlen(char **arr)
+//{
+//	int	len;
+//
+//	len = 0;
+//	if (arr == NULL)
+//		return (0);
+//	while (arr[len])
+//		len++;
+//	return (len);
+//}
 
 /*
 **	@brief		function tests for a decimal digit characte 

@@ -3,7 +3,7 @@
 void	ms_error(char *str)
 {
 	if (str)
-		ft_putendl_fd("PIZZA", STDOUT_FILENO);
+		ft_putendl_fd(str, STDOUT_FILENO);
 	else
 		perror("Error");
 	exit(EXIT_FAILURE);
@@ -66,15 +66,13 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 				close(start->pipe_fd[1]);
 				start = start->next;
 			}
-			run_command(msh, cmd);
+			ms_command(msh, cmd);
 		}
 		msh->old_out = cmd->pipe_fd[0];
 		msh->old_in = cmd->pipe_fd[1];
 		cmd = cmd->next;
 	}
 	waitpid(start->pid, &i, 0);
-	
-	
 	return (0);
 }
 
@@ -86,27 +84,25 @@ int	main (int argc, char **argv, char **envp)
 	char **path;
 	int i = 0;
 	
-//	msh.old_in = 0;
-//	msh.old_out = 0;
 	msh.cmd = &cmd;
 	(void)argc;
-	msh.cmd->arg = ft_split("cat file", ' ');
+	msh.cmd->arg = ft_split("ls", ' ');
 	msh.cmd->next = malloc(sizeof(*msh.cmd) * 1);
 	msh.cmd->next->arg = ft_split("cat", ' ');
 	msh.cmd->next->next  = malloc(sizeof(*msh.cmd) * 1);
 	msh.cmd->next->next->arg = ft_split("wc", ' ');
 	msh.cmd->next->next->next = NULL;
-//	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
-//	msh.cmd->next->next->next->arg = ft_split("wc", ' ');
-//	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
-//	msh.cmd->next->next->next->next->arg = ft_split("wc", ' ');
-//	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
-//	msh.cmd->next->next->next->next->next->arg = ft_split("cat -e", ' ');
-//	msh.cmd->next->next->next->next->next->next = NULL;
+	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+	msh.cmd->next->next->next->arg = ft_split("wc", ' ');
+	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+	msh.cmd->next->next->next->next->arg = ft_split("wc -l", ' ');
+	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+	msh.cmd->next->next->next->next->next->arg = ft_split("cat -e", ' ');
+	msh.cmd->next->next->next->next->next->next = NULL;
 	msh.envp_l = ms_clone_envp(envp);
 	ms_cp_envp(&msh, envp);
 	ms_pipex(&msh, &cmd);
-	//	run_command(&msh, msh.cmd);
+	//	ms_command(&msh, msh.cmd);
 //	while(path[i++])
 //		printf("%s\n", path[i]);
 //	print_env_l(msh.envp_l);

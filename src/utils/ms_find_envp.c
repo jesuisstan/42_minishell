@@ -102,10 +102,10 @@ void	ms_cp_envp(t_msh *msh, char **envp)
 
 //int	main(int agrc, char **argv, char **envp)
 //{
-//	t_msh	*g_msh;
+//	t_msh	*msh;
 
-//	g_msh = ms_malloc_x(sizeof(t_msh));
-//	g_msh->envp_l = ms_clone_envp(envp);
-//	printf("%s\n", ms_find_envp(&g_msh->envp_l, argv[1]));
+//	msh = ms_malloc_x(sizeof(t_msh));
+//	msh->envp_l = ms_clone_envp(envp);
+//	printf("%s\n", ms_find_envp(&msh->envp_l, argv[1]));
 //	return (0);
 //}

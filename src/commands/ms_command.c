@@ -37,8 +37,8 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 //	if (!cmnd->lst_arg)
 //		exit (0);
 	paths = get_path(msh);
-	name = cmd->arg[0];
-	if (is_builtins(cmd->arg[0]))
+	name = cmd->cmd[0];
+	if (is_builtins(cmd->cmd[0]))
 	{
 //		ft_putendl_fd("\nPIZDA", msh->old_out);
 		ms_builtins(msh, cmd);
@@ -47,8 +47,8 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	}
 	else
 	{
-		while (gen_next_path(cmd->arg, paths, name)) {
-			execve(cmd->arg[0], cmd->arg, msh->envp_m);
+		while (gen_next_path(cmd->cmd, paths, name)) {
+			execve(cmd->cmd[0], cmd->cmd, msh->envp_m);
 //		if (errno != 2)
 //			ft
 		}

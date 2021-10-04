@@ -1,10 +1,10 @@
 // Artem's header
 
-#ifndef MINISHELL_A_H
-# define MINISHELL_A_H
-
-# define MSH "minishell: "
+//#ifndef MINISHELL_A_H
+//# define MINISHELL_A_H
 
 
 
-#endif
+
+
+//#endif

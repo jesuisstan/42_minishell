@@ -77,34 +77,34 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 }
 
 
-int	main (int argc, char **argv, char **envp)
-{
-	t_msh	msh;
-	t_cmd	cmd;
-	char **path;
-	int i = 0;
+//int	main (int argc, char **argv, char **envp)
+//{
+//	t_msh	msh;
+//	t_cmd	cmd;
+//	char **path;
+//	int i = 0;
 	
-	msh.cmd = &cmd;
-	(void)argc;
-	msh.cmd->arg = ft_split("ls", ' ');
-	msh.cmd->next = malloc(sizeof(*msh.cmd) * 1);
-	msh.cmd->next->arg = ft_split("cat", ' ');
-	msh.cmd->next->next  = malloc(sizeof(*msh.cmd) * 1);
-	msh.cmd->next->next->arg = ft_split("wc", ' ');
-	msh.cmd->next->next->next = NULL;
-	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
-	msh.cmd->next->next->next->arg = ft_split("wc", ' ');
-	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
-	msh.cmd->next->next->next->next->arg = ft_split("wc -l", ' ');
-	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
-	msh.cmd->next->next->next->next->next->arg = ft_split("cat -e", ' ');
-	msh.cmd->next->next->next->next->next->next = NULL;
-	msh.envp_l = ms_clone_envp(envp);
-	ms_cp_envp(&msh, envp);
-	ms_pipex(&msh, &cmd);
-	//	ms_command(&msh, msh.cmd);
-//	while(path[i++])
-//		printf("%s\n", path[i]);
-//	print_env_l(msh.envp_l);
-	return (0);
-}
+//	msh.cmd = &cmd;
+//	(void)argc;
+//	msh.cmd->arg = ft_split("ls", ' ');
+//	msh.cmd->next = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->arg = ft_split("cat", ' ');
+//	msh.cmd->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->arg = ft_split("wc", ' ');
+//	msh.cmd->next->next->next = NULL;
+//	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->next->arg = ft_split("wc", ' ');
+//	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->next->next->arg = ft_split("wc -l", ' ');
+//	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->next->next->next->arg = ft_split("cat -e", ' ');
+//	msh.cmd->next->next->next->next->next->next = NULL;
+//	msh.envp_l = ms_clone_envp(envp);
+//	ms_cp_envp(&msh, envp);
+//	ms_pipex(&msh, &cmd);
+//	//	ms_command(&msh, msh.cmd);
+////	while(path[i++])
+////		printf("%s\n", path[i]);
+////	print_env_l(msh.envp_l);
+//	return (0);
+//}

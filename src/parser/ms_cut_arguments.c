@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-t_arg	*ms_lstnew_arg(char *content, t_msh *g_msh)
+t_arg	*ms_lstnew_arg(char *content, t_msh *msh)
 {
 	t_arg	*arg;
 	
@@ -9,7 +9,7 @@ t_arg	*ms_lstnew_arg(char *content, t_msh *g_msh)
 		return (NULL);
 	arg->arg_rare = content;
 	arg->arg_pure = ft_strdup(content);
-	arg->arg_pure = ms_purify_argument(arg->arg_pure, g_msh);
+	arg->arg_pure = ms_purify_argument(arg->arg_pure, msh);
 	arg->next = NULL;
 	return (arg);
 }
@@ -62,7 +62,7 @@ static int	find_end(char *line, int *flag)
 	return (i);
 }
 
-void	ms_cut_arguments(char *line, t_arg **arg, t_msh *g_msh)
+void	ms_cut_arguments(char *line, t_arg **arg, t_msh *msh)
 {
 	int		end;
 	int		flag;
@@ -79,13 +79,13 @@ void	ms_cut_arguments(char *line, t_arg **arg, t_msh *g_msh)
 		{
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
-				lstadd_back_arg(arg, ms_lstnew_arg(str, g_msh));
-			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, end, flag), g_msh));
+				lstadd_back_arg(arg, ms_lstnew_arg(str, msh));
+			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, end, flag), msh));
 			line += flag;
 			flag = 0;
 		}
 		else
-			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, 0, end), g_msh));
+			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, 0, end), msh));
 		line += end;
 	}
 }

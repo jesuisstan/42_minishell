@@ -57,18 +57,18 @@ static int	if_key(char c)
 	return (0);
 }
 
-static char	*handle_question_mark(char *line, t_msh *g_msh, int j, int *i)
+static char	*handle_question_mark(char *line, t_msh *msh, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
 
-	tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_itoa(g_msh->last_exit_status));
+	tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_itoa(msh->last_exit_status));
 	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 	free (tmp_one);
 	return (line_new);
 }
 
-char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *g_msh)
+char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh)
 {
 	int		j;
 	char	*key;
@@ -79,7 +79,7 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *g_msh)
 	if (ft_strchr("?", line[j + 1]))
 	{
 		*i += 2; 
-		return (handle_question_mark(line, g_msh, j, i));
+		return (handle_question_mark(line, msh, j, i));
 	}
 	while (line[++(*i)])
 		if (!if_key(line[*i]))

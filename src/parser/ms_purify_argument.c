@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-static char	*manage_quotes(char *line, int *i, t_msh *g_msh)
+static char	*manage_quotes(char *line, int *i, t_msh *msh)
 {
 	int		j;
 	char	*line_new;
@@ -44,7 +44,7 @@ static char	*manage_apostrophe(char *line, int *i)
 	return (line_new);
 }
 
-char	*ms_purify_argument(char *arg, t_msh *g_msh)
+char	*ms_purify_argument(char *arg, t_msh *msh)
 {
 	int		i;
 	char	*arg_pure;
@@ -59,7 +59,7 @@ char	*ms_purify_argument(char *arg, t_msh *g_msh)
 		}
 		else if (arg[i] == '\"')
 		{
-			arg = manage_quotes(arg, &i, g_msh);
+			arg = manage_quotes(arg, &i, msh);
 			arg_pure = arg;
 		}
 		else

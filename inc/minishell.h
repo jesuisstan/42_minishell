@@ -1,5 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define MSH "minishell: "
 
 # include <unistd.h>
 # include <stdlib.h>

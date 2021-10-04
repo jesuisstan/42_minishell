@@ -2,7 +2,9 @@ NAME			= 	minishell
 
 SRCS			=	./src/main.c \
 					$(wildcard ./src/utils/*.c) \
-					$(wildcard ./src/parser/*.c)
+					$(wildcard ./src/parser/*.c) \
+					$(wildcard ./src/builtins/*.c) \
+					$(wildcard ./src/commands/*.c)
 
 OBJS			=	$(SRCS:.c=.o)
 
@@ -12,19 +14,20 @@ CC				=	gcc
 
 RM				=	rm -rfv
 
-CFLAGS			=	-Wall -Wextra -Werror
+#CFLAGS			=	-Wall -Wextra -Werror
 
 LIBS			=	./src/libft/libft.a
-RDL			= -lreadline
-RDL_MAC		= -lreadline -L ~/.brew/opt/readline/lib
+RDL				= -lreadline
+RDL_MAC			= -lreadline -L ~/.brew/opt/readline/lib
 
 all:			$(NAME)
 
-$(OBJS):		$(HEADERS)
+%.o:		%.c
+			$(CC) $(CFLAGS) -c -g $< -o $@ $(HEADERS)
 
 $(NAME):		$(OBJS)
 				cd ./src/libft/ && $(MAKE)
-				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(RDL_MAC)
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(HEADERS) $(RDL_MAC)
 
 clean:
 				$(MAKE) clean -C ./src/libft/
@@ -40,4 +43,3 @@ re:				fclean $(NAME)
 				@echo "\033[35;1m\nRemake done\n\033[0m"
 
 .PHONY:			all clean fclean re
--include	$(OBJS:.o=.d)

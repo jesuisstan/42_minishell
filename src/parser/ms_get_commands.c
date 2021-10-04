@@ -1,33 +1,5 @@
 #include "../../inc/minishell.h"
 
-char **make_cmdarray(char *str_cmd, char* str_flags) // todo не нужна
-{
-	int		size;
-	int		i;
-	char	**cmd_arr;
-
-	if(!str_cmd || !str_flags)
-		return (NULL);
-	if (ft_strcmp(str_flags, "") == 0)
-	{
-		cmd_arr = (char **)malloc(sizeof(char *) * 2);
-		if (!cmd_arr)
-			return (NULL);
-		cmd_arr[0] = str_cmd;
-		cmd_arr[1] = NULL;
-	}
-	else
-	{
-		cmd_arr = (char **)malloc(sizeof(char *) * 3);
-		if (!cmd_arr)
-			return (NULL);
-		cmd_arr[0] = str_cmd;
-		cmd_arr[1] = str_flags;
-		cmd_arr[2] = NULL;
-	}
-	return (cmd_arr);
-}
-
 t_cmd	*ms_lstnew_cmd(t_arg *arg, int size)
 {
 	t_cmd	*cmd_l;
@@ -35,7 +7,7 @@ t_cmd	*ms_lstnew_cmd(t_arg *arg, int size)
 	cmd_l = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd_l)
 		return (NULL);
-	cmd_l->cmd = ms_arglist_to_array(arg, size); // todo arg - кусок листа t_arg до пайпа
+	cmd_l->cmd = ms_arglist_to_array(arg, size);
 	cmd_l->next = NULL;
 	return (cmd_l);
 }
@@ -84,7 +56,7 @@ static size_t	get_cmds_amount(t_arg *arg)
 static size_t	get_cmd_size(t_arg *arg)
 {
 	size_t	i;
-	
+
 	if (!arg)
 		return (-1);
 	i = 0;
@@ -98,32 +70,30 @@ static size_t	get_cmd_size(t_arg *arg)
 	return (i);
 }
 
-t_cmd	*ms_get_commands(t_arg *arg)
+t_cmd	*ms_get_commands(t_msh *msh)
 {
 	int		i;
 	int		cmd_size;
 	t_arg	*head;
-	t_cmd 	*cmd_l;
 
-	if(arg == NULL)
+	if(msh->arg == NULL)
 		return (NULL);
-	head = arg;
-	cmd_l = NULL;
+	head = msh->arg;
 	cmd_size = 1;
-	while (arg != NULL)
+	while (msh->arg != NULL)
 	{
-		if (ft_strcmp(arg->arg_pure, "|") == 0)
+		if (ft_strcmp(msh->arg->arg_pure, "|") == 0)
 		{
 			cmd_size = get_cmd_size(head);
-			lstadd_back_cmd(&cmd_l, ms_lstnew_cmd(head, cmd_size));
-			head = arg->next;
+			lstadd_back_cmd(&msh->cmd_l, ms_lstnew_cmd(head, cmd_size));
+			head = msh->arg->next;
 			cmd_size = 1;
 		}
-		arg = arg->next;
+		msh->arg = msh->arg->next;
 		cmd_size++;
-		if (arg == NULL)
-			lstadd_back_cmd(&cmd_l, ms_lstnew_cmd(head, cmd_size));
+		if (msh->arg == NULL)
+			lstadd_back_cmd(&msh->cmd_l, ms_lstnew_cmd(head, cmd_size));
 	}
-	return (cmd_l);
+	ms_lstclear_arg(&head);
+	return (msh->cmd_l);
 }
-

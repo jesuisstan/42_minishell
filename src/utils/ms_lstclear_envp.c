@@ -10,8 +10,6 @@ static void	ms_lstdelone_envp(t_envp *envp_l)
 	envp_l->key = NULL;
 	free (envp_l->value);
 	envp_l->value = NULL;
-	free(envp_l->next);
-	envp_l->next = NULL;
 	free (envp_l);
 	envp_l = NULL;
 }

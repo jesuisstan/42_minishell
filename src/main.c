@@ -1,6 +1,6 @@
 // gcc main.c ./utils/*.c ./parser/*.c ./libft/libft.a -lreadline -o minishell
-// $USER123 'gfgf     "h' !!!!!!!!!!!!!!!!
-#include "minishell.h"
+
+#include "../inc/minishell.h"
 
 int g_status;
 
@@ -10,25 +10,30 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	msh = ms_malloc_x(sizeof(t_msh));
 	rl_outstream = stderr;
+	g_status = 0;
+	msh = ms_malloc_x(sizeof(t_msh));
+	msh->arg = NULL;
+	msh->cmd_l = NULL;
 	msh->envp_l = ms_clone_envp(envp);
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
-	msh->last_exit_status = 666666; // todo DELETE!
 	while (1)
 	{
-		msh->arg = NULL; // todo чтоб не сегаться при распечатке списка, если вылетело еще на protoparse
-		ms_parse(msh, msh->envp_l);
-		ms_pipex(msh, msh->cmd_l);
-		//t_cmd *tmp = msh->cmd_l;
-		//while (tmp) //todo
+		ms_parse(msh, msh->envp_l, g_status);
+		ms_pipex(msh, msh->cmd_l); // todo SEGA, если НЕ пройден этап протопарсера
+		
+		//while (msh->cmd_l) //todo
 		//{
 		//	int	k = -1;
-		//	while (tmp->cmd[++k])
-		//		ft_putendl_fd(tmp->cmd[k], 1);
+		//	while (msh->cmd_l->cmd[++k])
+		//		//ft_putstr_fd(msh->cmd_l->cmd[k], 1);
+		//		ft_putendl_fd(msh->cmd_l->cmd[k], 1);
 		//	printf("--------\n");
-		//	tmp = tmp->next;
+		//	msh->cmd_l = msh->cmd_l->next;
 		//}
+		
+		ms_lstclear_arg(&(msh->arg));
+		ms_lstclear_cmd(&(msh->cmd_l));
 	}
 	return (0);
 }

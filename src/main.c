@@ -1,6 +1,6 @@
 // gcc main.c ./utils/*.c ./parser/*.c ./libft/libft.a -lreadline -o minishell
 // $USER123 'gfgf     "h' !!!!!!!!!!!!!!!!
-#include "minishell.h"
+#include "./../inc/minishell.h"
 
 int g_status;
 
@@ -14,6 +14,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_outstream = stderr;
 	msh->envp_l = ms_clone_envp(envp);
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
+	ms_cp_envp(msh, envp);
 	msh->last_exit_status = 666666; // todo DELETE!
 	while (1)
 	{

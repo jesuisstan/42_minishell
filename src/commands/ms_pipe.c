@@ -26,8 +26,13 @@ size_t	ms_lstsize(t_cmd *arg)
 
 int ms_pipex(t_msh *msh, t_cmd *cmd)
 {
-	int	len, i, first_cmd = 0;
+	int	len, i, first_cmd;
+	len = 0;
+	i = 0;
+	first_cmd = 0;
 	t_cmd *start;
+	cmd->in = 0;
+	cmd->out = 0;
 	
 	start = cmd;
 	len = ms_lstsize(cmd);

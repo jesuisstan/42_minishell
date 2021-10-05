@@ -49,6 +49,7 @@ char	*ms_purify_argument(char *arg, t_msh *msh)
 	int		i;
 	char	*arg_pure;
 
+	arg = ms_clear_endwhitespaces(arg);
 	i = -1;
 	while (arg[++i])
 	{

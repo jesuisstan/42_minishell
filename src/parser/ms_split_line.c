@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-t_arg	*ms_lstnew_arg(char *content, t_msh *msh)
+static t_arg	*lstnew_arg(char *content, t_msh *msh)
 {
 	t_arg	*arg;
 	
@@ -62,7 +62,7 @@ static int	find_end(char *line, int *flag)
 	return (i);
 }
 
-void	ms_cut_arguments(char *line, t_arg **arg, t_msh *msh)
+static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
 {
 	int		end;
 	int		flag;
@@ -79,13 +79,19 @@ void	ms_cut_arguments(char *line, t_arg **arg, t_msh *msh)
 		{
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
-				lstadd_back_arg(arg, ms_lstnew_arg(str, msh));
-			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, end, flag), msh));
+				lstadd_back_arg(arg, lstnew_arg(str, msh));
+			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, end, flag), msh));
 			line += flag;
 			flag = 0;
 		}
 		else
-			lstadd_back_arg(arg, ms_lstnew_arg(ft_substr(line, 0, end), msh));
+			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, 0, end), msh));
 		line += end;
 	}
+}
+
+t_arg	*ms_split_line(t_msh *msh)
+{
+	cut_arguments(msh->line, &(msh->arg), msh);
+	return (msh->arg);
 }

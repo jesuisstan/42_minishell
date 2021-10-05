@@ -1,40 +1,5 @@
 #include "../../inc/minishell.h"
 
-static t_arg	*ms_split_line(char *line, t_msh *msh)
-{
-	int		i;
-	t_arg	*arg;
-	
-	arg = NULL;
-	ms_cut_arguments(line, &arg, msh);
-	return (arg);
-}
-
-static char	*clear_endwhitespaces(char *line)
-{
-	char	*line_new;
-	int		i;
-	int		end;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (ft_strchr(" \t", line[i]))
-		{
-			end = i;
-			i += ms_pass_whitespaces(&line[i]);
-			if (line[i + 1] == '\0' && !ft_isprint(line[i]))
-			{
-				line_new = ft_substr(line, 0, end);
-				free(line);
-				line = NULL;
-				return (line_new);
-			}
-		}
-	}
-	return (line);
-}
-
 static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *msh)
 {
 	int		i;
@@ -62,12 +27,17 @@ static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *msh)
 	return (line);
 }
 
-static char	*read_line_safely(char *line)
+static char	*read_line_safely(char *line, int g_status, t_msh **msh)
 {
 	int		i;
 
 	line = NULL;
 	line = readline("minishell § ");
+	if (g_status == 130)
+	{
+		(*msh)->prev_status = 1;
+		g_status = 0;
+	}
 	if (!line)
 		exit(0); // todo replace 0 to actual last error status
 	if (*line)
@@ -75,15 +45,15 @@ static char	*read_line_safely(char *line)
 	return (line);
 }
 
-void	ms_parse(t_msh *msh, t_envp *envp_l)
+void	ms_parse(t_msh *msh, t_envp *envp_l, int g_status)
 {
-	msh->line = read_line_safely(msh->line);
-	msh->line = clear_endwhitespaces(msh->line);
+	msh->line = read_line_safely(msh->line, g_status, &msh);
+	msh->line = ms_clear_endwhitespaces(msh->line);
 	if (!ms_protoparse(msh->line))
 	{
 		msh->line = replace_dollars(msh->line, envp_l, msh);
-		msh->arg = ms_split_line(msh->line, msh);
-		msh->cmd_l = ms_get_commands(msh->arg);
+		msh->arg = ms_split_line(msh);
+		msh->cmd_l = ms_get_commands(msh);
 	}
 	free(msh->line);
 	msh->line = NULL;

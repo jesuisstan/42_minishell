@@ -27,9 +27,16 @@ typedef struct s_msh
 	struct s_cmd	*cmd_l;
 }			t_msh;
 
+typedef struct s_rdr
+{
+	char			*name;
+	struct s_arg	*next;
+}			t_rdr;
+
 typedef struct s_cmd
 {
 	char			**cmd;
+	t_rdr			*rdr;
 	int				pipe_fd[2];
 	int				in;
 	int				out;
@@ -37,6 +44,7 @@ typedef struct s_cmd
 	int 			is_fork;
 	struct s_cmd	*next;
 }			t_cmd;
+
 
 typedef struct s_arg
 {

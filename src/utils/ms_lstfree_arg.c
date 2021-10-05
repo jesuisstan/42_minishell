@@ -12,7 +12,7 @@ static void	ms_lstdelone_arg(t_arg *arg)
 	arg = NULL;
 }
 
-void	ms_lstclear_arg(t_arg **arg)
+void	ms_lstfree_arg(t_arg **arg)
 {
 	t_arg	*tmp;
 

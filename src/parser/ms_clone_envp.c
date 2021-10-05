@@ -24,15 +24,15 @@ static char	*get_value(char *content)
 	return (value);
 }
 
-void	lstadd_back_envp(t_envp **lst, t_envp *new)
+void	lstadd_back_envp(t_envp **envp_l, t_envp *new)
 {
 	t_envp	*last;
 
-	if (lst && (*lst) && new)
+	if (envp_l && (*envp_l) && new)
 	{
-		last = *lst;
+		last = *envp_l;
 		if (last == NULL)
-			*lst = new;
+			*envp_l = new;
 		else
 		{
 			while (last->next)
@@ -40,8 +40,8 @@ void	lstadd_back_envp(t_envp **lst, t_envp *new)
 			last->next = new;
 		}
 	}
-	else if (*lst == NULL)
-		*lst = new;
+	else if (*envp_l == NULL)
+		*envp_l = new;
 }
 
 t_envp	*lstnew_envp(char *content)

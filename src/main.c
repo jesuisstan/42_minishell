@@ -16,12 +16,13 @@ int	main(int argc, char **argv, char **envp)
 	msh->arg = NULL;
 	msh->cmd_l = NULL;
 	msh->envp_l = ms_clone_envp(envp);
+	ms_update_shlvl(msh);
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
 	while (1)
 	{
 		ms_parse(msh, msh->envp_l, g_status);
 		ms_pipex(msh, msh->cmd_l);
-		
+
 		//while (msh->cmd_l) //todo
 		//{
 		//	int	k = -1;
@@ -34,8 +35,8 @@ int	main(int argc, char **argv, char **envp)
 		//	msh->cmd_l = msh->cmd_l->next;
 		//}
 
-		ms_lstclear_arg(&(msh->arg));
-		ms_lstclear_cmd(&(msh->cmd_l));
+		ms_lstfree_arg(&(msh->arg));
+		ms_lstfree_cmd(&(msh->cmd_l));
 	}
 	return (0);
 }

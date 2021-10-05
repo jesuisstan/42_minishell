@@ -39,7 +39,8 @@ static char	*read_line_safely(char *line, int g_status, t_msh **msh)
 		g_status = 0;
 	}
 	if (!line)
-		exit(0); // todo replace 0 to actual last error status
+		//exit(0); // todo replace 0 to actual last error status
+		exit((*msh)->prev_status); // возможно нужна другая переменная ..._status
 	if (*line)
 		add_history(line);
 	return (line);

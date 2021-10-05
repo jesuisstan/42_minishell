@@ -9,7 +9,7 @@ static void	ms_lstdelone_cmd(t_cmd *cmd_l) // todo требует доработ
 	cmd_l = NULL;
 }
 
-void	ms_lstclear_cmd(t_cmd **cmd_l)
+void	ms_lstfree_cmd(t_cmd **cmd_l)
 {
 	t_cmd	*tmp;
 

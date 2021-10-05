@@ -58,12 +58,12 @@ static int	if_key(char c)
 	return (0);
 }
 
-static char	*handle_question_mark(char *line, t_msh *msh, int j, int *i)// todo удалить после решения, как обрабатываем $?
+static char	*handle_question_mark(char *line, t_msh *msh, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
 
-	tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_itoa(msh->prev_status));
+	tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_itoa(msh->prev_status)); // todo выбрать переименную ...status
 	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 	free (tmp_one);
 	return (line_new);
@@ -77,7 +77,7 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh)
 	char	*line_new;
 
 	j = *i;
-	if (ft_strchr("?", line[j + 1])) // todo удалить после решения, как обрабатываем $?
+	if (ft_strchr("?", line[j + 1]))
 	{
 		*i += 2; 
 		return (handle_question_mark(line, msh, j, i));

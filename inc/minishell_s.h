@@ -27,24 +27,23 @@ typedef struct s_msh
 	struct s_cmd	*cmd_l;
 }			t_msh;
 
-typedef struct s_rdr
-{
-	char			*name;
-	struct s_arg	*next;
-}			t_rdr;
-
 typedef struct s_cmd
 {
 	char			**cmd;
-	t_rdr			*rdr;
 	int				pipe_fd[2];
 	int				in;
 	int				out;
-	pid_t			pid;
 	int 			is_fork;
+	pid_t			pid;
+	struct s_rdr	*rdr;
 	struct s_cmd	*next;
 }			t_cmd;
 
+typedef struct s_rdr
+{
+	char			*name;
+	struct s_rdr	*next;
+}			t_rdr;
 
 typedef struct s_arg
 {
@@ -61,6 +60,7 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
+void	ms_update_shlvl(t_msh *msh);
 t_envp	*ms_clone_envp(char **envp);
 int		ms_check_redirect(char *line, int *index, char symbol);
 int		ms_protoparse(char *line);
@@ -76,8 +76,7 @@ void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);
 char	**ms_envplist_to_array(t_envp *envp_l);
 char 	**ms_arglist_to_array(t_arg *arg, int size);
-void	ms_lstclear_arg(t_arg **arg);
-void	ms_lstclear_envp(t_envp **envp_l);
-void	ms_lstclear_cmd(t_cmd **cmd_l);
+void	ms_lstfree_arg(t_arg **arg);
+void	ms_lstfree_cmd(t_cmd **cmd_l);
 
 #endif

@@ -94,6 +94,6 @@ t_cmd	*ms_get_commands(t_msh *msh)
 		if (msh->arg == NULL)
 			lstadd_back_cmd(&msh->cmd_l, ms_lstnew_cmd(head, cmd_size));
 	}
-	ms_lstclear_arg(&head);
+	ms_lstfree_arg(&head);
 	return (msh->cmd_l);
 }

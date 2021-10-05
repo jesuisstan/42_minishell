@@ -25,13 +25,11 @@ typedef struct s_msh
 	struct s_envp	*envp_l;
 	struct s_arg	*arg;
 	struct s_cmd	*cmd_l;
-	struct s_cmd	*lst_cmd; // мне это не нужно. Это дубликат t_cmd *cmd_l? Удалить может?
 }			t_msh;
 
 typedef struct s_cmd
 {
 	char			**cmd;
-	t_lst			*lst_arg; // Это дублирование листа с командами? Удалить может?
 	int				pipe_fd[2];
 	int				in;
 	int				out;

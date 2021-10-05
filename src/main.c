@@ -1,6 +1,6 @@
 // gcc main.c ./utils/*.c ./parser/*.c ./libft/libft.a -lreadline -o minishell
-
-#include "../inc/minishell.h"
+// $USER123 'gfgf     "h' !!!!!!!!!!!!!!!!
+#include "./../inc/minishell.h"
 
 int g_status;
 
@@ -20,8 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ms_parse(msh, msh->envp_l, g_status);
-		ms_pipex(msh, msh->cmd_l); // todo SEGA, если НЕ пройден этап протопарсера
-		
+		ms_pipex(msh, msh->cmd_l); // todo SEGA, если НЕ пройден этап протопарсера ВРОДЕ ИСПРАВИЛ
 		//while (msh->cmd_l) //todo
 		//{
 		//	int	k = -1;

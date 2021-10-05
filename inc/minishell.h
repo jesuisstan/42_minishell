@@ -25,8 +25,9 @@ void	print_env_l(t_envp *lst);
 int		gen_next_path(char **argv, char **paths, char *name);
 void	ms_command(t_msh *msh, t_cmd *cmd);
 char	**get_path(t_msh *msh);
-int		take_next_path(char **argv, char **paths, char *name);
-int		ms_pipex(t_msh *msh, t_cmd *cmd);
+int	take_next_path(char **argv, char **paths, char *name);
+int	ms_pipex(t_msh *msh, t_cmd *cmd);
+int	is_builtins(char *key);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);

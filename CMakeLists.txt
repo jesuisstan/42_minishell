@@ -6,6 +6,7 @@ include_directories(/usr/include/readline)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/libft/)
 
 FILE(GLOB SRC
+        "src/main.c"
         "src/builtins/*.c"
         "src/utils/*.c"
         "src/commands/*.c"

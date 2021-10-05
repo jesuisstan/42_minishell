@@ -17,13 +17,10 @@ int	main(int argc, char **argv, char **envp)
 	msh->cmd_l = NULL;
 	msh->envp_l = ms_clone_envp(envp);
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
-	ms_cp_envp(msh, envp);
-	msh->last_exit_status = 666666; // todo DELETE!
 	while (1)
 	{
 		ms_parse(msh, msh->envp_l, g_status);
-		ms_pipex(msh, msh->cmd_l); // todo SEGA, если НЕ пройден этап протопарсера
-		
+		ms_pipex(msh, msh->cmd_l); // todo SEGA, если НЕ пройден этап протопарсера ВРОДЕ ИСПРАВИЛ
 		//while (msh->cmd_l) //todo
 		//{
 		//	int	k = -1;

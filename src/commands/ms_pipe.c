@@ -31,9 +31,12 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	i = 0;
 	first_cmd = 0;
 	t_cmd *start;
-	cmd->in = 0;
-	cmd->out = 0;
-	
+	if (!cmd)
+		return (0);
+//	if (!cmd->next && is_builtins(cmd->cmd[0]))
+//		ms_command(msh, cmd); надо допилить
+//	cmd->in = 0;
+//	cmd->out = 0;
 	start = cmd;
 	len = ms_lstsize(cmd);
 	while (cmd->next)
@@ -77,39 +80,49 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		msh->old_in = cmd->pipe_fd[1];
 		cmd = cmd->next;
 	}
+	while (start->next)
+	{
+		close(start->pipe_fd[0]);
+		close(start->pipe_fd[1]);
+		start = start->next;
+	}
 	waitpid(start->pid, &i, 0);
+	// Тарас сказал чтото ждать в цикле
 	return (0);
 }
 
 
-//int	main (int argc, char **argv, char **envp)
-//{
-//	t_msh	msh;
-//	t_cmd	cmd;
-//	char **path;
-//	int i = 0;
-	
-//	msh.cmd = &cmd;
-//	(void)argc;
-//	msh.cmd->arg = ft_split("ls", ' ');
-//	msh.cmd->next = malloc(sizeof(*msh.cmd) * 1);
-//	msh.cmd->next->arg = ft_split("cat", ' ');
-//	msh.cmd->next->next  = malloc(sizeof(*msh.cmd) * 1);
-//	msh.cmd->next->next->arg = ft_split("wc", ' ');
-//	msh.cmd->next->next->next = NULL;
-//	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//gcc src/commands/ms_pipe.c  src/commands/ms_command.c src/commands/ms_path.c src/commands/ms_builtin.c src/utils/ms_arrlen.c src/parser/ms_clone_envp.c src/utils/ms_find_envp.c src/utils/ms_malloc_x.c ./src/libft/libft.a src/builtins/*.c && ./a.out
+
+
+int	main (int argc, char **argv, char **envp)
+{
+	t_msh	msh;
+	t_cmd	cmd;
+	char **path;
+	int i = 0;
+
+	msh.cmd_l = &cmd;
+	(void)argc;
+	msh.cmd_l->cmd = ft_split("ls -la", ' ');
+	msh.cmd_l->next = malloc(sizeof(*msh.cmd_l) * 1);
+	msh.cmd_l->next->cmd = ft_split("cat", ' ');
+	msh.cmd_l->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
+	msh.cmd_l->next->next->cmd = ft_split("wc", ' ');
+	msh.cmd_l->next->next->next = NULL;
+//	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
 //	msh.cmd->next->next->next->arg = ft_split("wc", ' ');
-//	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
 //	msh.cmd->next->next->next->next->arg = ft_split("wc -l", ' ');
-//	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd) * 1);
+//	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
 //	msh.cmd->next->next->next->next->next->arg = ft_split("cat -e", ' ');
 //	msh.cmd->next->next->next->next->next->next = NULL;
-//	msh.envp_l = ms_clone_envp(envp);
-//	ms_cp_envp(&msh, envp);
-//	ms_pipex(&msh, &cmd);
-//	//	ms_command(&msh, msh.cmd);
-////	while(path[i++])
-////		printf("%s\n", path[i]);
-////	print_env_l(msh.envp_l);
-//	return (0);
-//}
+	msh.envp_l = ms_clone_envp(envp);
+	ms_cp_envp(&msh, envp);
+	ms_pipex(&msh, &cmd);
+	//	ms_command(&msh, msh.cmd);
+//	while(path[i++])
+//		printf("%s\n", path[i]);
+//	print_env_l(msh.envp_l);
+	return (0);
+}

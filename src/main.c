@@ -20,17 +20,20 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ms_parse(msh, msh->envp_l, g_status);
-		ms_pipex(msh, msh->cmd_l); // todo SEGA, если НЕ пройден этап протопарсера ВРОДЕ ИСПРАВИЛ
-		//while (msh->cmd_l) //todo
-		//{
-		//	int	k = -1;
-		//	while (msh->cmd_l->cmd[++k])
-		//		//ft_putstr_fd(msh->cmd_l->cmd[k], 1);
-		//		ft_putendl_fd(msh->cmd_l->cmd[k], 1);
-		//	printf("--------\n");
-		//	msh->cmd_l = msh->cmd_l->next;
-		//}
+		ms_pipex(msh, msh->cmd_l);
 		
+		while (msh->cmd_l) //todo
+		{
+			int	k = -1;
+			while (msh->cmd_l->cmd[++k])
+			{
+				ft_putstr_fd(msh->cmd_l->cmd[k], 1);
+				//ft_putendl_fd(msh->cmd_l->cmd[k], 1);
+			}
+			printf("--------\n");
+			msh->cmd_l = msh->cmd_l->next;
+		}
+
 		ms_lstclear_arg(&(msh->arg));
 		ms_lstclear_cmd(&(msh->cmd_l));
 	}

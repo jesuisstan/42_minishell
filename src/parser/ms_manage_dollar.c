@@ -7,6 +7,7 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 
 	if (!value)
 	{
+		*i += ms_pass_whitespaces(&line[*i]);
 		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
 		*i = j - 1;
 	}
@@ -52,7 +53,7 @@ static char	*handle_digital_key(char *line, char *key, int j, int *i)
 
 static int	if_key(char c)
 {
-	if (c == '_' || ft_isalnum(c))
+	if (c == '_' || ft_isalnum(c) || c == '*' || c == '!')
 		return (1);
 	return (0);
 }

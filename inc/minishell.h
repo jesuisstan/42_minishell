@@ -1,6 +1,10 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define MSH "minishell: "
+# define RDR_L1		0
+# define RDR_L2		1
+# define RDR_R1		3
+# define RDR_R2		4
 
 # include <unistd.h>
 # include <stdlib.h>

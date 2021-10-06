@@ -12,21 +12,13 @@ static void	ms_error(char *str)
 void	rdr_open_file(t_cmd *cmd, char *file, int mod)
 {
 	if (mod == RDR_R1)
-	{
 		cmd->out = open(file, O_RDWR | O_CREAT | O_TRUNC, 0777);
-		if (cmd->out == -1)
-			ms_error(NULL);
-		dup2(cmd->out, 1);
-		close(cmd->out);
-	}
 	else if (mod == RDR_R2)
-	{
-		cmd->out = open(file, O_WRONLY | O_CREAT | O_APPEND  , 0777);
-		if (cmd->out == -1)
-			ms_error(NULL);
-		dup2(cmd->out, 1);
-		close(cmd->out);
-	}
+		cmd->out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	if (cmd->out == -1)
+		ms_error(NULL);
+	dup2(cmd->out, 1);
+	close(cmd->out);
 }
 
 int	ms_redirects(t_msh *msh, t_cmd *cmd)

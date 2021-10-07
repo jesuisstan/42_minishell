@@ -21,6 +21,14 @@ void	rdr_open_file(t_cmd *cmd, char *file, int mod)
 	close(cmd->out);
 }
 
+void	rdr_(t_cmd *cmd, char *file, int mod)
+{
+	if (mod == RDR_L1)
+	{
+		close(cmd->in);
+	}
+}
+
 int	ms_redirects(t_msh *msh, t_cmd *cmd)
 {
 	if (!ft_strncmp(cmd->rdr->name, ">>", 2))

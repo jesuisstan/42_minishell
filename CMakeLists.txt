@@ -12,7 +12,7 @@ FILE(GLOB SRC
         "src/commands/*.c"
         "src/parser/*.c")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Wall")
-add_executable(minishell ${SRC} src/commands/ms_redirects.c)
+add_executable(minishell ${SRC})
 target_link_libraries (minishell ${CMAKE_CURRENT_SOURCE_DIR}/src/libft/libft.a)
 target_link_libraries (minishell readline)
 

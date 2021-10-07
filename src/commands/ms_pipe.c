@@ -33,11 +33,11 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	t_cmd *start;
 	if (!cmd)
 		return (0);
-	if (!cmd->next && is_builtins(cmd->cmd[0]))
-	{
-		ms_command(msh, cmd);
-		return (0);
-	}
+//	if (!cmd->next && is_builtins(cmd->cmd[0]))
+//	{
+//		ms_command(msh, cmd);
+//		return (0);
+//	} В прошлый раз изза этого мно что сегнулось
 //	cmd->in = 0;
 //	cmd->out = 0;
 	start = cmd;

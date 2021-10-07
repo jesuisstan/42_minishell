@@ -5,6 +5,7 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 	char	*line_new;
 	char	*tmp_one;
 
+	tmp_one = NULL;
 	if (!value)
 	{
 		*i += ms_pass_whitespaces(&line[*i]);

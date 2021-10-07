@@ -24,6 +24,15 @@ int	main(int argc, char **argv, char **envp)
 		ms_parse(msh, msh->envp_l, g_status);
 		//ms_pipex(msh, msh->cmd_l);
 
+//t_envp *tmp = msh->envp_l;	
+//while (tmp)
+//{
+//	printf("%s\n", tmp->content);
+//	printf("%s ", tmp->key);
+//	printf("%s\n", tmp->value);
+//	tmp = tmp->next;
+//}
+
 // печать команд и списков с редиректами:
 t_cmd *tmp_cmd = msh->cmd_l;
 while (tmp_cmd) //todo

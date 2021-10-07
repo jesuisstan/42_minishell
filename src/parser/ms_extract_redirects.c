@@ -58,7 +58,7 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 {
 	t_rdr	*rdr;
 	t_arg	*tmp;
-	t_arg	*tmp1;
+//	t_arg	*tmp1;
 	char	*content;
 
 	if(!arg || !(*arg))

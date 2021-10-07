@@ -33,24 +33,23 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 {
 	char	**paths;
 	char	*name;
-
-//	if (!cmnd->lst_arg)
-//		exit (0);
+	
 	paths = get_path(msh);
 	name = cmd->cmd[0];
 	if (is_builtins(cmd->cmd[0]))
 	{
-//		ft_putendl_fd("\nPIZDA", msh->old_out);
 		ms_builtins(msh, cmd);
-//		exit(g_status);
-		exit(0);
+		if (cmd->is_fork)
+			exit (0);//продумать статус
+		return ;
 	}
 	else
 	{
-		while (gen_next_path(cmd->cmd, paths, name)) {
+		while (gen_next_path(cmd->cmd, paths, name))
+		{
 			execve(cmd->cmd[0], cmd->cmd, msh->envp_m);
-//		if (errno != 2)
-//			ft
+//			if (access(cmd->cmd[0]))
+//				ms_error(NULL);
 		}
 	}
 	ms_no_such(name);

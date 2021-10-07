@@ -26,18 +26,17 @@ size_t	ms_lstsize(t_cmd *arg)
 
 int ms_pipex(t_msh *msh, t_cmd *cmd)
 {
-	int	len, i, first_cmd;
+	int	len, first_cmd;
 	len = 0;
-	i = 0;
 	first_cmd = 0;
 	t_cmd *start;
 	if (!cmd)
 		return (0);
-//	if (!cmd->next && is_builtins(cmd->cmd[0]))
-//	{
-//		ms_command(msh, cmd);
-//		return (0);
-//	} В прошлый раз изза этого мно что сегнулось
+	if (!cmd->next && is_builtins(cmd->cmd[0]))
+	{
+		ms_command(msh, cmd);
+		return (0);
+	} //В прошлый раз изза этого мно что сегнулось
 //	cmd->in = 0;
 //	cmd->out = 0;
 	start = cmd;
@@ -47,13 +46,13 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		if (pipe(cmd->pipe_fd) == -1)
 			ms_error(NULL);
 		cmd = cmd->next;
-		i++;
 	}
 	cmd = start;
 	while (len--)
 	{
 		first_cmd++;
 		cmd->pid = fork();
+		cmd->is_fork = 1;
 		if (cmd->pid < 0)
 			ms_error(NULL);
 		else if (cmd->pid == 0)
@@ -83,14 +82,18 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		msh->old_in = cmd->pipe_fd[1];
 		cmd = cmd->next;
 	}
+	cmd = start;
 	while (start->next)
 	{
 		close(start->pipe_fd[0]);
 		close(start->pipe_fd[1]);
 		start = start->next;
 	}
-	waitpid(start->pid, &i, 0);
-	// Тарас сказал чтото ждать в цикле
+	while (cmd) // тут мы лишний раз ждем билдиновскую команду, ведь она не екзится
+	{
+		waitpid(cmd->pid, 0, 0); //g_status
+		cmd = cmd->next;
+	}
 	return (0);
 }
 

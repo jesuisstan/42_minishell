@@ -1,0 +1,119 @@
+diff --git a/src/main.c b/src/main.c
+index e666a6f..b69f6b0 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -22,39 +22,31 @@ int	main(int argc, char **argv, char **envp)
+ 	while (1)
+ 	{
+ 		ms_parse(msh, msh->envp_l, g_status);
+-		//ms_pipex(msh, msh->cmd_l);
++		ms_pipex(msh, msh->cmd_l);
+ 
+-//t_envp *tmp = msh->envp_l;	
+-//while (tmp)
++// печать команд и списков с редиректами:
++//t_cmd *tmp_cmd = msh->cmd_l;
++//while (tmp_cmd) //todo
+ //{
+-//	printf("%s\n", tmp->content);
+-//	printf("%s ", tmp->key);
+-//	printf("%s\n", tmp->value);
+-//	tmp = tmp->next;
++//	int	k = -1;
++//	ft_putstr_fd("cmd:\n", 1);
++//	while (tmp_cmd->cmd[++k])
++//	{
++//		//ft_putstr_fd(msh->cmd_l->cmd[k], 1);
++//		ft_putendl_fd(tmp_cmd->cmd[k], 1);
++		
++//	}
++//	ft_putstr_fd("redirects:\n", 1);
++//	t_rdr *tmp_r = tmp_cmd->rdr;	
++//	while (tmp_r)
++//	{
++//		printf("%s\n", tmp_r->name);
++//		tmp_r = tmp_r->next;
++//	}
++//	printf("--------\n");
++//	tmp_cmd = tmp_cmd->next;
+ //}
+ 
+-// печать команд и списков с редиректами:
+-t_cmd *tmp_cmd = msh->cmd_l;
+-while (tmp_cmd) //todo
+-{
+-	int	k = -1;
+-	ft_putstr_fd("cmd:\n", 1);
+-	while (tmp_cmd->cmd[++k])
+-	{
+-		//ft_putstr_fd(msh->cmd_l->cmd[k], 1);
+-		ft_putendl_fd(tmp_cmd->cmd[k], 1);
+-	}
+-	ft_putstr_fd("redirects:\n", 1);
+-	t_rdr *tmp_r = tmp_cmd->rdr;	
+-	while (tmp_r)
+-	{
+-		printf("%s\n", tmp_r->name);
+-		tmp_r = tmp_r->next;
+-	}
+-	printf("--------\n");
+-	tmp_cmd = tmp_cmd->next;
+-}
+-
+ 		ms_lstfree_arg(&(msh->arg));
+ 		ms_lstfree_cmd(&(msh->cmd_l));
+ 	}
+diff --git a/src/parser/ms_extract_redirects.c b/src/parser/ms_extract_redirects.c
+index 3372197..72cfb3f 100644
+--- a/src/parser/ms_extract_redirects.c
++++ b/src/parser/ms_extract_redirects.c
+@@ -58,7 +58,6 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
+ {
+ 	t_rdr	*rdr;
+ 	t_arg	*tmp;
+-//	t_arg	*tmp1;
+ 	char	*content;
+ 
+ 	if(!arg || !(*arg))
+@@ -69,21 +68,12 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
+ 		content = ft_strjoin((*arg)->arg_pure, (*arg)->next->arg_pure);
+ 		lstadd_back_rdr(&rdr, lstnew_rdr(content));
+ 		*arg = (*arg)->next->next;
+-		ms_extract_redirects(arg); //todo
+ 	}
+ 	tmp = *arg;
+ 	while (tmp->next)
+ 	{
+ 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
+ 			break;
+-	//	else if (ft_isredirect(tmp->arg_pure) == 1)
+-	//{
+-	//	content = ft_strjoin(tmp->arg_pure, tmp->next->arg_pure);
+-	//	lstadd_back_rdr(&rdr, lstnew_rdr(content));
+-	//	lstremove_node_arg(&(tmp));
+-	//	lstremove_node_arg(&(tmp));
+-	//	//tmp = tmp->next->next;
+-	//}
+ 		else if (ft_isredirect(tmp->next->arg_pure) == 1)
+ 		{
+ 			content = ft_strjoin(tmp->next->arg_pure, tmp->next->next->arg_pure);
+@@ -95,4 +85,4 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
+ 			tmp = tmp->next;
+ 	}
+ 	return (rdr);
+-}
++}
+\ No newline at end of file
+diff --git a/src/parser/ms_get_commands.c b/src/parser/ms_get_commands.c
+index fa8da8b..311c4ab 100644
+--- a/src/parser/ms_get_commands.c
++++ b/src/parser/ms_get_commands.c
+@@ -36,7 +36,7 @@ static t_cmd	*lstnew_cmd(t_arg *arg)
+ 	cmd_l->rdr = NULL;
+ 	cmd_l->rdr = ms_extract_redirects(&arg);
+ 	size = get_cmd_size(arg);
+-printf("CMD sixe = %d\n", size);
++//printf("CMD sixe = %d\n", size);
+ 	cmd_l->cmd = ms_arglist_to_array(arg, size);
+ 	cmd_l->next = NULL;
+ 	return (cmd_l);

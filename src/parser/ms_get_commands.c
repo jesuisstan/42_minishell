@@ -36,7 +36,6 @@ static t_cmd	*lstnew_cmd(t_arg *arg)
 	cmd_l->rdr = NULL;
 	cmd_l->rdr = ms_extract_redirects(&arg);
 	size = get_cmd_size(arg);
-printf("CMD sixe = %d\n", size);
 	cmd_l->cmd = ms_arglist_to_array(arg, size);
 	cmd_l->next = NULL;
 	return (cmd_l);

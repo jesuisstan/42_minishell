@@ -58,6 +58,7 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 {
 	t_rdr	*rdr;
 	t_arg	*tmp;
+	t_arg	*tmp1;
 	char	*content;
 
 	if(!arg || !(*arg))
@@ -68,12 +69,21 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 		content = ft_strjoin((*arg)->arg_pure, (*arg)->next->arg_pure);
 		lstadd_back_rdr(&rdr, lstnew_rdr(content));
 		*arg = (*arg)->next->next;
+		ms_extract_redirects(arg); //todo
 	}
 	tmp = *arg;
 	while (tmp->next)
 	{
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
 			break;
+	//	else if (ft_isredirect(tmp->arg_pure) == 1)
+	//{
+	//	content = ft_strjoin(tmp->arg_pure, tmp->next->arg_pure);
+	//	lstadd_back_rdr(&rdr, lstnew_rdr(content));
+	//	lstremove_node_arg(&(tmp));
+	//	lstremove_node_arg(&(tmp));
+	//	//tmp = tmp->next->next;
+	//}
 		else if (ft_isredirect(tmp->next->arg_pure) == 1)
 		{
 			content = ft_strjoin(tmp->next->arg_pure, tmp->next->next->arg_pure);

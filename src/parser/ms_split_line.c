@@ -11,6 +11,7 @@ static t_arg	*lstnew_arg(char *content, t_msh *msh)
 	arg->arg_pure = ft_strdup(content);
 	arg->arg_pure = ms_purify_argument(arg->arg_pure, msh);
 	arg->next = NULL;
+	free(content);
 	return (arg);
 }
 
@@ -53,7 +54,7 @@ static int	find_end(char *line, int *flag)
 		{
 			if (ft_strchr("<|>", line[i]))
 				*flag = 1;
-			if (ft_strchr("<|>", line[i]) && ft_strchr("<>", line[i + 1]))
+			if (ft_strchr("<>", line[i]) && ft_strchr("<>", line[i + 1]))
 				*flag = 2;
 			i += ms_pass_whitespaces(&line[i]);
 			return (i);

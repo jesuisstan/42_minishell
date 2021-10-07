@@ -1,10 +1,10 @@
 #include "../../inc/minishell.h"
 
-static void	ms_lstdelone_arg(t_arg *arg)
+void	lstdelone_arg(t_arg *arg)
 {
 	if (!arg)
 		return ;
-	free(arg->arg_rare);
+//	free(arg->arg_rare);
 	arg->arg_rare = NULL;
 	free(arg->arg_pure);
 	arg->arg_pure = NULL;
@@ -21,7 +21,7 @@ void	ms_lstfree_arg(t_arg **arg)
 	while (arg && *arg)
 	{
 		tmp = (*arg)->next;
-		ms_lstdelone_arg(*arg);
+		lstdelone_arg(*arg);
 		*arg = tmp;
 	}
 }

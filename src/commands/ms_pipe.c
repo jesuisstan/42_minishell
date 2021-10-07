@@ -53,6 +53,7 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		first_cmd++;
 		cmd->pid = fork();
 		cmd->is_fork = 1;
+		ms_redirects(msh, cmd);
 		if (cmd->pid < 0)
 			ms_error(NULL);
 		else if (cmd->pid == 0)

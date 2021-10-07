@@ -19,6 +19,8 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
 		ms_error(NULL);
 	dup2(cmd->out, 1);
 	close(cmd->out);
+	dup2(cmd->in, STDIN_FILENO);
+	close(cmd->in);
 	//еще дап в СТДАУТ если нет следующего элемента в листе редиректов
 }
 

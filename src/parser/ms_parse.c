@@ -30,8 +30,7 @@ static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *msh)
 static char	*read_line_safely(char *line, int g_status, t_msh **msh)
 {
 	line = NULL;
-//	line = readline("minishell § ");
-	line = readline("ᕦ(♥️_♥️)ᕤ ");
+	line = readline("minishell § ");
 	if (g_status == 130)
 	{
 		(*msh)->prev_status = 1;

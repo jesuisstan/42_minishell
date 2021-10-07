@@ -22,7 +22,6 @@ static int	get_cmd_size(t_arg *arg)
 static t_cmd	*lstnew_cmd(t_arg *arg)
 {
 	t_cmd	*cmd_l;
-	t_rdr	*redirects;
 	int		size;
 
 	cmd_l = (t_cmd *)malloc(sizeof(t_cmd));

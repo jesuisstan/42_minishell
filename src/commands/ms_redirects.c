@@ -19,6 +19,7 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
 		ms_error(NULL);
 	dup2(cmd->out, 1);
 	close(cmd->out);
+	//еще дап в СТДАУТ если нет следующего элемента в листе редиректов
 }
 
 void	rdr_left(t_cmd *cmd, char *file, int mod)
@@ -31,6 +32,7 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
 		if (cmd->in == -1)
 			ms_error(NULL);
 	}
+	//еще дап в СТДин если нет следующего элемента в листе редиректов
 }
 
 void	heredoc(t_cmd *cmd, char *stop)
@@ -42,7 +44,7 @@ void	heredoc(t_cmd *cmd, char *stop)
 		line = readline("> ");
 		if(!ft_strncmp(line, stop, ft_strlen(stop)))
 			break ;
-		ft_putendl_fd(line, cmd->out);
+		ft_putendl_fd(line, cmd->out); // попробовать отправить в СТДАУТ
 		free(line);
 	}
 	close(cmd->out);
@@ -73,16 +75,26 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 
 int	ms_redirects(t_msh *msh, t_cmd *cmd)
 {
-	if (!ft_strncmp(cmd->rdr->name, ">>", 2))
-		rdr_right(cmd, (cmd->rdr->name + 2), RDR_R2);
-	else if (!ft_strncmp(cmd->rdr->name, ">", 1))
-		rdr_right(cmd, (cmd->rdr->name + 1), RDR_R1);
-	else if (!ft_strncmp(cmd->rdr->name, "<<", 1))
-		rdr_double_left(cmd, (cmd->rdr->name + 2), RDR_R1);
-	else if (!ft_strncmp(cmd->rdr->name, "<", 1))
-		rdr_left(cmd, (cmd->rdr->name + 1), RDR_R1);
-	else
-	{ft_putendl_fd("KAKAYA TO HYETA?", 1); exit(0);}
+	t_rdr	*rdr;
+
+	rdr = cmd->rdr;
+	(void)msh;
+	while (rdr)
+	{
+		if (!ft_strncmp(rdr->name, ">>", 2))
+			rdr_right(cmd, (rdr->name + 2), RDR_R2);
+		else if (!ft_strncmp(rdr->name, ">", 1))
+			rdr_right(cmd, (rdr->name + 1), RDR_R1);
+		else if (!ft_strncmp(rdr->name, "<<", 1))
+			rdr_double_left(cmd, (rdr->name + 2));
+		else if (!ft_strncmp(rdr->name, "<", 1))
+			rdr_left(cmd, (rdr->name + 1), RDR_R1);
+		else {
+			ft_putendl_fd("KAKAYA TO HYETA?", 1);
+			exit(0);
+		}
+		rdr = rdr->next;
+	}
 	return (0);
 }
 //

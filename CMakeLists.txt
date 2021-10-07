@@ -6,7 +6,7 @@ include_directories(/usr/include/readline)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/libft/)
 
 FILE(GLOB SRC
-#        "src/main.c"
+       "src/main.c"
         "src/builtins/*.c"
         "src/utils/*.c"
         "src/commands/*.c"
@@ -16,7 +16,7 @@ add_executable(minishell ${SRC} src/commands/ms_redirects.c)
 target_link_libraries (minishell ${CMAKE_CURRENT_SOURCE_DIR}/src/libft/libft.a)
 target_link_libraries (minishell readline)
 
-cmake_minimum_required(VERSION 3.20)
+#cmake_minimum_required(VERSION 3.20)
 #project(minishell C)
 #
 #set(CMAKE_C_STANDARD 99)

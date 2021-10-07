@@ -11,6 +11,11 @@ static int	get_cmd_size(t_arg *arg)
 	i = 1;
 	while (tmp->next)
 	{
+		if (ft_strcmp(tmp->arg_pure, "|") == 0)
+		{
+			i = 0;
+			break;
+		}
 		tmp = tmp->next;
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
 			break;
@@ -32,16 +37,9 @@ static t_cmd	*lstnew_cmd(t_arg *arg)
 	cmd_l->rdr = NULL;
 	cmd_l->rdr = ms_extract_redirects(&arg);
 	size = get_cmd_size(arg);
+//printf("CMD sixe = %d\n", size);
 	cmd_l->cmd = ms_arglist_to_array(arg, size);
 	cmd_l->next = NULL;
-
-//t_rdr *tmp_r = cmd_l->rdr;
-//	while (tmp_r)
-//	{
-//		printf("%s\n", tmp_r->name);
-//		tmp_r = tmp_r->next;
-//	}
-
 	return (cmd_l);
 }
 

@@ -60,7 +60,8 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
-void	ms_update_shlvl(t_msh *msh);
+void	ms_shlvl_up(t_msh *msh);
+void	ms_shlvl_down(t_msh *msh);
 t_envp	*ms_clone_envp(char **envp);
 int		ms_check_redirect(char *line, int *index, char symbol);
 int		ms_protoparse(char *line);
@@ -71,7 +72,6 @@ char	*ms_clear_endwhitespaces(char *line);
 char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh);
 char	*ms_purify_argument(char *arg_rare, t_msh *msh);
 t_cmd	*ms_get_commands(t_msh *msh);
-
 t_rdr	*ms_extract_redirects(t_arg **arg);
 
 void	*ms_return_null(char *message);

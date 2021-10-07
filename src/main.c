@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	msh->arg = NULL;
 	msh->cmd_l = NULL;
 	msh->envp_l = ms_clone_envp(envp);
-	ms_update_shlvl(msh);
+	ms_shlvl_up(msh);
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
 	while (1)
 	{
@@ -25,10 +25,9 @@ int	main(int argc, char **argv, char **envp)
 		ms_pipex(msh, msh->cmd_l);
 
 // печать команд и списков с редиректами:
-//t_cmd	*tmp_cmd = msh->cmd_l;
+//t_cmd *tmp_cmd = msh->cmd_l;
 //while (tmp_cmd) //todo
 //{
-//	t_rdr *tmp_r = tmp_cmd->rdr;	
 //	int	k = -1;
 //	ft_putstr_fd("cmd:\n", 1);
 //	while (tmp_cmd->cmd[++k])
@@ -38,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		
 //	}
 //	ft_putstr_fd("redirects:\n", 1);
+//	t_rdr *tmp_r = tmp_cmd->rdr;	
 //	while (tmp_r)
 //	{
 //		printf("%s\n", tmp_r->name);

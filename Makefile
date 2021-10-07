@@ -14,7 +14,7 @@ CC				=	gcc
 
 RM				=	rm -rfv
 
-#CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 
 LIBS			=	./src/libft/libft.a
 RDL				= -lreadline

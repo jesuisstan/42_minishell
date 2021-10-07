@@ -3,7 +3,7 @@
 void	ms_error(char *str)
 {
 	if (str)
-		ft_putendl_fd(str, STDOUT_FILENO);
+		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
 	exit(EXIT_FAILURE);
@@ -33,8 +33,11 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	t_cmd *start;
 	if (!cmd)
 		return (0);
-//	if (!cmd->next && is_builtins(cmd->cmd[0]))
-//		ms_command(msh, cmd); надо допилить
+	if (!cmd->next && is_builtins(cmd->cmd[0]))
+	{
+		ms_command(msh, cmd);
+		return (0);
+	}
 //	cmd->in = 0;
 //	cmd->out = 0;
 	start = cmd;

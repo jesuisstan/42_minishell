@@ -1,7 +1,7 @@
 #include "../../inc/minishell.h"
 
 /*
-**	@brief	deletes node of t_envp list. Utils for "lstfree_envp"
+**	@brief	deletes node of t_envp list. Serves "lstfree_envp"
 */
 static void	lstdelone_envp(t_envp *envp_l)
 {
@@ -79,7 +79,7 @@ void	lstremove_node_envp(t_envp **envp_l, char *key)
 			lstdelone_envp(tmp->next);
 			tmp->next = next_node;
 			*envp_l = head;
-			break ;
+			break;
 		}
 		tmp = tmp->next;
 	}

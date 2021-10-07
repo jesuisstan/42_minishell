@@ -72,11 +72,14 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh);
 char	*ms_purify_argument(char *arg_rare, t_msh *msh);
 t_cmd	*ms_get_commands(t_msh *msh);
 
+t_rdr	*ms_extract_redirects(t_arg **arg);
+
 void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);
 char	**ms_envplist_to_array(t_envp *envp_l);
 char 	**ms_arglist_to_array(t_arg *arg, int size);
 void	ms_lstfree_arg(t_arg **arg);
+void	lstdelone_arg(t_arg *arg);
 void	ms_lstfree_cmd(t_cmd **cmd_l);
 
 #endif

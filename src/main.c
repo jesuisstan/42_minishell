@@ -1,5 +1,6 @@
 // gcc main.c ./utils/*.c ./parser/*.c ./libft/libft.a -lreadline -o minishell
 // $USER123 'gfgf     "h' !!!!!!!!!!!!!!!!
+// echo test > ls >> ls >> ls
 #include "./../inc/minishell.h"
 
 int g_status;
@@ -23,17 +24,28 @@ int	main(int argc, char **argv, char **envp)
 		ms_parse(msh, msh->envp_l, g_status);
 		ms_pipex(msh, msh->cmd_l);
 
-		//while (msh->cmd_l) //todo
-		//{
-		//	int	k = -1;
-		//	while (msh->cmd_l->cmd[++k])
-		//	{
-		//		ft_putstr_fd(msh->cmd_l->cmd[k], 1);
-		//		//ft_putendl_fd(msh->cmd_l->cmd[k], 1);
-		//	}
-		//	printf("--------\n");
-		//	msh->cmd_l = msh->cmd_l->next;
-		//}
+// печать команд и списков с редиректами:
+//t_cmd	*tmp_cmd = msh->cmd_l;
+//while (tmp_cmd) //todo
+//{
+//	t_rdr *tmp_r = tmp_cmd->rdr;	
+//	int	k = -1;
+//	ft_putstr_fd("cmd:\n", 1);
+//	while (tmp_cmd->cmd[++k])
+//	{
+//		//ft_putstr_fd(msh->cmd_l->cmd[k], 1);
+//		ft_putendl_fd(tmp_cmd->cmd[k], 1);
+		
+//	}
+//	ft_putstr_fd("redirects:\n", 1);
+//	while (tmp_r)
+//	{
+//		printf("%s\n", tmp_r->name);
+//		tmp_r = tmp_r->next;
+//	}
+//	printf("--------\n");
+//	tmp_cmd = tmp_cmd->next;
+//}
 
 		ms_lstfree_arg(&(msh->arg));
 		ms_lstfree_cmd(&(msh->cmd_l));

@@ -3,7 +3,7 @@
 void	ms_error(char *str)
 {
 	if (str)
-		ft_putendl_fd(str, STDOUT_FILENO);
+		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
 	exit(EXIT_FAILURE);

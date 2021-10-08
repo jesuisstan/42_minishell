@@ -59,7 +59,7 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		else if (cmd->pid == 0)
 		{
 			ms_redirects(msh, cmd);
-			if (first_cmd == 1)
+			if (first_cmd == 1 && cmd->pipe_fd[1])
 			{
 				dup2(cmd->pipe_fd[1], 1);
 			}

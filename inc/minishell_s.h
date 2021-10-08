@@ -73,6 +73,7 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh);
 char	*ms_purify_argument(char *arg_rare, t_msh *msh);
 t_cmd	*ms_get_commands(t_msh *msh);
 t_rdr	*ms_extract_redirects(t_arg **arg);
+int		ms_isredirect(char *str);
 
 void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);

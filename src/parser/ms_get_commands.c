@@ -6,7 +6,7 @@ static int	get_cmd_size(t_arg *arg)
 	t_arg	*tmp;
 
 	if (!arg)
-		return (-1);
+		return (0);
 	tmp = arg;	
 	i = 1;
 	while (tmp->next)
@@ -30,7 +30,6 @@ static t_cmd	*lstnew_cmd(t_arg *arg)
 	int		size;
 
 	cmd_l = (t_cmd *)malloc(sizeof(t_cmd));
-
 	if (!cmd_l || !arg)
 		return (NULL);
 	cmd_l->rdr = NULL;

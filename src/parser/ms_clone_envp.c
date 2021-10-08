@@ -20,7 +20,10 @@ static char	*get_value(char *content)
 	i = 0;
 	while (content[i] != '=' && content[i] != '\0')
 		i++;
-	value = ft_strdup(&content[i + 1]);
+	if (content[i] == '\0')
+		value = NULL;
+	else
+		value = ft_strdup(&content[i + 1]);
 	return (value);
 }
 
@@ -67,5 +70,6 @@ t_envp	*ms_clone_envp(char **envp)
 	i = -1;
 	while (envp[++i])
 		lstadd_back_envp(&envp_l, lstnew_envp(envp[i]));
+	lstadd_back_envp(&envp_l, lstnew_envp("OLDPWD"));
 	return (envp_l);
 }

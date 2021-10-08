@@ -5,7 +5,7 @@ int	ms_pwd(void)
 	char	*pwd;
 	int		i;
 
-	pwd = ms_malloc_x(sizeof(pwd) * 2048);
+	pwd = ms_malloc_x(sizeof(*pwd) * 2048);
 	i = -1;
 	while (++i < 2048)
 		pwd[i] = 0;

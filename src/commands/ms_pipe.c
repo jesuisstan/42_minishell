@@ -6,7 +6,7 @@ void	ms_error(char *str)
 		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
-	exit(EXIT_FAILURE);
+	exit(128);//хер знает какая тут статуса
 }
 
 size_t	ms_lstsize(t_cmd *arg)

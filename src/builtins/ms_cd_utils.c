@@ -7,7 +7,7 @@ void	ms_oldpwd(t_msh *msh, char *oldpwd)
 	i = 0;
 	if (msh->envp_m == NULL)
 		return ;
-	if (!ms_find_envp_m_and_replace_val(msh->envp_m, "OLDPWD", oldpwd))
+	if (!ms_find_envp_l_and_replace_val(&msh->envp_l, "OLDPWD", oldpwd))
 	{
 		while (msh->envp_m[i])
 			i++;
@@ -30,9 +30,9 @@ int	ms_new_pwd(t_msh *msh)
 	}
 	else
 	{
-		if (msh->envp_m == NULL)
+		if (msh->envp_l == NULL)
 			return (1);
-		ms_find_envp_m_and_replace_val(msh->envp_m, "PWD", pwd);
+		ms_find_envp_l_and_replace_val(&msh->envp_l, "PWD", pwd);
 		return (0);
 	}
 	free(pwd);

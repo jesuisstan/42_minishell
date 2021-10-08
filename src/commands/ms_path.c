@@ -42,7 +42,7 @@ int	gen_next_path(char **argv, char **paths, char *name)
 		if (!tmp || !argv[0])
 			{
 			perror(NULL);
-			exit(1);
+			exit(errno);
 			} // или exit(errno);
 		free(tmp);
 	}

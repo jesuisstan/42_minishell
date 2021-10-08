@@ -3,6 +3,9 @@
 *.exe
 *.o
 
+#testers
+*tester*
+
 # OS generated files #
 .DS_Store
 

@@ -40,7 +40,7 @@ static int	ms_cd_oldpwd(t_msh *msh)
 {
 	char	*value;
 
-	value = ms_find_envp_m(msh->envp_m, "OLDPWD");
+	value = ms_find_envp_l(&msh->envp_l, "OLDPWD");
 	if (!value)
 	{
 		ft_putstr_fd(MSH, STDERR_FILENO);
@@ -80,7 +80,7 @@ int	ms_cd(t_msh *msh, char **argv)
 	}
 	else
 	{
-		home = ms_find_envp_m(msh->envp_m, "HOME");
+		home = ms_find_envp_l(&msh->envp_l, "HOME");
 		if (!home)
 			return (ms_not_set());
 		res = ms_change_dir(msh, home);
@@ -89,14 +89,3 @@ int	ms_cd(t_msh *msh, char **argv)
 	}
 	return (0);
 }
-
-//int	main(int argc, char **argv, char **envp)
-//{
-//	t_msh	msh;
-//
-//	(void)argc;
-//	ms_cp_envp(&msh, envp);
-//	ms_cd(&msh, argv);
-//	printf("PWD=%s\n", getcwd(NULL, 2048));
-//	return (0);
-//}

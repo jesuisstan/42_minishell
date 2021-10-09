@@ -36,9 +36,11 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	{
 		ms_command(msh, cmd);
 		return (0);
-	} //В прошлый раз изза этого мно что сегнулось
-//	cmd->in = 0;
-//	cmd->out = 0;
+	}
+	cmd->in = 0;
+	cmd->out = 0;
+	cmd->pipe_fd[0] = 0;
+	cmd->pipe_fd[1] = 0;
 	start = cmd;
 	len = ms_lstsize(cmd);
 	while (cmd->next)
@@ -96,5 +98,6 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		waitpid(cmd->pid, 0, 0); //g_status
 		cmd = cmd->next;
 	}
+	// не выходить если не
 	return (0);
 }

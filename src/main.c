@@ -3,7 +3,6 @@
 // echo test > ls >> ls >> ls
 #include "./../inc/minishell.h"
 
-int g_status;
 
 //static char	*get_value(char *content)
 //{

@@ -16,6 +16,9 @@
 # include "./minishell_a.h"
 # include "./minishell_s.h"
 
+int g_status;
+
+
 void	*ms_malloc_x(size_t size);
 int		ms_arrlen(char **arr);
 int		gen_next_path(char **argv, char **paths, char *name);

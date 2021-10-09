@@ -26,8 +26,6 @@ char **ms_arglist_to_array(t_arg *arg, int size)
 	char	**arg_arr;
 	t_arg	*tmp;
 
-	if(arg == NULL)
-		return (NULL);
 	tmp = arg;
 	if (size <= 0)
 		sz = ms_lstsize_arg(tmp);

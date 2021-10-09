@@ -33,56 +33,61 @@ static t_rdr	*lstnew_rdr(char *content)
 	return (list);
 }
 
-static int	ft_isredirect(char *str)
-{
-	if ((ft_strcmp(str, ">") == 0)
-		|| (ft_strcmp(str, ">>") == 0)
-		|| (ft_strcmp(str, "<") == 0)
-		|| (ft_strcmp(str, "<<") == 0))
-		return (1);
-	return (0);
-}
-
 static void	lstremove_node_arg(t_arg **arg)
 {
 	t_arg	*tmp;
 
-	if(!arg || !(*arg))
+	if (!arg || !(*arg))
 		return ;
 	tmp = (*arg)->next;
 	lstdelone_arg(*arg);
 	*arg = tmp;
 }
 
+static int	manage_front_redirect(t_arg **arg, t_rdr **rdr)
+{
+	char	*content;
+
+	while (*arg)
+	{
+		if (ms_isredirect((*arg)->arg_pure) == 1)
+		{
+			content = ft_strjoin((*arg)->arg_pure, (*arg)->next->arg_pure);
+			lstadd_back_rdr(rdr, lstnew_rdr(content));
+			if (!(*arg)->next->next)
+			{
+				lstremove_node_arg(&((*arg)->next));
+				lstremove_node_arg(arg);
+				return (1);
+			}
+			*arg = (*arg)->next->next;
+		}
+		if (ms_isredirect((*arg)->arg_pure) == 0)
+			break ;
+	}
+	return (0);
+}
+
 t_rdr	*ms_extract_redirects(t_arg **arg)
 {
 	t_rdr	*rdr;
 	t_arg	*tmp;
-	char	*content;
+	char	*str;
 
-	if(!arg || !(*arg))
+	if (!arg || !(*arg))
 		return (NULL);
 	rdr = NULL;
-	while (1) // todo вынести цикл в функцию
-	{
-		if (ft_isredirect((*arg)->arg_pure) == 1)
-		{
-			content = ft_strjoin((*arg)->arg_pure, (*arg)->next->arg_pure);
-			lstadd_back_rdr(&rdr, lstnew_rdr(content));
-			*arg = (*arg)->next->next;
-		}
-		if (ft_isredirect((*arg)->arg_pure) == 0)
-			break;
-	}
+	if (manage_front_redirect(arg, &rdr) == 1)
+		return (rdr);
 	tmp = *arg;
 	while (tmp->next)
 	{
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
-			break;
-		else if (ft_isredirect(tmp->next->arg_pure) == 1)
+			break ;
+		else if (ms_isredirect(tmp->next->arg_pure) == 1)
 		{
-			content = ft_strjoin(tmp->next->arg_pure, tmp->next->next->arg_pure);
-			lstadd_back_rdr(&rdr, lstnew_rdr(content));
+			str = ft_strjoin(tmp->next->arg_pure, tmp->next->next->arg_pure);
+			lstadd_back_rdr(&rdr, lstnew_rdr(str));
 			lstremove_node_arg(&(tmp->next));
 			lstremove_node_arg(&(tmp->next));
 		}

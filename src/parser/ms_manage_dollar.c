@@ -5,10 +5,8 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 	char	*line_new;
 	char	*tmp_one;
 
-	tmp_one = NULL;
 	if (!value)
 	{
-		*i += ms_pass_whitespaces(&line[*i]);
 		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
 		*i = j - 1;
 	}
@@ -18,8 +16,8 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 		*i = j + ft_strlen(value) - 1;
 		free (value);
+		free (tmp_one);
 	}
-	free (tmp_one);
 	return (line_new);
 }
 

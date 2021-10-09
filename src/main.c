@@ -1,21 +1,9 @@
 // gcc main.c ./utils/*.c ./parser/*.c ./libft/libft.a -lreadline -o minishell
 // $USER123 'gfgf     "h' !!!!!!!!!!!!!!!!
 // echo test > ls >> ls >> ls
+// echo " $TEST lol $TEST"          echo test "$TEST" test "$TEST " test
 #include "./../inc/minishell.h"
 
-
-//static char	*get_value(char *content)
-//{
-//	char	*value;
-//	int		i;
-
-//	i = 0;
-//	while (content[i] != '=' && content[i] != '\0')
-//		i++;
-	
-//	value = ft_strdup(&content[i + 1]);
-//	return (value);
-//}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -31,18 +19,6 @@ int	main(int argc, char **argv, char **envp)
 	msh->envp_l = ms_clone_envp(envp);
 	ms_shlvl_up(msh);
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
-
-
-//{
-//	int	k = -1;
-//	while (envp[++k])
-//	{
-//		ft_putendl_fd(envp[k], STDERR_FILENO);
-//		ft_putendl_fd(get_value(envp[k]), STDERR_FILENO);
-//	}
-//	return (0);
-//}
-
 	while (1)
 	{
 		ms_parse(msh, msh->envp_l, g_status);
@@ -68,15 +44,6 @@ int	main(int argc, char **argv, char **envp)
 //	}
 //	printf("--------\n");
 //	tmp_cmd = tmp_cmd->next;
-//}
-
-//t_envp *tmp = msh->envp_l;	
-//while (tmp)
-//{
-//	printf("%s\n", tmp->content);
-//	printf("%s ", tmp->key);
-//	printf("%s\n", tmp->value);
-//	tmp = tmp->next;
 //}
 
 		ms_lstfree_arg(&(msh->arg));

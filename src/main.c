@@ -4,7 +4,6 @@
 // echo " $TEST lol $TEST"          echo test "$TEST" test "$TEST " test
 #include "./../inc/minishell.h"
 
-int g_status;
 
 int	main(int argc, char **argv, char **envp)
 {

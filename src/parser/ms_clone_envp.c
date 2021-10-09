@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-static char	*get_key(char *content)
+char	*get_key(char *content)
 {
 	char	*key;
 	int		i;
@@ -12,7 +12,7 @@ static char	*get_key(char *content)
 	return (key);
 }
 
-static char	*get_value(char *content)
+char	*get_value(char *content)
 {
 	char	*value;
 	int		i;
@@ -70,6 +70,9 @@ t_envp	*ms_clone_envp(char **envp)
 	i = -1;
 	while (envp[++i])
 		lstadd_back_envp(&envp_l, lstnew_envp(envp[i]));
-	lstadd_back_envp(&envp_l, lstnew_envp("OLDPWD"));
+	if (ms_find_envp_l(&envp_l, "OLDPWD"))
+		return (envp_l);
+	else
+		lstadd_back_envp(&envp_l, lstnew_envp("OLDPWD"));
 	return (envp_l);
 }

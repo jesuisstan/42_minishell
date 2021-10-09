@@ -40,12 +40,12 @@ static void	sorting(t_envp **lst)
 	
 	if (!(*lst) || !(*lst)->next)
 		return ;
-	if (ft_strcmp((*lst)->content, (*lst)->next->content) > 0)
+	if (ft_strcmp((*lst)->key, (*lst)->next->key) > 0)
 		swap_action(lst);
 	cur = (*lst);
 	while (cur->next->next)
 	{
-		if (strcmp(cur->next->content, cur->next->next->content) > 0)
+		if (strcmp(cur->next->key, cur->next->next->key) > 0)
 		{
 			swap_action(&(cur->next));
 			flag++;
@@ -97,7 +97,11 @@ int	ms_export(t_msh *msh, char **argv)
 	{
 		if (check_export(argv[i]))
 			return (1);
-		lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[i]));
+		
+		if (!ms_find_envp_l_and_replace_val(&msh->envp_l, get_key(argv[1]), get_value(argv[1])))
+			return (0);
+		else
+			lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[i]));
 		i++;
 	}
 	return (0);

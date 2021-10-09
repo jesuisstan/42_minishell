@@ -97,8 +97,7 @@ int	ms_export(t_msh *msh, char **argv)
 	{
 		if (check_export(argv[i]))
 			return (1);
-		
-		if (!ms_find_envp_l_and_replace_val(&msh->envp_l, get_key(argv[1]), get_value(argv[1])))
+		if (!ms_find_envp_l_and_replace_val(&msh->envp_l, get_key(argv[i]), get_value(argv[i])))
 			return (0);
 		else
 			lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[i]));

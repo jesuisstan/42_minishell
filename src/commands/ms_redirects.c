@@ -88,10 +88,10 @@ int	ms_redirects(t_msh *msh, t_cmd *cmd)
 			rdr_right(cmd, (rdr->name + 2), RDR_R2);
 		else if (!ft_strncmp(rdr->name, ">", 1))
 			rdr_right(cmd, (rdr->name + 1), RDR_R1);
-		else if (!ft_strncmp(rdr->name, "<<", 1))
+		else if (!ft_strncmp(rdr->name, "<<", 2))
 			rdr_double_left(cmd, (rdr->name + 2));
 		else if (!ft_strncmp(rdr->name, "<", 1))
-			rdr_left(cmd, (rdr->name + 1), RDR_R1);
+			rdr_left(cmd, (rdr->name + 1), RDR_L1);
 		else {
 			ft_putendl_fd("KAKAYA TO HYETA?", 1);
 			exit(0);

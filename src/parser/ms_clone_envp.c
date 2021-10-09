@@ -70,9 +70,5 @@ t_envp	*ms_clone_envp(char **envp)
 	i = -1;
 	while (envp[++i])
 		lstadd_back_envp(&envp_l, lstnew_envp(envp[i]));
-//	if (ms_find_envp_l(&envp_l, "OLDPWD"))
-//		return (envp_l);
-//	else
-//		lstadd_back_envp(&envp_l, lstnew_envp("OLDPWD"));
 	return (envp_l);
 }

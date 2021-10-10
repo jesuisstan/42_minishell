@@ -32,8 +32,8 @@ int	main(int argc, char **argv, char **envp)
 //	ft_putstr_fd("cmd:\n", 1);
 //	while (tmp_cmd->cmd[++k])
 //	{
-//		//ft_putstr_fd(msh->cmd_l->cmd[k], 1);
-//		ft_putendl_fd(tmp_cmd->cmd[k], 1);
+//		ft_putstr_fd(tmp_cmd->cmd[k], 1);
+//		//ft_putendl_fd(tmp_cmd->cmd[k], 1);
 //	}
 //	ft_putstr_fd("redirects:\n", 1);
 //	t_rdr *tmp_r = tmp_cmd->rdr;	

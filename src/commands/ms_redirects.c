@@ -35,6 +35,8 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
 		if (cmd->in == -1)
 			ms_error(NULL);
 	}
+	dup2(cmd->in, STDIN_FILENO);
+	close(cmd->in);
 	//еще дап в СТДин если нет следующего элемента в листе редиректов
 }
 
@@ -42,12 +44,15 @@ void	heredoc(t_cmd *cmd, char *stop)
 {
 	char	*line;
 	
+		ft_putendl_fd(stop, 2);
 	while (1)
 	{
 		line = readline("> ");
-		if(!ft_strncmp(line, stop, ft_strlen(stop)))
+		ft_putnbr_fd(ft_strncmp(line, stop, ft_strlen(stop) + 1), 2);
+		ft_putendl_fd("", 2);
+		if(!ft_strncmp(line, stop, ft_strlen(stop) + 1))
 			break ;
-		ft_putendl_fd(line, cmd->out); // попробовать отправить в СТДАУТ
+		ft_putendl_fd(line, cmd->out);
 		free(line);
 	}
 	close(cmd->out);
@@ -70,9 +75,11 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
 		cmd->in = fd[0];
 		close(fd[1]);
+		dup2(cmd->in, STDIN_FILENO);
+		close(cmd->in);
+		waitpid(pid, NULL, 0);
 	}
 }
 

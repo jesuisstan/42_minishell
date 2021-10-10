@@ -41,6 +41,7 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	cmd->out = 0;
 	cmd->pipe_fd[0] = 0;
 	cmd->pipe_fd[1] = 0;
+	msh->old_out = 0;
 	start = cmd;
 	len = ms_lstsize(cmd);
 	while (cmd->next)
@@ -65,9 +66,10 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 			{
 				dup2(cmd->pipe_fd[1], 1);
 			}
-			if (!cmd->next)
+			if (!cmd->next && msh->old_out)
 			{
 				dup2(msh->old_out, 0);
+				close(msh->old_out);
 			}
 			else if (cmd->next && first_cmd > 1)
 			{
@@ -93,9 +95,9 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		close(start->pipe_fd[1]);
 		start = start->next;
 	}
-	while (cmd) // тут мы лишний раз ждем билдиновскую команду, ведь она не екзится
+	while (cmd)
 	{
-		waitpid(cmd->pid, 0, 0); //g_status
+		waitpid(cmd->pid, NULL, 0); //g_status
 		cmd = cmd->next;
 	}
 	// не выходить если не

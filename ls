@@ -1,0 +1,15 @@
+CMakeLists.txt
+Makefile
+check_leaks.sh
+cmake-build-debug
+en.subject.pdf
+gitdiff
+inc
+lol
+ls
+minishell
+msh_log
+msh_tester
+src
+stop\n1\EOF\nstopa\nstop
+test

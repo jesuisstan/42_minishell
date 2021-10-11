@@ -1,5 +1,3 @@
-// convert arg_list to 2D-array
-
 #include "../../inc/minishell.h"
 
 static size_t	ms_lstsize_arg(t_arg *arg)
@@ -19,7 +17,7 @@ static size_t	ms_lstsize_arg(t_arg *arg)
 	return (i);
 }
 
-char **ms_arglist_to_array(t_arg *arg, int size)
+char	**ms_arglist_to_array(t_arg *arg, int size)
 {
 	int		sz;
 	int		i;

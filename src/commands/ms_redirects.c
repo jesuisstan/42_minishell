@@ -40,7 +40,7 @@ void	heredoc(t_cmd *cmd, char *stop)
 	while (1)
 	{
 		line = readline("> ");
-		if(!ft_strncmp(line, stop, ft_strlen(stop) + 1))
+		if (!ft_strncmp(line, stop, ft_strlen(stop) + 1))
 			break ;
 		ft_putendl_fd(line, cmd->out);
 		free(line);
@@ -53,8 +53,8 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 {
 	int	fd[2];
 	int	pid;
-	
-	if(pipe(fd) == -1)
+
+	if (pipe(fd) == -1)
 		ms_error(NULL);
 	pid = fork();
 	if (pid == 0)
@@ -86,10 +86,6 @@ int	ms_redirects(t_cmd *cmd)
 			rdr_double_left(cmd, (rdr->name + 2));
 		else if (!ft_strncmp(rdr->name, "<", 1))
 			rdr_left(cmd, (rdr->name + 1), RDR_L1);
-		else {
-			ft_putendl_fd("KAKAYA TO HYETA?", 1);
-			exit(0);
-		}
 		rdr = rdr->next;
 	}
 	if (cmd->in != STDIN_FILENO)

@@ -1,7 +1,5 @@
 #include "../../inc/minishell.h"
-//
-// Created by Артём Серебряков on 28.09.2021.
-//
+
 int	is_path(char *name)
 {
 	while (*name && !ft_isalnum(*name))
@@ -12,9 +10,9 @@ int	is_path(char *name)
 
 char	**get_path(t_msh *msh)
 {
-	char 	*lst_path;
+	char	*lst_path;
 	char	**paths;
-	
+
 	lst_path = ms_find_envp_l(&msh->envp_l, "PATH");
 	paths = ft_split(lst_path, ':');
 	return (paths);
@@ -23,8 +21,8 @@ char	**get_path(t_msh *msh)
 int	gen_next_path(char **argv, char **paths, char *name)
 {
 	static int	i;
-	char *tmp;
-	
+	char		*tmp;
+
 	if (i > 1)
 		free(argv[0]);
 	if (i > ms_arrlen(paths) || (!paths[0] && !is_path(name)))
@@ -33,20 +31,19 @@ int	gen_next_path(char **argv, char **paths, char *name)
 		argv[0] = name;
 		return (0);
 	}
-	if (!i && !is_path(name))//name[0] == '/')
+	if (!i && !is_path(name))
 		i++;
 	if (i)
 	{
 		tmp = ft_strjoin(paths[i - 1], "/");
 		argv[0] = ft_strjoin(tmp, name);
 		if (!tmp || !argv[0])
-			{
+		{
 			perror(NULL);
 			exit(errno);
-			} // или exit(errno);
+		}
 		free(tmp);
 	}
 	i++;
 	return (1);
-	
 }

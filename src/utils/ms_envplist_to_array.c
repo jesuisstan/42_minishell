@@ -19,14 +19,14 @@ static size_t	ms_lstsize_envp(t_envp *envp_l)
 	return (i);
 }
 
-char **ms_envplist_to_array(t_envp *envp_l)
+char	**ms_envplist_to_array(t_envp *envp_l)
 {
 	int		size;
 	int		i;
 	char	**envp_arr;
 	t_envp	*tmp;
 
-	if(envp_l == NULL)
+	if (envp_l == NULL)
 		return (NULL);
 	tmp = envp_l;
 	size = ms_lstsize_envp(tmp);

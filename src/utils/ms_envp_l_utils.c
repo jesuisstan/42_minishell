@@ -41,7 +41,7 @@ void	lstfree_envp(t_envp **envp_l)
 */
 char	*ms_find_envp_l(t_envp **lst, char *key)
 {
-	t_envp *tmp;
+	t_envp	*tmp;
 
 	if (lst && (*lst) && key)
 	{
@@ -79,7 +79,7 @@ void	lstremove_node_envp(t_envp **envp_l, char *key)
 			lstdelone_envp(tmp->next);
 			tmp->next = next_node;
 			*envp_l = head;
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}

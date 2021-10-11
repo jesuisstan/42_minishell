@@ -14,56 +14,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f72bd52-6b36-475a-81fd-381ddedd6c3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/ms_pipe.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commands/ms_redirects.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/libft.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_atoi.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_bzero.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_calloc.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_free_array.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_isalnum.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_isalpha.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_isascii.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_isdigit.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_isprint.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_itoa.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_malloc_int_array.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_memccpy.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_memchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_memcmp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_memcpy.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_memmove.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_memset.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_putchar_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_putendl_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_putnbr_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_putnbr_uns_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_putnchar.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_putstr_fd.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_split.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strcmp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strdup.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strjoin.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strlcat.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strlcpy.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strlen.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strmapi.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strncmp.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strnstr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strrchr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strrev.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_strtrim.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_substr.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_tolower.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/ft_toupper.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libft/src/get_next_line.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/minishell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_in_out.c" beforeDir="false" />
+    <list default="true" id="20f7e8ed-9be0-436f-91f2-0275f2fed8a7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/msh_tester/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/msh_tester/minishell" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/ms_builtin.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_builtin.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/ms_command.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_command.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/ms_path.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_path.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/ms_pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_pipe.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/ms_redirects.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_redirects.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/src/libft/libft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/ms_arglist_to_array.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ms_arglist_to_array.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/ms_envp_l_utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ms_envp_l_utils.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,16 +40,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1zMFg7BzrbtsNsNFNcaJN4wkQcN" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1zMwMtNzszoIJb926jY5Y7XDn9b" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
@@ -101,9 +61,9 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishell" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="minishell" RUN_TARGET_NAME="minishell">
@@ -120,20 +80,16 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4f72bd52-6b36-475a-81fd-381ddedd6c3c" name="Changes" comment="" />
-      <created>1633950159008</created>
+      <changelist id="20f7e8ed-9be0-436f-91f2-0275f2fed8a7" name="Changes" comment="" />
+      <created>1633971220516</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1633950159008</updated>
-      <workItem from="1633950161866" duration="689000" />
-      <workItem from="1633959649069" duration="7136000" />
+      <updated>1633971220516</updated>
+      <workItem from="1633971223616" duration="1572000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

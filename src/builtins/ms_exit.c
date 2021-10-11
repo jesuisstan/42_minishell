@@ -64,7 +64,7 @@ static unsigned char	ms_atoi_char(char *str)
 {
 	int			negative;
 	int			i;
-	uint64_t	convert;
+	long long int 	convert;
 
 	negative = 1;
 	i = 0;
@@ -83,7 +83,8 @@ static unsigned char	ms_atoi_char(char *str)
 		if(i > 20)
 			ms_msg(str, "numeric argument required");
 	}
-	if (convert > 9223372036854775807)
+	if ((convert-3 >= 9223372036854775807 && negative == -1) \
+		|| (convert-1 >= 9223372036854775807 && negative == 1))
 		ms_msg(str, "numeric argument required");
 	return (convert * negative);
 }

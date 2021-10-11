@@ -55,23 +55,3 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	ms_no_such(name);
 	exit(127);
 }
-
-//int	main(int argc, char **argv, char **envp)
-//{
-//	t_msh	msh;
-//	t_cmd	cmd;
-//	char **path;
-//	int i = 0;
-//
-//	msh.cmd = &cmd;
-//	(void)argc;
-//	msh.cmd->arg = ft_split("ls a", ' ');
-//
-//	msh.envp_l = ms_clone_envp(envp);
-//	ms_cp_envp(&msh, envp);
-//	ms_command(&msh, msh.cmd);
-///	while(path[i++])
-///		printf("%s\n", path[i]);
-///	print_env_l(msh.envp_l);
-//	return (0);
-//}

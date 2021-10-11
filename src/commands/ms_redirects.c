@@ -7,7 +7,6 @@ static void	ms_error(char *str)
 	else
 		perror("Error");
 	exit(EXIT_FAILURE);//хер знает какая тут статуса
-
 }
 
 void	rdr_right(t_cmd *cmd, char *file, int mod)
@@ -37,8 +36,7 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
 void	heredoc(t_cmd *cmd, char *stop)
 {
 	char	*line;
-	
-		ft_putendl_fd(stop, 2);
+
 	while (1)
 	{
 		line = readline("> ");
@@ -59,7 +57,7 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 	if(pipe(fd) == -1)
 		ms_error(NULL);
 	pid = fork();
-	if (pid == 0) //child process
+	if (pid == 0)
 	{
 		close(fd[0]);
 		cmd->out = fd[1];
@@ -70,28 +68,29 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 		waitpid(pid, NULL, 0);
 		cmd->in = fd[0];
 		close(fd[1]);
-//		dup2(cmd->in, STDIN_FILENO);
-//		close(cmd->in);
 	}
 }
 
 int	ms_redirects(t_cmd *cmd)
 {
-	while (cmd->rdr)
+	t_rdr	*rdr;
+
+	rdr = cmd->rdr;
+	while (rdr)
 	{
-		if (!ft_strncmp(cmd->rdr->name, ">>", 2))
-			rdr_right(cmd, (cmd->rdr->name + 2), RDR_R2);
-		else if (!ft_strncmp(cmd->rdr->name, ">", 1))
-			rdr_right(cmd, (cmd->rdr->name + 1), RDR_R1);
-		else if (!ft_strncmp(cmd->rdr->name, "<<", 2))
-			rdr_double_left(cmd, (cmd->rdr->name + 2));
-		else if (!ft_strncmp(cmd->rdr->name, "<", 1))
-			rdr_left(cmd, (cmd->rdr->name + 1), RDR_L1);
+		if (!ft_strncmp(rdr->name, ">>", 2))
+			rdr_right(cmd, (rdr->name + 2), RDR_R2);
+		else if (!ft_strncmp(rdr->name, ">", 1))
+			rdr_right(cmd, (rdr->name + 1), RDR_R1);
+		else if (!ft_strncmp(rdr->name, "<<", 2))
+			rdr_double_left(cmd, (rdr->name + 2));
+		else if (!ft_strncmp(rdr->name, "<", 1))
+			rdr_left(cmd, (rdr->name + 1), RDR_L1);
 		else {
 			ft_putendl_fd("KAKAYA TO HYETA?", 1);
 			exit(0);
 		}
-		cmd->rdr = cmd->rdr->next;
+		rdr = rdr->next;
 	}
 	if (cmd->in != STDIN_FILENO)
 	{
@@ -100,36 +99,3 @@ int	ms_redirects(t_cmd *cmd)
 	}
 	return (0);
 }
-//
-//int	main (int argc, char **argv, char **envp)
-//{
-//	t_msh	msh;
-//	t_cmd	cmd;
-//	char **path;
-//	int i = 0;
-//	msh.cmd_l = &cmd;
-//	(void)argc;
-//	msh.cmd_l->cmd = ft_split("ls -la", ' ');
-//	msh.cmd_l->rdr = malloc(sizeof (*msh.cmd_l->rdr));
-//	msh.cmd_l->rdr->name = ft_strdup(argv[1]);
-//	msh.cmd_l->next = NULL;
-////	msh.cmd_l->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
-////	msh.cmd_l->next->next->cmd = ft_split("wc", ' ');
-////	msh.cmd_l->next->next->next = NULL;
-//	//	msh.cmd->next->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
-//	//	msh.cmd->next->next->next->arg = ft_split("wc", ' ');
-//	//	msh.cmd->next->next->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
-//	//	msh.cmd->next->next->next->next->arg = ft_split("wc -l", ' ');
-//	//	msh.cmd->next->next->next->next->next  = malloc(sizeof(*msh.cmd_l) * 1);
-//	//	msh.cmd->next->next->next->next->next->arg = ft_split("cat -e", ' ');
-//	//	msh.cmd->next->next->next->next->next->next = NULL;
-//	msh.envp_l = ms_clone_envp(envp);
-//	ms_cp_envp(&msh, envp);
-//	ms_redirects(&msh, &cmd);
-//	ms_pipex(&msh, &cmd);
-//	//	ms_command(&msh, msh.cmd);
-//	//	while(path[i++])
-//	//		printf("%s\n", path[i]);
-//	//	print_env_l(msh.envp_l);
-//	return (0);
-//}

@@ -18,6 +18,30 @@ char	**get_path(t_msh *msh)
 	return (paths);
 }
 
+char	*done_path(t_msh *msh, char *name)
+{
+	char	**paths;
+	char	*path;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	paths = get_path(msh);
+	if (is_path(name))
+		return(name);
+	while(paths[i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(tmp, name);
+		free(path);
+		if (!access(path, F_OK))
+			return (path); /// тут нужно ехит
+		i++;
+	}
+	return (NULL);
+}
+
+
 int	gen_next_path(char **argv, char **paths, char *name)
 {
 	static int	i;

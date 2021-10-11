@@ -41,7 +41,7 @@ void	ms_cp_envp(t_msh *msh, char **envp);
 int	ms_redirects(t_cmd *cmd);
 char	*get_key(char *content);
 char	*get_value(char *content);
-int	ms_in_out(t_msh *msh, t_cmd *cmd);
+char	*done_path(t_msh *msh, char *name);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);

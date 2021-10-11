@@ -4,6 +4,7 @@
 // echo " $TEST lol $TEST"          echo test "$TEST" test "$TEST " test
 #include "./../inc/minishell.h"
 
+int	g_status;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -12,7 +13,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	rl_outstream = stderr;
-	g_status = 0;
+	g_sig.exit_status = 0;
+	//g_status = 0;//todo
 	msh = ms_malloc_x(sizeof(t_msh));
 	msh->arg = NULL;
 	msh->cmd_l = NULL;
@@ -21,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
 	while (1)
 	{
-		ms_parse(msh, msh->envp_l, g_status);
+		ms_parse(msh, msh->envp_l);
 		ms_pipex(msh, msh->cmd_l);
 
 // печать команд и списков с редиректами:

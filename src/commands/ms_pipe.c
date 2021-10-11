@@ -54,12 +54,12 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	while (len--)
 	{
 		first_cmd++;
-		cmd->pid = fork();
+		g_sig.pid = fork();
 		cmd->is_fork = 1;
-		if (cmd->pid < 0) {
+		if (g_sig.pid < 0) {
 			ms_error(NULL);
 		}
-		else if (cmd->pid == 0)
+		else if (g_sig.pid == 0)
 		{
 			ms_redirects(msh, cmd);
 			if (first_cmd == 1 && cmd->pipe_fd[1])
@@ -97,7 +97,7 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 	}
 	while (cmd)
 	{
-		waitpid(cmd->pid, NULL, 0); //g_status
+		waitpid(g_sig.pid, NULL, 0); //g_status
 		cmd = cmd->next;
 	}
 	// не выходить если не

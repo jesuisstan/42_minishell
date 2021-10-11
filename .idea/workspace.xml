@@ -16,17 +16,7 @@
   <component name="ChangeListManager">
     <list default="true" id="20f7e8ed-9be0-436f-91f2-0275f2fed8a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/msh_tester/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/msh_tester/minishell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_builtin.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_builtin.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_command.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_command.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_path.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_path.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_pipe.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/ms_redirects.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/ms_redirects.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/src/libft/libft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/ms_arglist_to_array.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ms_arglist_to_array.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/ms_envp_l_utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ms_envp_l_utils.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libft/src/ft_strcmp.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/libft/src/ft_strcmp.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633971220516</updated>
-      <workItem from="1633971223616" duration="1572000" />
+      <workItem from="1633971223616" duration="2097000" />
     </task>
     <servers />
   </component>

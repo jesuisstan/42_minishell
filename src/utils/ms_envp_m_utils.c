@@ -42,7 +42,7 @@ int	ms_find_envp_m_and_replace_val(char **envp, char *key, char *val)
 	i = 0;
 	while (envp[i])
 	{
-		i1= 0;
+		i1 = 0;
 		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
 		{
 			while (envp[i][i1] != '=' && envp[i][i1] != 0)
@@ -58,9 +58,10 @@ int	ms_find_envp_m_and_replace_val(char **envp, char *key, char *val)
 
 void	ms_cp_envp(t_msh *msh, char **envp)
 {
-	int	i = 0;
+	int	i;
 	int	len;
 
+	i = 0;
 	len = ms_arrlen(envp);
 	msh->envp_m = ms_malloc_x(sizeof(msh->envp_m) * len + 1);
 	while (len)

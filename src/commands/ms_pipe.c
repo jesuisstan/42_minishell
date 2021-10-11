@@ -6,7 +6,7 @@ void	ms_error(char *str)
 		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
-	exit(128);//хер знает какая тут статуса
+	exit(128); //хер знает какая тут статуса
 }
 
 size_t	ms_lstsize(t_cmd *arg)
@@ -24,12 +24,14 @@ size_t	ms_lstsize(t_cmd *arg)
 	return (i);
 }
 
-int ms_pipex(t_msh *msh, t_cmd *cmd)
+int	ms_pipex(t_msh *msh, t_cmd *cmd)
 {
-	int	len, first_cmd;
+	int		len;
+	int		first_cmd;
+	t_cmd	*start;
+
 	len = 0;
 	first_cmd = 0;
-	t_cmd *start;
 	if (!cmd)
 		return (0);
 	if (!cmd->next && is_builtins(cmd->cmd[0]) && !cmd->rdr)
@@ -61,20 +63,19 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		}
 		else if (g_sig.pid == 0)
 		{
-			ms_redirects(msh, cmd);
+			if (cmd->rdr)
+				ms_redirects(cmd);
 			if (first_cmd == 1 && cmd->pipe_fd[1])
-			{
-				dup2(cmd->pipe_fd[1], 1);
-			}
+				dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 			if (!cmd->next && msh->old_out)
 			{
-				dup2(msh->old_out, 0);
+				dup2(msh->old_out, STDIN_FILENO);
 				close(msh->old_out);
 			}
 			else if (cmd->next && first_cmd > 1)
 			{
-				dup2(msh->old_out, 0);
-				dup2(cmd->pipe_fd[1], 1);
+				dup2(msh->old_out, STDIN_FILENO);
+				dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 			}
 			while (start->next)
 			{

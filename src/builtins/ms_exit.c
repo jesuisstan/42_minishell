@@ -40,29 +40,6 @@ static int	ms_isdigit_str(char *str)
 	return (0);
 }
 
-static unsigned char	ms_atoi_char(char *str)
-{
-	char	num;
-	int		i;
-	int		minus;
-
-	i = 0;
-	minus = 1;
-	num = 0;
-	if (str[i] == '+' || str[i] == '-')
-	{	
-		if (str[i] == '-')
-			minus = -1;
-		i++;
-	}
-	while (str[i])
-	{
-		num = (num * 10) + (str[i] - '0');
-		i++;
-	}
-	return (num * minus);
-}
-
 int	ms_msg(char *argv1, char *str)
 {
 	ft_putstr_fd(MSH, STDERR_FILENO);
@@ -78,7 +55,38 @@ int	ms_msg(char *argv1, char *str)
 	{
 		exit(255);
 	}
+	else
+		exit (1);
 	return (0);
+}
+
+static unsigned char	ms_atoi_char(char *str)
+{
+	int			negative;
+	int			i;
+	long long int 	convert;
+
+	negative = 1;
+	i = 0;
+	convert = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			negative = -negative;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		convert = convert * 10 + (str[i++] - '0');
+		if(i > 20)
+			ms_msg(str, "numeric argument required");
+	}
+	if ((convert-3 >= 9223372036854775807 && negative == -1) \
+		|| (convert-1 >= 9223372036854775807 && negative == 1))
+		ms_msg(str, "numeric argument required");
+	return (convert * negative);
 }
 
 int	ms_exit(char **argv)

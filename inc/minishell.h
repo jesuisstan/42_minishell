@@ -24,7 +24,6 @@ int		ms_arrlen(char **arr);
 int		gen_next_path(char **argv, char **paths, char *name);
 void	ms_command(t_msh *msh, t_cmd *cmd);
 char	**get_path(t_msh *msh);
-int		take_next_path(char **argv, char **paths, char *name);
 int		ms_pipex(t_msh *msh, t_cmd *cmd);
 int		is_builtins(char *key);
 
@@ -39,9 +38,10 @@ int		ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
 int		ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val);
 void	print_env_l(t_envp *lst);
 void	ms_cp_envp(t_msh *msh, char **envp);
-int	ms_redirects(t_msh *msh, t_cmd *cmd);
+int	ms_redirects(t_cmd *cmd);
 char	*get_key(char *content);
 char	*get_value(char *content);
+int	ms_in_out(t_msh *msh, t_cmd *cmd);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);

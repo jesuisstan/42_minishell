@@ -61,20 +61,21 @@ int ms_pipex(t_msh *msh, t_cmd *cmd)
 		}
 		else if (cmd->pid == 0)
 		{
-			ms_redirects(msh, cmd);
+			if(cmd->rdr)
+				ms_redirects(msh, cmd);
 			if (first_cmd == 1 && cmd->pipe_fd[1])
 			{
-				dup2(cmd->pipe_fd[1], 1);
+				dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 			}
 			if (!cmd->next && msh->old_out)
 			{
-				dup2(msh->old_out, 0);
+				dup2(msh->old_out, STDIN_FILENO);
 				close(msh->old_out);
 			}
 			else if (cmd->next && first_cmd > 1)
 			{
-				dup2(msh->old_out, 0);
-				dup2(cmd->pipe_fd[1], 1);
+				dup2(msh->old_out, STDIN_FILENO);
+				dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 			}
 			while (start->next)
 			{

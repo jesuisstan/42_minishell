@@ -39,9 +39,10 @@ int		ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
 int		ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val);
 void	print_env_l(t_envp *lst);
 void	ms_cp_envp(t_msh *msh, char **envp);
-int	ms_redirects(t_msh *msh, t_cmd *cmd);
+int	ms_redirects(t_cmd *cmd);
 char	*get_key(char *content);
 char	*get_value(char *content);
+int	ms_in_out(t_msh *msh, t_cmd *cmd);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);

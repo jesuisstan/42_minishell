@@ -48,8 +48,8 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 		while (gen_next_path(cmd->cmd, paths, name))
 		{
 			execve(cmd->cmd[0], cmd->cmd, msh->envp_m);
-//			if (access(cmd->cmd[0]))
-//				ms_error(NULL);
+			if (access(*paths, 0))//может это убрать нафиг
+				exit(127);//[p
 		}
 	}
 	ms_no_such(name);

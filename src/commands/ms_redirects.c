@@ -18,11 +18,8 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
 		cmd->out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (cmd->out == -1)
 		ms_error(NULL);
-	dup2(cmd->out, 1);
+	dup2(cmd->out, STDOUT_FILENO);
 	close(cmd->out);
-	dup2(cmd->in, STDIN_FILENO);
-	close(cmd->in);
-	//еще дап в СТДАУТ если нет следующего элемента в листе редиректов
 }
 
 void	rdr_left(t_cmd *cmd, char *file, int mod)
@@ -35,9 +32,6 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
 		if (cmd->in == -1)
 			ms_error(NULL);
 	}
-	dup2(cmd->in, STDIN_FILENO);
-	close(cmd->in);
-	//еще дап в СТДин если нет следующего элемента в листе редиректов
 }
 
 void	heredoc(t_cmd *cmd, char *stop)
@@ -48,8 +42,6 @@ void	heredoc(t_cmd *cmd, char *stop)
 	while (1)
 	{
 		line = readline("> ");
-		ft_putnbr_fd(ft_strncmp(line, stop, ft_strlen(stop) + 1), 2);
-		ft_putendl_fd("", 2);
 		if(!ft_strncmp(line, stop, ft_strlen(stop) + 1))
 			break ;
 		ft_putendl_fd(line, cmd->out);
@@ -75,35 +67,36 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 	}
 	else
 	{
+		waitpid(pid, NULL, 0);
 		cmd->in = fd[0];
 		close(fd[1]);
-		dup2(cmd->in, STDIN_FILENO);
-		close(cmd->in);
-		waitpid(pid, NULL, 0);
+//		dup2(cmd->in, STDIN_FILENO);
+//		close(cmd->in);
 	}
 }
 
-int	ms_redirects(t_msh *msh, t_cmd *cmd)
+int	ms_redirects(t_cmd *cmd)
 {
-	t_rdr	*rdr;
-
-	rdr = cmd->rdr;
-	(void)msh;
-	while (rdr)
+	while (cmd->rdr)
 	{
-		if (!ft_strncmp(rdr->name, ">>", 2))
-			rdr_right(cmd, (rdr->name + 2), RDR_R2);
-		else if (!ft_strncmp(rdr->name, ">", 1))
-			rdr_right(cmd, (rdr->name + 1), RDR_R1);
-		else if (!ft_strncmp(rdr->name, "<<", 2))
-			rdr_double_left(cmd, (rdr->name + 2));
-		else if (!ft_strncmp(rdr->name, "<", 1))
-			rdr_left(cmd, (rdr->name + 1), RDR_L1);
+		if (!ft_strncmp(cmd->rdr->name, ">>", 2))
+			rdr_right(cmd, (cmd->rdr->name + 2), RDR_R2);
+		else if (!ft_strncmp(cmd->rdr->name, ">", 1))
+			rdr_right(cmd, (cmd->rdr->name + 1), RDR_R1);
+		else if (!ft_strncmp(cmd->rdr->name, "<<", 2))
+			rdr_double_left(cmd, (cmd->rdr->name + 2));
+		else if (!ft_strncmp(cmd->rdr->name, "<", 1))
+			rdr_left(cmd, (cmd->rdr->name + 1), RDR_L1);
 		else {
 			ft_putendl_fd("KAKAYA TO HYETA?", 1);
 			exit(0);
 		}
-		rdr = rdr->next;
+		cmd->rdr = cmd->rdr->next;
+	}
+	if (cmd->in != STDIN_FILENO)
+	{
+		dup2(cmd->in, STDIN_FILENO);
+		close(cmd->in);
 	}
 	return (0);
 }

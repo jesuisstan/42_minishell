@@ -16,10 +16,6 @@ typedef struct s_msh
 {
 	int				old_in;
 	int				old_out;
-	//int				prev_status;
-	//int				cur_status;
-	//int				sigint;
-	//int				sigquit;
 	char			*line;
 	char			**envp_m;
 	char			*name;
@@ -27,12 +23,6 @@ typedef struct s_msh
 	struct s_arg	*arg;
 	struct s_cmd	*cmd_l;
 }				t_msh;
-
-typedef struct	s_signal
-{
-	int				exit_status;
-	pid_t			pid;
-}				t_signal;
 
 typedef struct s_cmd
 {
@@ -67,7 +57,17 @@ typedef struct s_envp
 	struct s_envp	*next;
 }				t_envp;
 
-t_signal	g_sig;
+typedef struct	s_status
+{
+	int				exit;
+	int				status_flag;
+	int				question_flag;
+}				t_status;
+
+t_status	g_status;
+//int		g_status;
+//int		g_prev_status;
+//int		g_flag;
 
 void	ms_shlvl_up(t_msh *msh);
 void	ms_shlvl_down(t_msh *msh);
@@ -83,8 +83,8 @@ char	*ms_purify_argument(char *arg_rare, t_msh *msh);
 t_cmd	*ms_get_commands(t_msh *msh);
 t_rdr	*ms_extract_redirects(t_arg **arg);
 int		ms_isredirect(char *str);
-void	ms_sig_quit(int code);
-void	ms_sig_int(int code);
+void	ms_signals_interactive_shell(void);
+void	ms_signals_non_interactive_shell(void);
 
 void	*ms_return_null(char *message);
 int		ms_return_nbr(int return_value, char *message);

@@ -31,21 +31,18 @@ static char	*read_line_safely(char *line)
 {
 	line = NULL;
 	line = readline("minishell § ");
-	//if (g_status == 130)
-	//{
-	//	(*msh)->prev_status = 1;
-	//	g_status = 0;
-	//}
-	//if (!line)
-	//	//exit(0); // todo replace 0 to actual last error status
-	//	exit((*msh)->prev_status); // возможно нужна другая переменная ..._status
-	//if (g_sig.exit_status == 130)
-	//{
-	//	g_sig.prev_status = 1;
-	//	g_status = 0;
-	//}
+	if (g_status.exit == 130 || g_status.exit == 131 || g_status.exit == 1)
+	{
+		if (g_status.status_flag == 0)
+			g_status.status_flag = 1;
+		else if (g_status.status_flag == 1)
+		{
+			g_status.exit = 0;
+			g_status.status_flag = 0;
+		}
+	}
 	if (!line)
-		exit(g_sig.exit_status); // возможно нужна другая переменная ..._status
+		exit(g_status.exit);
 	if (*line)
 		add_history(line);
 	return (line);
@@ -53,8 +50,6 @@ static char	*read_line_safely(char *line)
 
 void	ms_parse(t_msh *msh, t_envp *envp_l)
 {
-	signal(SIGINT, &ms_sig_int);
-	signal(SIGQUIT, &ms_sig_quit);
 	msh->line = read_line_safely(msh->line);
 	msh->line = ms_clear_endwhitespaces(msh->line);
 	if (!ms_protoparse(msh->line))

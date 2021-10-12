@@ -6,7 +6,7 @@ void	ms_error(char *str)
 		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
-	exit(128); //хер знает какая тут статуса
+	exit(128); //хер знает какая тут статуса - версия mshmelly
 }
 
 size_t	ms_lstsize(t_cmd *arg)
@@ -56,12 +56,12 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd)
 	while (len--)
 	{
 		first_cmd++;
-		g_sig.pid = fork();
+		cmd->pid = fork();
 		cmd->is_fork = 1;
-		if (g_sig.pid < 0) {
+		if (cmd->pid < 0) {
 			ms_error(NULL);
 		}
-		else if (g_sig.pid == 0)
+		else if (cmd->pid == 0)
 		{
 			if (cmd->rdr)
 				ms_redirects(cmd);
@@ -98,7 +98,7 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd)
 	}
 	while (cmd)
 	{
-		waitpid(g_sig.pid, NULL, 0); //g_status
+		waitpid(cmd->pid, NULL, 0); //g_status.exit
 		cmd = cmd->next;
 	}
 	// не выходить если не

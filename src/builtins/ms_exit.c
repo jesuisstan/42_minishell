@@ -96,7 +96,7 @@ int	ms_exit(char **argv)
 
 	len = ms_arrlen(argv);
 	if (len == 1)
-		exit(g_status); // тут нужен предыдущий статус за место нуля
+		exit(g_status.exit); // тут нужен предыдущий статус за место нуля
 	if (ms_isdigit_str(argv[1]))
 		return (ms_msg(argv[1], "numeric argument required"));
 	if (len > 2)

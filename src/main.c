@@ -2,9 +2,8 @@
 // $USER123 'gfgf     "h' !!!!!!!!!!!!!!!!
 // echo test > ls >> ls >> ls
 // echo " $TEST lol $TEST"          echo test "$TEST" test "$TEST " test
+// case $?: echo $? | grep 1 | echo $? | cat -e
 #include "./../inc/minishell.h"
-
-int	g_status;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -13,8 +12,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	rl_outstream = stderr;
-	g_sig.exit_status = 0;
-	//g_status = 0;//todo
+	g_status.exit = 0;
+	g_status.status_flag = 0;
+	g_status.question_flag = 0;
 	msh = ms_malloc_x(sizeof(t_msh));
 	msh->arg = NULL;
 	msh->cmd_l = NULL;
@@ -23,9 +23,11 @@ int	main(int argc, char **argv, char **envp)
 	msh->envp_m = ms_envplist_to_array(msh->envp_l);
 	while (1)
 	{
+		ms_signals_interactive_shell(); //todo
 		ms_parse(msh, msh->envp_l);
+		ms_signals_non_interactive_shell(); //todo
 		ms_pipex(msh, msh->cmd_l);
-
+		ms_signals_interactive_shell(); //todo
 // печать команд и списков с редиректами:
 //t_cmd *tmp_cmd = msh->cmd_l;
 //while (tmp_cmd) //todo

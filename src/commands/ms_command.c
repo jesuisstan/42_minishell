@@ -12,7 +12,7 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 {
 	char	**paths;
 	char	*name;
-
+	int		err;
 	paths = get_path(msh);
 	name = cmd->cmd[0];
 	if (is_builtins(cmd->cmd[0]))
@@ -24,15 +24,14 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	}
 	else
 	{
-//		while (gen_next_path(cmd->cmd, paths, name))
-//		{
-		execve(done_path(msh,cmd->cmd[0]), cmd->cmd, msh->envp_m);// заменить на листы
-			if (access(*paths, 0)) //может это убрать нафиг
-				exit(127);
-//		}
+		name = done_path(msh,cmd->cmd[0]);
+		execve(name, cmd->cmd, msh->envp_m);// заменить на листы
+		ms_no_such(name); // туту наме нул
+		err = errno;
+		if (errno == 2 || errno == 14 || errno == 20) //bad address
+			exit(127);
+		if (err == 13) //Permission denied
+			exit(126);
+		exit(127);
 	}
-	ms_no_such(name);
-	g_status.exit =127;
-	exit(g_status.exit);
-//	exit(127);
 }

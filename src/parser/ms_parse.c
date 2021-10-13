@@ -48,6 +48,7 @@ void	ms_parse(t_msh *msh, t_envp *envp_l)
 		msh->arg = ms_split_line(msh);
 		msh->cmd_l = ms_get_commands(msh);
 	}
+	ms_lstfree_arg(&(msh->arg));
 	free(msh->line);
 	msh->line = NULL;
 }

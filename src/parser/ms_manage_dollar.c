@@ -68,6 +68,7 @@ static char	*handle_question_mark(char *line, int j, int *i)
 	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 	free(nbr_val);
 	free(tmp_one);
+	g_status.exit = 0;
 	return (line_new);
 }
 
@@ -81,7 +82,7 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l)
 	j = *i;
 	if (ft_strchr("?", line[j + 1]))
 	{
-		*i += 2; 
+		*i += 2;
 		return (handle_question_mark(line, j, i));
 	}
 	while (line[++(*i)])

@@ -6,7 +6,7 @@ static char	*manage_quotes(char *line, int *i, t_msh *msh)
 	char	*line_new;
 	char	*tail;
 	char	*tmp;
-	
+
 	(void)msh;
 	j = *i;
 	while (line[++(*i)])

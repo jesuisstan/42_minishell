@@ -61,7 +61,6 @@ typedef struct	s_status
 {
 	int				exit;
 	int				status_flag;
-	int				question_flag;//todo
 }				t_status;
 
 t_status	g_status;
@@ -90,5 +89,6 @@ char 	**ms_arglist_to_array(t_arg *arg, int size);
 void	ms_lstfree_arg(t_arg **arg);
 void	lstdelone_arg(t_arg *arg);
 void	ms_lstfree_cmd(t_cmd **cmd_l);
+void	ms_lstfree_rdr(t_rdr **rdr);
 
 #endif

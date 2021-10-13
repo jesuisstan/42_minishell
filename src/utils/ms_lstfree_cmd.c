@@ -1,10 +1,12 @@
 #include "../../inc/minishell.h"
 
-static void	ms_lstdelone_cmd(t_cmd *cmd_l) // todo требует доработки для очистки остальных переменных
+static void	ms_lstdelone_cmd(t_cmd *cmd_l)
 {
 	if (!cmd_l)
 		return ;
 	ft_free_array(&(cmd_l->cmd));
+	cmd_l->cmd = NULL;
+	ms_lstfree_rdr(&(cmd_l->rdr));
 	free (cmd_l);
 	cmd_l = NULL;
 }

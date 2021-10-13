@@ -3,7 +3,7 @@
 static t_arg	*lstnew_arg(char *content, t_msh *msh)
 {
 	t_arg	*arg;
-	
+
 	arg = (t_arg *)malloc(sizeof(t_arg));
 	if (!arg)
 		return (NULL);

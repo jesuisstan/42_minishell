@@ -7,18 +7,18 @@ static int	get_cmd_size(t_arg *arg)
 
 	if (!arg)
 		return (0);
-	tmp = arg;	
+	tmp = arg;
 	i = 1;
 	while (tmp->next)
 	{
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
 		{
 			i = 0;
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
-			break;
+			break ;
 		i++;
 	}
 	return (i);
@@ -64,7 +64,7 @@ t_cmd	*ms_get_commands(t_msh *msh)
 {
 	t_arg	*head;
 
-	if(msh->arg == NULL)
+	if (msh->arg == NULL)
 		return (NULL);
 	head = msh->arg;
 	while (msh->arg != NULL)

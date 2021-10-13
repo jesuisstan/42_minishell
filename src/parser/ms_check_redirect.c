@@ -11,7 +11,8 @@ static int	handle_left(char *str, int i, int spaces_passed, int *index)
 			i++;
 			i += ms_pass_whitespaces(&str[i]);
 			*index += i;
-			if (str[i] == '<' || str[i] == '\0' || str[i] == '|' || str[i] == '>')
+			if (str[i] == '<' || str[i] == '\0' || str[i] == '|'
+				|| str[i] == '>')
 				return (EXIT_FAILURE);
 		}
 	}
@@ -35,7 +36,8 @@ static int	handle_right(char *str, int i, int spaces_passed, int *index)
 			i++;
 			i += ms_pass_whitespaces(&str[i]);
 			*index += i;
-			if (str[i] == '<' || str[i] == '\0' || str[i] == '|' || str[i] == '>')
+			if (str[i] == '<' || str[i] == '\0' || str[i] == '|'
+				|| str[i] == '>')
 				return (EXIT_FAILURE);
 		}
 	}

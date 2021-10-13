@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *msh)
+static char	*replace_dollars(char *line, t_envp *envp_l)
 {
 	int		i;
 	int		flag_quote;
@@ -12,7 +12,7 @@ static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *msh)
 	while (line[++i] != '\0')
 	{
 		if (line[i] == '$')
-			line = ms_manage_dollar(line, &i, envp_l, msh);
+			line = ms_manage_dollar(line, &i, envp_l);
 		else if (line[i] == '\"' && flag_quote == 0)
 			flag_quote = 1;
 		else if (line[i] == '\"' && flag_quote == 1)
@@ -27,30 +27,34 @@ static char	*replace_dollars(char *line, t_envp *envp_l, t_msh *msh)
 	return (line);
 }
 
-static char	*read_line_safely(char *line, int g_status, t_msh **msh)
+static char	*read_line_safely(char *line)
 {
 	line = NULL;
 	line = readline("minishell § ");
-	if (g_status == 130)
+	if (g_status.exit == 130 || g_status.exit == 131 || g_status.exit == 1)
 	{
-		(*msh)->prev_status = 1;
-		g_status = 0;
+		if (g_status.status_flag == 0)
+			g_status.status_flag = 1;
+		else if (g_status.status_flag == 1)
+		{
+			g_status.exit = 0;
+			g_status.status_flag = 0;
+		}
 	}
 	if (!line)
-		//exit(0); // todo replace 0 to actual last error status
-		exit((*msh)->prev_status); // возможно нужна другая переменная ..._status
+		exit(g_status.exit);
 	if (*line)
 		add_history(line);
 	return (line);
 }
 
-void	ms_parse(t_msh *msh, t_envp *envp_l, int g_status)
+void	ms_parse(t_msh *msh, t_envp *envp_l)
 {
-	msh->line = read_line_safely(msh->line, g_status, &msh);
+	msh->line = read_line_safely(msh->line);
 	msh->line = ms_clear_endwhitespaces(msh->line);
 	if (!ms_protoparse(msh->line))
 	{
-		msh->line = replace_dollars(msh->line, envp_l, msh);
+		msh->line = replace_dollars(msh->line, envp_l);
 		msh->arg = ms_split_line(msh);
 		msh->cmd_l = ms_get_commands(msh);
 	}

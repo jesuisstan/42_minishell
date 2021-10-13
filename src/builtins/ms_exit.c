@@ -72,7 +72,7 @@ int	ms_exit(t_msh *msh, char **argv)
 
 	len = ms_arrlen(argv);
 	if (len == 1)
-		ms_shlvl_down(msh) , exit(g_status); // тут нужен предыдущий статус за место нуля
+		ms_shlvl_down(msh) , exit(g_status.exit); // тут нужен предыдущий статус за место нуля
 	if (ms_isdigit_str(argv[1]))
 		return (ms_msg(msh,argv[1], "numeric argument required"));
 	if (len > 2)

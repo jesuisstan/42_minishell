@@ -4,6 +4,7 @@ SRCS			=	./src/main.c \
 					$(wildcard ./src/utils/*.c) \
 					$(wildcard ./src/parser/*.c) \
 					$(wildcard ./src/builtins/*.c) \
+					$(wildcard ./src/signals/*.c) \
 					$(wildcard ./src/commands/*.c)
 
 OBJS			=	$(SRCS:.c=.o)

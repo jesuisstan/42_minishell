@@ -15,8 +15,8 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 		tmp_one = ft_strjoin(ft_substr(line, 0, j), value);
 		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 		*i = j + ft_strlen(value) - 1;
-		free (value);
-		free (tmp_one);
+		free(value);
+		free(tmp_one);
 	}
 	return (line_new);
 }
@@ -32,21 +32,21 @@ static char	*handle_digital_key(char *line, char *key, int j, int *i)
 				ft_strjoin("minishell", &key[1]));
 		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 		*i = j + ft_strlen(key) + ft_strlen("minishell") - 2;
-		free (tmp_one);
+		free(tmp_one);
 	}
 	else if (ft_strlen(key) > 1)
 	{
 		tmp_one = ft_strjoin(ft_substr(line, 0, j), &key[1]);
 		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 		*i = j + ft_strlen(key) - 2;
-		free (tmp_one);
+		free(tmp_one);
 	}
 	else
 	{
 		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
 		*i = j - 1;
 	}
-	free (key);
+	free(key);
 	return (line_new);
 }
 
@@ -57,18 +57,34 @@ static int	if_key(char c)
 	return (0);
 }
 
-static char	*handle_question_mark(char *line, t_msh *msh, int j, int *i)
+static char	*handle_question_mark(char *line, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
+	char	*nbr_val;
 
-	tmp_one = ft_strjoin(ft_substr(line, 0, j), ft_itoa(msh->prev_status)); // todo выбрать переименную ...status
+	nbr_val = NULL;
+	tmp_one = NULL;
+	//if (g_status.question_flag == 0)
+	//{
+		nbr_val = ft_itoa(g_status.exit);
+		tmp_one = ft_strjoin(ft_substr(line, 0, j), nbr_val);
+		//g_status.question_flag = 1;
+		//g_status.exit = 0;
+	//	free(nbr_val);
+//	}
+	//else //(g_status.question_flag == 1)
+	//{
+	//	tmp_one = ft_strjoin(ft_substr(line, 0, j), "0");
+	//	g_status.question_flag = 0;
+	//}
 	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
-	free (tmp_one);
+	free(tmp_one);
+	free(nbr_val);
 	return (line_new);
 }
 
-char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh)
+char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l)
 {
 	int		j;
 	char	*key;
@@ -79,7 +95,7 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh)
 	if (ft_strchr("?", line[j + 1]))
 	{
 		*i += 2; 
-		return (handle_question_mark(line, msh, j, i));
+		return (handle_question_mark(line, j, i));
 	}
 	while (line[++(*i)])
 		if (!if_key(line[*i]))
@@ -92,6 +108,6 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l, t_msh *msh)
 	else
 		value = ms_find_envp_m(ms_envplist_to_array(envp_l), key);
 	line_new = handle_char_key(line, value, j, i);
-	free (key);
+	free(key);
 	return (line_new);
 }

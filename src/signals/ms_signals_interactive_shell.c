@@ -4,7 +4,7 @@ void	ms_sig_inter_ctrl_c(int sig)
 {
 	(void)sig;
 	ft_putendl_fd("minishell $   ", STDERR_FILENO);
-	rl_replace_line("", 0);
+//	rl_replace_line("", 0); //данная функция мешает мне пользоваться дебагером силайна
 	rl_on_new_line();
 	rl_redisplay();
 	g_status.exit = 1;

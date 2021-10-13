@@ -68,7 +68,6 @@ static unsigned char	ms_atoi_char(t_msh *msh, char *str)
 int	ms_exit(t_msh *msh, char **argv)
 {
 	int		len;
-	char	num;
 
 	len = ms_arrlen(argv);
 	if (len == 1)
@@ -79,8 +78,8 @@ int	ms_exit(t_msh *msh, char **argv)
 		return (ms_msg(msh, NULL, "too many arguments"));
 	if (len == 2)
 	{
-		num = ms_atoi_char(msh, argv[1]);
-		ms_shlvl_down(msh), exit(num);
+		g_status.exit = ms_atoi_char(msh, argv[1]);
+		ms_shlvl_down(msh), exit(g_status.exit);
 	}
 	return (0);
 }

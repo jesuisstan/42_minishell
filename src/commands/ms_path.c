@@ -35,10 +35,7 @@ char	*done_path(t_msh *msh, char *name)
 		path = ft_strjoin(tmp, name);
 		free(path);
 		if (!access(path, F_OK))
-		{
-//			g_status.exit = 127;
 			return (path);
-		} /// тут нужно ехит
 		i++;
 	}
 	return (NULL);

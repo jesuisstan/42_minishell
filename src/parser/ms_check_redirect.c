@@ -59,8 +59,14 @@ int	ms_check_redirect(char *line, int *index, char symbol)
 	n = ms_pass_whitespaces(str);
 	i += n;
 	if (symbol == '>' && handle_right(str, i, n, index))
+	{
+		g_status.exit = 258;
 		return (ms_return_nbr(1, "syntax error near unexpected token `>'"));
+	}
 	if (symbol == '<' && handle_left(str, i, n, index))
+	{
+		g_status.exit = 258;
 		return (ms_return_nbr(1, "syntax error near unexpected token `<'"));
+	}
 	return (EXIT_SUCCESS);
 }

@@ -34,11 +34,6 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd)
 	first_cmd = 0;
 	if (!cmd)
 		return (0);
-	if (!cmd->next && is_builtins(cmd->cmd[0]) && !cmd->rdr)
-	{
-		ms_command(msh, cmd);
-		return (0);
-	}
 	cmd->is_fork = 0;
 	cmd->in = 0;
 	cmd->out = 0;
@@ -47,6 +42,11 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd)
 	msh->old_out = 0;
 	start = cmd;
 	len = ms_lstsize(cmd);
+	if (!cmd->next && is_builtins(cmd->cmd[0]) && !cmd->rdr)
+	{
+		ms_command(msh, cmd);
+		return (0);
+	}
 	while (cmd->next)
 	{
 		if (pipe(cmd->pipe_fd) == -1)

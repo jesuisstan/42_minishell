@@ -81,6 +81,19 @@ int	check_export(char *arg)
 	return 0;
 }
 
+static int	is_key_exist(t_envp **env, char *key)
+{
+	t_envp	*tmp;
+
+	tmp = (*env);
+	while (tmp->next)
+	{
+		if (!ft_strcmp(tmp->key, key))
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 int	ms_export(t_msh *msh, char **argv)
 {
@@ -97,8 +110,11 @@ int	ms_export(t_msh *msh, char **argv)
 	{
 		if (check_export(argv[i]))
 			return (1);
-		if (!ms_find_envp_l_and_replace_val(&msh->envp_l, get_key(argv[i]), get_value(argv[i])))
+		if (is_key_exist(&msh->envp_l, get_key(argv[i])))
+		{
+			ms_find_envp_l_and_replace_val(&msh->envp_l, get_key(argv[i]), get_value(argv[i]));
 			return (0);
+		}
 		else
 			lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[i]));
 		i++;

@@ -1,7 +1,5 @@
 #include "../../inc/minishell.h"
 
-
-
 static void	ms_no_such(char *name)
 {
 	ft_putstr_fd(MSH, STDERR_FILENO);
@@ -34,5 +32,6 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 //		}
 	}
 	ms_no_such(name);
-	exit(127);
+	exit(g_status.exit);
+//	exit(127);
 }

@@ -6,7 +6,8 @@ static void	ms_error(char *str)
 		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
-	exit(EXIT_FAILURE);//хер знает какая тут статуса
+	g_status.exit = 1;
+	exit(g_status.exit);
 }
 
 void	rdr_right(t_cmd *cmd, char *file, int mod)

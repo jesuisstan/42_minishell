@@ -31,7 +31,7 @@ static char	*read_line_safely(char *line)
 {
 	line = NULL;
 	line = readline("minishell § ");
-	if (g_status.exit == 130 || g_status.exit == 131 || g_status.exit == 1)
+	if (g_status.exit)
 	{
 		if (g_status.status_flag == 0)
 			g_status.status_flag = 1;

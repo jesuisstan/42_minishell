@@ -63,24 +63,11 @@ static char	*handle_question_mark(char *line, int j, int *i)
 	char	*tmp_one;
 	char	*nbr_val;
 
-	nbr_val = NULL;
-	tmp_one = NULL;
-	//if (g_status.question_flag == 0)
-	//{
-		nbr_val = ft_itoa(g_status.exit);
-		tmp_one = ft_strjoin(ft_substr(line, 0, j), nbr_val);
-		//g_status.question_flag = 1;
-		//g_status.exit = 0;
-	//	free(nbr_val);
-//	}
-	//else //(g_status.question_flag == 1)
-	//{
-	//	tmp_one = ft_strjoin(ft_substr(line, 0, j), "0");
-	//	g_status.question_flag = 0;
-	//}
+	nbr_val = ft_itoa(g_status.exit);
+	tmp_one = ft_strjoin(ft_substr(line, 0, j), nbr_val);
 	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
-	free(tmp_one);
 	free(nbr_val);
+	free(tmp_one);
 	return (line_new);
 }
 

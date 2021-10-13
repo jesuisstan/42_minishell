@@ -1,5 +1,28 @@
 #include "../../inc/minishell.h"
 
+static char	*ms_find_home(t_envp **lst)
+{
+	t_envp	*tmp;
+	char	*cp_value;
+	
+	cp_value = NULL;
+	if (lst && (*lst))
+	{
+		tmp = *lst;
+		while (tmp)
+		{
+			if (!ft_strcmp(tmp->key, "HOME"))
+			{
+				cp_value = ft_strdup(tmp->value);
+				return (cp_value);
+			}
+			tmp = tmp->next;
+		}
+	}
+	return (NULL);
+}
+
+
 static int	ms_not_set(void)
 {
 	ft_putstr_fd (MSH, STDERR_FILENO);
@@ -10,13 +33,10 @@ static int	ms_not_set(void)
 static int	ms_change_dir(t_msh *msh, char *path)
 {
 	char	*oldpwd;
-
+	
 	oldpwd = getcwd(NULL, 2048);
 	if (!oldpwd)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		return (1);
-	}
+		oldpwd = ms_find_envp_l(&msh->envp_l, "HOME");
 	if (chdir(path))
 	{
 		ft_putstr_fd(MSH, STDERR_FILENO);
@@ -28,7 +48,6 @@ static int	ms_change_dir(t_msh *msh, char *path)
 	}
 	else
 	{
-		ms_oldpwd(msh, oldpwd);
 		free(oldpwd);
 		return (ms_new_pwd(msh));
 	}
@@ -80,7 +99,7 @@ int	ms_cd(t_msh *msh, char **argv)
 	}
 	else
 	{
-		home = ms_find_envp_l(&msh->envp_l, "HOME");
+		home = ms_find_home(&msh->envp_l);
 		if (!home)
 			return (ms_not_set());
 		res = ms_change_dir(msh, home);

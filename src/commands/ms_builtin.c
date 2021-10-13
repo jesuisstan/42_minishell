@@ -18,7 +18,7 @@ void	ms_builtins(t_msh *msh, t_cmd *cmd)
 	else if (!ft_strcmp(cmd->cmd[0], "env"))
 		status = ms_env(msh->envp_l);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
-		status = ms_exit(cmd->cmd);
+		status = ms_exit(msh, cmd->cmd);
 	else
 		ft_putendl_fd("WTF?", 1);
 	return ;

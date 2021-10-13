@@ -39,6 +39,7 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd)
 		ms_command(msh, cmd);
 		return (0);
 	}
+	cmd->is_fork = 0;
 	cmd->in = 0;
 	cmd->out = 0;
 	cmd->pipe_fd[0] = 0;

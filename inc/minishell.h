@@ -55,7 +55,7 @@ int		ms_echo(char **arr);
 int		ms_env(t_envp *lst);
 
 //exit
-int		ms_exit(char **argv);
+int	ms_exit(t_msh *msh, char **argv);
 
 //pwd
 int		ms_pwd(void);

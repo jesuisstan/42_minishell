@@ -1,29 +1,5 @@
 #include "../../inc/minishell.h"
 
-/*
-**	@brief		funtion count the lenght array
-**
-**	@param		arr pointer two dimensional array
-**	@return		lenght array
-*/
-//static int	ms_arrlen(char **arr)
-//{
-//	int	len;
-//
-//	len = 0;
-//	if (arr == NULL)
-//		return (0);
-//	while (arr[len])
-//		len++;
-//	return (len);
-//}
-
-/*
-**	@brief		function tests for a decimal digit characte 
-**
-**	@param		string
-**	@return		functions return 1 if string contain a only digit
-*/
 static int	ms_isdigit_str(char *str)
 {
 	int	i;
@@ -40,7 +16,7 @@ static int	ms_isdigit_str(char *str)
 	return (0);
 }
 
-int	ms_msg(char *argv1, char *str)
+int	ms_msg(t_msh *msh, char *argv1, char *str)
 {
 	ft_putstr_fd(MSH, STDERR_FILENO);
 	ft_putstr_fd("exit: ", STDERR_FILENO);
@@ -53,14 +29,14 @@ int	ms_msg(char *argv1, char *str)
 	ft_putstr_fd("\n", STDERR_FILENO);
 	if (argv1 != NULL)
 	{
-		exit(255);
+		ms_shlvl_down(msh), exit(255);
 	}
 	else
-		exit (1);
+		ms_shlvl_down(msh), exit (1);
 	return (0);
 }
 
-static unsigned char	ms_atoi_char(char *str)
+static unsigned char	ms_atoi_char(t_msh *msh, char *str)
 {
 	int			negative;
 	int			i;
@@ -81,30 +57,30 @@ static unsigned char	ms_atoi_char(char *str)
 	{
 		convert = convert * 10 + (str[i++] - '0');
 		if(i > 20)
-			ms_msg(str, "numeric argument required");
+			ms_msg(msh,str, "numeric argument required");
 	}
 	if ((convert-3 >= 9223372036854775807 && negative == -1) \
 		|| (convert-1 >= 9223372036854775807 && negative == 1))
-		ms_msg(str, "numeric argument required");
+		ms_msg(msh, str, "numeric argument required");
 	return (convert * negative);
 }
 
-int	ms_exit(char **argv)
+int	ms_exit(t_msh *msh, char **argv)
 {
 	int		len;
 	char	num;
 
 	len = ms_arrlen(argv);
 	if (len == 1)
-		exit(g_status); // тут нужен предыдущий статус за место нуля
+		ms_shlvl_down(msh) , exit(g_status); // тут нужен предыдущий статус за место нуля
 	if (ms_isdigit_str(argv[1]))
-		return (ms_msg(argv[1], "numeric argument required"));
+		return (ms_msg(msh,argv[1], "numeric argument required"));
 	if (len > 2)
-		return (ms_msg(NULL, "too many arguments"));
+		return (ms_msg(msh, NULL, "too many arguments"));
 	if (len == 2)
 	{
-		num = ms_atoi_char(argv[1]);
-		exit(num);
+		num = ms_atoi_char(msh, argv[1]);
+		ms_shlvl_down(msh), exit(num);
 	}
 	return (0);
 }

@@ -61,13 +61,10 @@ typedef struct	s_status
 {
 	int				exit;
 	int				status_flag;
-	int				question_flag;
+	int				question_flag;//todo
 }				t_status;
 
 t_status	g_status;
-//int		g_status;
-//int		g_prev_status;
-//int		g_flag;
 
 void	ms_shlvl_up(t_msh *msh);
 void	ms_shlvl_down(t_msh *msh);

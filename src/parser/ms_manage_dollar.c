@@ -62,12 +62,16 @@ static char	*handle_question_mark(char *line, int j, int *i)
 	char	*line_new;
 	char	*tmp_one;
 	char	*nbr_val;
+	char	*tail;
 
 	nbr_val = ft_itoa(g_status.exit);
 	tmp_one = ft_strjoin(ft_substr(line, 0, j), nbr_val);
-	line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+	tail = ft_strdup(&line[*i]);
+	line_new = ft_strjoin(tmp_one, tail);
 	free(nbr_val);
 	free(tmp_one);
+	free(tail);
+	free(line);
 	g_status.exit = 0;
 	return (line_new);
 }

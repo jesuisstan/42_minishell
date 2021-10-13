@@ -99,7 +99,8 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd)
 	}
 	while (cmd)
 	{
-		waitpid(cmd->pid, NULL, 0); //g_status.exit
+		waitpid(cmd->pid, &g_status.exit, 0);//g_status.exit
+		g_status.exit = WEXITSTATUS(g_status.exit);
 		cmd = cmd->next;
 	}
 	// не выходить если не

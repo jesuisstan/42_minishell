@@ -25,10 +25,11 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	else
 	{
 		name = done_path(msh,cmd->cmd[0]);
-		execve(name, cmd->cmd, msh->envp_m);// заменить на листы
-		ms_no_such(name); // туту наме нул
+		execve(done_path(msh,cmd->cmd[0]), cmd->cmd, msh->envp_m);// заменить на листы
+		ms_no_such(name);// туту наме нул
+		free(name);
 		err = errno;
-		if (errno == 2 || errno == 14 || errno == 20) //bad address
+		if (err == 2 || err == 14 || err == 20) //bad address
 			exit(127);
 		if (err == 13) //Permission denied
 			exit(126);

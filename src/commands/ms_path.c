@@ -33,11 +33,13 @@ char	*done_path(t_msh *msh, char *name)
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, name);
-		free(path);
+		free(tmp);
 		if (!access(path, F_OK))
 			return (path);
+		free(paths[i]);
 		i++;
 	}
+	free(paths);
 	return (NULL);
 }
 

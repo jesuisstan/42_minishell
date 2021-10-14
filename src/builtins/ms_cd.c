@@ -101,7 +101,10 @@ int	ms_cd(t_msh *msh, char **argv)
 	{
 		home = ms_find_home(&msh->envp_l);
 		if (!home)
+		{
+			free(home);
 			return (ms_not_set());
+		}
 		res = ms_change_dir(msh, home);
 		free(home);
 		return (res);

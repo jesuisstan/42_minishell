@@ -15,7 +15,6 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 		tmp_one = ft_strjoin(ft_substr(line, 0, j), value);
 		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
 		*i = j + ft_strlen(value) - 1;
-		free(value);
 		free(tmp_one);
 	}
 	return (line_new);

@@ -8,8 +8,8 @@ void	ms_shlvl_up(t_msh *msh)
 	shlvl_current = ms_find_envp_l(&(msh->envp_l), "SHLVL");
 	shlvl_new = ft_itoa((ft_atoi(shlvl_current)) + 1);
 	ms_find_envp_l_and_replace_val(&(msh->envp_l), "SHLVL", shlvl_new);
-	free(shlvl_current);
-	shlvl_current = NULL;
+	//free(shlvl_current);
+	//shlvl_current = NULL;
 	free(shlvl_new);
 	shlvl_new = NULL;
 }
@@ -22,8 +22,8 @@ void	ms_shlvl_down(t_msh *msh)
 	shlvl_current = ms_find_envp_l(&(msh->envp_l), "SHLVL");
 	shlvl_new = ft_itoa(ft_atoi(shlvl_current) - 1);
 	ms_find_envp_l_and_replace_val(&(msh->envp_l), "SHLVL", shlvl_new);
-	free(shlvl_current);
-	shlvl_current = NULL;
+	//free(shlvl_current);
+	//shlvl_current = NULL;
 	free(shlvl_new);
 	shlvl_new = NULL;
 }

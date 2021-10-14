@@ -5,6 +5,7 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 	char	*line_new;
 	char	*tmp_one;
 	char	*tmp_two;
+	void	*tmp_three;
 
 	if (!value)
 	{
@@ -15,61 +16,15 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 	}
 	else
 	{
-		tmp_one = ft_strjoin(ft_substr(line, 0, j), value);
-		tmp_two = ft_strdup(&line[*i]);
-		line_new = ft_strjoin(tmp_one, tmp_two);
+		tmp_one = ft_substr(line, 0, j);
+		tmp_two = ft_strjoin(tmp_one, value);
+		tmp_three = (char *)ft_strdup(&line[*i]);
+		line_new = ft_strjoin(tmp_two, tmp_three);
 		*i = j + ft_strlen(value) - 1;
+		free(tmp_three);
 	}
 	free(tmp_one);
 	free(tmp_two);
-	free(line);
-	return (line_new);
-}
-
-static char	*handle_digital_key(char *line, char *key, int j, int *i)
-{
-	char	*line_new;
-	char	*tmp_one;
-	char	*tmp_two;
-	char	*tmp_three;
-	char	*tmp_four;
-
-	if (key[0] == '0')
-	{
-		tmp_one = ft_substr(line, 0, j);
-		tmp_two = ft_strjoin("minishell", &key[1]);
-		tmp_three = ft_strjoin(tmp_one, tmp_two);
-		tmp_four = ft_strdup(&line[*i]);
-		line_new = ft_strjoin(tmp_three, tmp_four);
-		*i = j + ft_strlen(key) + ft_strlen("minishell") - 2;
-		free(tmp_one);
-		free(tmp_two);
-		free(tmp_three);
-		free(tmp_four);
-	}
-	else if (ft_strlen(key) > 1)
-	{
-		tmp_one = ft_substr(line, 0, j);
-		tmp_two = ft_strdup(&key[1]);
-		tmp_three = ft_strjoin(tmp_one, tmp_two);
-		tmp_four = ft_strdup(&line[*i]);
-		line_new = ft_strjoin(tmp_three, tmp_four);
-		*i = j + ft_strlen(key) - 2;
-		free(tmp_one);
-		free(tmp_two);
-		free(tmp_three);
-		free(tmp_four);
-	}
-	else
-	{
-		tmp_one = ft_substr(line, 0, j);
-		tmp_two = ft_strdup(&line[*i]);
-		line_new = ft_strjoin(tmp_one, tmp_two);
-		*i = j - 1;
-		free(tmp_one);
-		free(tmp_two);
-	}
-	free(key);
 	free(line);
 	return (line_new);
 }
@@ -123,7 +78,7 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l)
 		return (line);
 	key = ft_substr(line, j + 1, *i - j - 1);
 	if (ft_isdigit(key[0]))
-		return (handle_digital_key(line, key, j, i));
+		return (ms_handle_digital_key(line, key, j, i));
 	else
 		value = ms_find_envp_l(&envp_l, key);
 	line_new = handle_char_key(line, value, j, i);

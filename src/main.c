@@ -17,11 +17,11 @@ int	main(int argc, char **argv, char **envp)
 //msh->envp_m = ms_envplist_to_array(msh->envp_l); // WHY?
 	while (1)
 	{
-		ms_signals_interactive_shell();
+		//ms_signals_interactive_shell();
 		ms_parse(msh, msh->envp_l);
-		ms_signals_non_interactive_shell();
+		//ms_signals_non_interactive_shell();
 		ms_pipex(msh, msh->cmd_l);
-		ms_signals_interactive_shell();
+		//ms_signals_interactive_shell();
 		ms_lstfree_cmd(&(msh->cmd_l));
 	}
 	return (0);

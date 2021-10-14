@@ -75,6 +75,7 @@ t_arg	*ms_split_line(t_msh *msh);
 int		ms_pass_whitespaces(char *line);
 char	*ms_clear_endwhitespaces(char *line);
 char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l);
+char	*ms_handle_digital_key(char *line, char *key, int j, int *i);
 char	*ms_purify_argument(char *arg_rare, t_msh *msh);
 t_cmd	*ms_get_commands(t_msh *msh);
 t_rdr	*ms_extract_redirects(t_arg **arg);

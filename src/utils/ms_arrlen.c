@@ -18,3 +18,18 @@ int	ms_arrlen(char **arr)
 		len++;
 	return (len);
 }
+
+size_t	ms_lstsize(t_cmd *arg)
+{
+	size_t	i;
+
+	if (!arg)
+		return (0);
+	i = 0;
+	while (arg)
+	{
+		arg = arg->next;
+		i++;
+	}
+	return (i);
+}

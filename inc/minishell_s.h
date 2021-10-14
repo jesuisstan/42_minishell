@@ -14,7 +14,7 @@ typedef struct s_lst
 
 typedef struct s_msh
 {
-	int				old_in;
+	int				first_cmd;
 	int				old_out;
 	char			*line;
 	char			**envp_m;

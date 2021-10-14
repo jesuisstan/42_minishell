@@ -1,11 +1,18 @@
 #include "../../inc/minishell.h"
 
+static void free_lst(t_envp	*lst)
+{
+	free(lst->value);
+	free(lst->key);
+	free(lst->content);
+}
+
 void	del_elem(t_envp **head)
 {
 	t_envp	*prev = NULL;
 	prev = (*head);
 	(*head) = (*head)->next;
-	free(prev);
+	free_lst(prev);
 }
 
 void	del_Nth(t_envp **head, int n)

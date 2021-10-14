@@ -21,7 +21,7 @@ int		ms_arrlen(char **arr);
 int		gen_next_path(char **argv, char **paths, char *name);
 void	ms_command(t_msh *msh, t_cmd *cmd);
 char	**get_path(t_msh *msh);
-int		ms_pipex(t_msh *msh, t_cmd *cmd);
+int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd);
 int		is_builtins(char *key);
 
 t_envp	*lstnew_envp(char *content);
@@ -39,7 +39,8 @@ int	ms_redirects(t_cmd *cmd);
 char	*get_key(char *content);
 char	*get_value(char *content);
 char	*done_path(t_msh *msh, char *name);
-int	is_key_exist(t_envp **env, char *key);
+int		is_key_exist(t_envp **env, char *key);
+size_t	ms_lstsize(t_cmd *arg);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);

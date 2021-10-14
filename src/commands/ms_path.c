@@ -36,7 +36,7 @@ char	*done_path(t_msh *msh, char *name)
 		free(tmp);
 		if (!access(path, F_OK))
 			return (path);
-		free(paths[i]);
+//		free(paths[i]);
 		i++;
 	}
 	free(paths);

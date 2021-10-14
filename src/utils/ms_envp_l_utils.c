@@ -102,6 +102,8 @@ int	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
 		if (!ft_strcmp(tmp->key, key))
 		{
 			tmp_str = ft_strjoin(key, "=");
+			if (tmp->content)
+				free(tmp->content);
 			tmp->content = ft_strjoin(tmp_str, val);
 			if (tmp->value)
 				free(tmp->value);

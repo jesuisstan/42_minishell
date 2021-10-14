@@ -22,8 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		ms_signals_non_interactive_shell();
 		ms_pipex(msh, msh->cmd_l);
 		ms_signals_interactive_shell();
-		//ms_lstfree_arg(&(msh->arg));
-		//ms_lstfree_cmd(&(msh->cmd_l));
+		ms_lstfree_cmd(&(msh->cmd_l));
 	}
 	return (0);
 }

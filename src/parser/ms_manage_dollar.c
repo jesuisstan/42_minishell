@@ -4,19 +4,25 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
+	char	*tmp_two;
 
 	if (!value)
 	{
-		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
+		tmp_one = ft_substr(line, 0, j);
+		tmp_two = ft_strdup(&line[*i]);
+		line_new = ft_strjoin(tmp_one, tmp_two);
 		*i = j - 1;
 	}
 	else
 	{
 		tmp_one = ft_strjoin(ft_substr(line, 0, j), value);
-		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+		tmp_two = ft_strdup(&line[*i]);
+		line_new = ft_strjoin(tmp_one, tmp_two);
 		*i = j + ft_strlen(value) - 1;
-		free(tmp_one);
 	}
+	free(tmp_one);
+	free(tmp_two);
+	free(line);
 	return (line_new);
 }
 
@@ -122,6 +128,5 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l)
 		value = ms_find_envp_l(&envp_l, key);
 	line_new = handle_char_key(line, value, j, i);
 	free(key);
-	free(line);
 	return (line_new);
 }

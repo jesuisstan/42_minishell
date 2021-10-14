@@ -54,7 +54,7 @@ t_envp	*lstnew_envp(char *content)
 	list = (t_envp *)malloc(sizeof(t_envp));
 	if (!list)
 		return (NULL);
-	list->content = content;
+	list->content = ft_strdup(content);
 	list->key = get_key(content);
 	if (!ft_strcmp(list->key, "OLDPWD"))
 		list->value = NULL;

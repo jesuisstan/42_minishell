@@ -30,10 +30,10 @@ int	ms_new_pwd(t_msh *msh)
 	}
 	else
 	{
-		free(pwd);
 		if (msh->envp_l == NULL)
 			return (1);
 		ms_find_envp_l_and_replace_val(&msh->envp_l, "PWD", pwd);
+		free(pwd);
 		return (0);
 	}
 }

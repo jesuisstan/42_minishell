@@ -43,6 +43,7 @@ int	ms_change_dir(t_msh *msh, char *path)
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		free(oldpwd);
 		return (1);
 	}
 	else

@@ -13,8 +13,6 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	char	**paths;
 	char	*file;
 	int		err;
-	paths = get_path(msh);
-	file = cmd->cmd[0];
 	if (is_builtins(cmd->cmd[0]))
 	{
 		ms_builtins(msh, cmd);
@@ -24,6 +22,8 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	}
 	else
 	{
+		paths = get_path(msh);
+		file = cmd->cmd[0];//сдвинуть в есле
 		file = done_path(msh,cmd->cmd[0]);
 		execve(file, cmd->cmd, ms_envplist_to_array(msh->envp_l));// заменить на листы
 		ms_no_such(cmd->cmd[0]);// туту наме нул

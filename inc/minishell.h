@@ -39,6 +39,7 @@ int	ms_redirects(t_cmd *cmd);
 char	*get_key(char *content);
 char	*get_value(char *content);
 char	*done_path(t_msh *msh, char *name);
+int	is_key_exist(t_envp **env, char *key);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);

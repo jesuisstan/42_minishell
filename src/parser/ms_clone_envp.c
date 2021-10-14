@@ -56,7 +56,10 @@ t_envp	*lstnew_envp(char *content)
 		return (NULL);
 	list->content = content;
 	list->key = get_key(content);
-	list->value = get_value(content);
+	if (!ft_strcmp(list->key, "OLDPWD"))
+		list->value = NULL;
+	else
+		list->value = get_value(content);
 	list->next = NULL;
 	return (list);
 }

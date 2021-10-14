@@ -47,6 +47,7 @@ void	ms_parse(t_msh *msh, t_envp *envp_l)
 		msh->line = replace_dollars(msh->line, envp_l);
 		msh->arg = ms_split_line(msh);
 		msh->cmd_l = ms_get_commands(msh);
-		ms_lstfree_arg(&(msh->arg));
 	}
+	ms_lstfree_arg(&(msh->arg));
+	free(msh->line);
 }

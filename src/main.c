@@ -1,4 +1,4 @@
-// case $? (результат 0): echo $? | grep 1 | echo $? | cat -e
+// case $? (результат д.б. 0): echo $? | grep 1 | echo $? | cat -e
 #include "./../inc/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -9,7 +9,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	rl_outstream = stderr;
 	g_status.exit = 0;
-	g_status.status_flag = 0;
 	msh = ms_malloc_x(sizeof(t_msh));
 	msh->arg = NULL;
 	msh->cmd_l = NULL;

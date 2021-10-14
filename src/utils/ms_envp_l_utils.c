@@ -89,6 +89,7 @@ int	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
 {
 	t_envp	*head;
 	t_envp	*tmp;
+	char	*tmp_str;
 
 	if (!envp_l || !key || !val)
 		return (1);
@@ -98,9 +99,11 @@ int	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
 	{
 		if (!ft_strcmp(tmp->key, key))
 		{
-			tmp->content = ft_strjoin(ft_strjoin(key, "="), val);
-			tmp->value = ft_strdup(val);
+			tmp_str = ft_strjoin(key, "=");
+			tmp->content = ft_strjoin(tmp_str, val);
+			tmp->value = val;
 			*envp_l = head;
+			free(tmp_str);
 			return (0);
 		}
 		tmp = tmp->next;

@@ -70,6 +70,8 @@ int	check_export(char *arg)
 	int	i;
 	
 	i = 0;
+	if (arg[0] == '=')
+		return (not_valid(arg));
 	while (arg[i] && arg[i] != '=')
 	{
 		if (ft_isdigit(arg[0]) || !ft_isalpha(arg[0]))
@@ -89,7 +91,9 @@ static int	is_key_exist(t_envp **env, char *key)
 	while (tmp->next)
 	{
 		if (!ft_strcmp(tmp->key, key))
+		{
 			return (1);
+		}
 		tmp = tmp->next;
 	}
 	return (0);

@@ -7,7 +7,7 @@ static t_arg	*lstnew_arg(char *content, t_msh *msh)
 	arg = (t_arg *)malloc(sizeof(t_arg));
 	if (!arg)
 		return (NULL);
-	arg->arg_rare = content;
+	arg->arg_rare = ft_strdup(content);
 	arg->arg_pure = ft_strdup(content);
 	arg->arg_pure = ms_purify_argument(arg->arg_pure, msh);
 	arg->next = NULL;
@@ -81,12 +81,16 @@ static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
 				lstadd_back_arg(arg, lstnew_arg(str, msh));
-			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, end, flag), msh));
+			str = ft_substr(line, end, flag);
+			lstadd_back_arg(arg, lstnew_arg(str, msh));
 			line += flag;
 			flag = 0;
 		}
 		else
-			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, 0, end), msh));
+		{
+			str = ft_substr(line, 0, end);
+			lstadd_back_arg(arg, lstnew_arg(str, msh));
+		}
 		line += end;
 	}
 }

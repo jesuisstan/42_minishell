@@ -4,48 +4,28 @@ static char	*handle_char_key(char *line, char *value, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
+	char	*tmp_two;
+	void	*tmp_three;
 
 	if (!value)
 	{
-		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
+		tmp_one = ft_substr(line, 0, j);
+		tmp_two = ft_strdup(&line[*i]);
+		line_new = ft_strjoin(tmp_one, tmp_two);
 		*i = j - 1;
 	}
 	else
 	{
-		tmp_one = ft_strjoin(ft_substr(line, 0, j), value);
-		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
+		tmp_one = ft_substr(line, 0, j);
+		tmp_two = ft_strjoin(tmp_one, value);
+		tmp_three = (char *)ft_strdup(&line[*i]);
+		line_new = ft_strjoin(tmp_two, tmp_three);
 		*i = j + ft_strlen(value) - 1;
-		free(tmp_one);
+		free(tmp_three);
 	}
-	return (line_new);
-}
-
-static char	*handle_digital_key(char *line, char *key, int j, int *i)
-{
-	char	*line_new;
-	char	*tmp_one;
-
-	if (key[0] == '0')
-	{
-		tmp_one = ft_strjoin(ft_substr(line, 0, j),
-				ft_strjoin("minishell", &key[1]));
-		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
-		*i = j + ft_strlen(key) + ft_strlen("minishell") - 2;
-		free(tmp_one);
-	}
-	else if (ft_strlen(key) > 1)
-	{
-		tmp_one = ft_strjoin(ft_substr(line, 0, j), &key[1]);
-		line_new = ft_strjoin(tmp_one, ft_strdup(&line[*i]));
-		*i = j + ft_strlen(key) - 2;
-		free(tmp_one);
-	}
-	else
-	{
-		line_new = ft_strjoin(ft_substr(line, 0, j), ft_strdup(&line[*i]));
-		*i = j - 1;
-	}
-	free(key);
+	free(tmp_one);
+	free(tmp_two);
+	free(line);
 	return (line_new);
 }
 
@@ -60,15 +40,18 @@ static char	*handle_question_mark(char *line, int j, int *i)
 {
 	char	*line_new;
 	char	*tmp_one;
+	char	*tmp_two;
 	char	*nbr_val;
 	char	*tail;
 
 	nbr_val = ft_itoa(g_status.exit);
-	tmp_one = ft_strjoin(ft_substr(line, 0, j), nbr_val);
+	tmp_one = ft_substr(line, 0, j);
+	tmp_two = ft_strjoin(tmp_one, nbr_val);
 	tail = ft_strdup(&line[*i]);
-	line_new = ft_strjoin(tmp_one, tail);
+	line_new = ft_strjoin(tmp_two, tail);
 	free(nbr_val);
 	free(tmp_one);
+	free(tmp_two);
 	free(tail);
 	free(line);
 	g_status.exit = 0;
@@ -95,11 +78,10 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l)
 		return (line);
 	key = ft_substr(line, j + 1, *i - j - 1);
 	if (ft_isdigit(key[0]))
-		return (handle_digital_key(line, key, j, i));
+		return (ms_handle_digital_key(line, key, j, i));
 	else
 		value = ms_find_envp_l(&envp_l, key);
 	line_new = handle_char_key(line, value, j, i);
 	free(key);
-	free(line);
 	return (line_new);
 }

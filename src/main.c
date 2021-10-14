@@ -22,7 +22,6 @@ int	main(int argc, char **argv, char **envp)
 		if (msh->cmd_l)
 			ms_pipex(msh, msh->cmd_l, ms_lstsize(msh->cmd_l));
 		ms_signals_interactive_shell();
-		ms_lstfree_arg(&(msh->arg));
 		ms_lstfree_cmd(&(msh->cmd_l));
 	}
 	return (0);

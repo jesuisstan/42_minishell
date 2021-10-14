@@ -50,7 +50,7 @@ char	*ms_find_envp_l(t_envp **lst, char *key)
 		{
 			if (!ft_strcmp(tmp->key, key))
 			{
-					return (tmp->value);
+				return (tmp->value);
 			}
 			tmp = tmp->next;
 		}

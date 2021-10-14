@@ -117,12 +117,12 @@ int	ms_export(t_msh *msh, char **argv)
 		key = get_key(argv[1]);
 		value = get_value(argv[1]);
 		if (is_key_exist(&msh->envp_l, key))
-		{
 			ms_find_envp_l_and_replace_val(&msh->envp_l, key, value);
-		}
 		else
 			lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[1]));
-		free(key); //, free(value)
+		free(key);
+		if (value)
+			free(value);
 	}
 	return (0);
 }

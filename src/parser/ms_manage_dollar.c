@@ -98,8 +98,9 @@ char	*ms_manage_dollar(char *line, int *i, t_envp *envp_l)
 	if (ft_isdigit(key[0]))
 		return (handle_digital_key(line, key, j, i));
 	else
-		value = ms_find_envp_m(ms_envplist_to_array(envp_l), key);
+		value = ms_find_envp_l(&envp_l, key);
 	line_new = handle_char_key(line, value, j, i);
 	free(key);
+	free(line);
 	return (line_new);
 }

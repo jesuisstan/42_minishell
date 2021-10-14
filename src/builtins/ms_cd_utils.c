@@ -5,16 +5,17 @@ void	ms_oldpwd(t_msh *msh, char *oldpwd)
 	int	i;
 
 	i = 0;
-	if (msh->envp_m == NULL)
+	if (msh->envp_l == NULL)
 		return ;
-	if (!ms_find_envp_l_and_replace_val(&msh->envp_l, "OLDPWD", oldpwd))
-	{
-		while (msh->envp_m[i])
-			i++;
-		msh->envp_m[i] = ft_strjoin("OLDPWD=", oldpwd);
-		msh->envp_m[i + 1] = NULL;
-		return ;
-	}
+	ms_find_envp_l_and_replace_val(&msh->envp_l, "OLDPWD", oldpwd);
+	// if (!ms_find_envp_l_and_replace_val(&msh->envp_l, "OLDPWD", oldpwd))
+	// {
+	// 	while (msh->envp_m[i])
+	// 		i++;
+	// 	msh->envp_m[i] = ft_strjoin("OLDPWD=", oldpwd);
+	// 	msh->envp_m[i + 1] = NULL;
+	// 	return ;
+	// }
 	return ;
 }
 

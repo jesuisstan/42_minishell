@@ -43,7 +43,8 @@ int	is_key_exist(t_envp **env, char *key);
 
 //cd
 int		ms_cd(t_msh *msh, char **argv);
-void	ms_oldpwd(t_msh *msh, char *oldpwd);
+int		ms_cd_oldpwd(t_msh *msh);
+int		ms_change_dir(t_msh *msh, char *path);
 int		ms_new_pwd(t_msh *msh);
 
 //echo

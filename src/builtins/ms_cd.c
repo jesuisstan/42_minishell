@@ -4,7 +4,7 @@ static char	*ms_find_home(t_envp **lst)
 {
 	t_envp	*tmp;
 	char	*cp_value;
-	
+
 	cp_value = NULL;
 	if (lst && (*lst))
 	{
@@ -22,7 +22,6 @@ static char	*ms_find_home(t_envp **lst)
 	return (NULL);
 }
 
-
 static int	ms_not_set(void)
 {
 	ft_putstr_fd (MSH, STDERR_FILENO);
@@ -30,10 +29,10 @@ static int	ms_not_set(void)
 	return (1);
 }
 
-static int	ms_change_dir(t_msh *msh, char *path)
+int	ms_change_dir(t_msh *msh, char *path)
 {
 	char	*oldpwd;
-	
+
 	oldpwd = getcwd(NULL, 2048);
 	if (!oldpwd)
 		oldpwd = ms_find_envp_l(&msh->envp_l, "HOME");
@@ -50,25 +49,6 @@ static int	ms_change_dir(t_msh *msh, char *path)
 	{
 		free(oldpwd);
 		return (ms_new_pwd(msh));
-	}
-	free(oldpwd);
-	return (0);
-}
-
-static int	ms_cd_oldpwd(t_msh *msh)
-{
-	char	*value;
-
-	value = ms_find_envp_l(&msh->envp_l, "OLDPWD");
-	if (!value)
-	{
-		ft_putstr_fd(MSH, STDERR_FILENO);
-		ft_putendl_fd("cd : OLDPWD not set", STDERR_FILENO);
-		return (1);
-	}
-	else
-	{
-		return (ms_change_dir(msh, value));
 	}
 }
 
@@ -102,12 +82,10 @@ int	ms_cd(t_msh *msh, char **argv)
 		home = ms_find_home(&msh->envp_l);
 		if (!home)
 		{
-			free(home);
 			return (ms_not_set());
 		}
 		res = ms_change_dir(msh, home);
 		free(home);
 		return (res);
 	}
-	return (0);
 }

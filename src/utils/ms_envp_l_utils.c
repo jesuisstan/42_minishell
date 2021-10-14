@@ -103,6 +103,8 @@ int	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
 		{
 			tmp_str = ft_strjoin(key, "=");
 			tmp->content = ft_strjoin(tmp_str, val);
+			if (tmp->value)
+				free(tmp->value);
 			tmp->value = ft_strdup(val);
 			*envp_l = head;
 			free(tmp_str);

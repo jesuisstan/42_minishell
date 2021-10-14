@@ -1,22 +1,21 @@
 #include "../../inc/minishell.h"
 
-void	ms_oldpwd(t_msh *msh, char *oldpwd)
+int	ms_cd_oldpwd(t_msh *msh)
 {
-	int	i;
+	char	*value;
 
-	i = 0;
-	if (msh->envp_l == NULL)
-		return ;
-	ms_find_envp_l_and_replace_val(&msh->envp_l, "OLDPWD", oldpwd);
-	// if (!ms_find_envp_l_and_replace_val(&msh->envp_l, "OLDPWD", oldpwd))
-	// {
-	// 	while (msh->envp_m[i])
-	// 		i++;
-	// 	msh->envp_m[i] = ft_strjoin("OLDPWD=", oldpwd);
-	// 	msh->envp_m[i + 1] = NULL;
-	// 	return ;
-	// }
-	return ;
+	value = ms_find_envp_l(&msh->envp_l, "OLDPWD");
+	if (!value)
+	{
+		ft_putstr_fd(MSH, STDERR_FILENO);
+		ft_putendl_fd("cd : OLDPWD not set", STDERR_FILENO);
+		return (1);
+	}
+	else
+	{
+		free(value);
+		return (ms_change_dir(msh, value));
+	}
 }
 
 int	ms_new_pwd(t_msh *msh)
@@ -31,11 +30,10 @@ int	ms_new_pwd(t_msh *msh)
 	}
 	else
 	{
+		free(pwd);
 		if (msh->envp_l == NULL)
 			return (1);
 		ms_find_envp_l_and_replace_val(&msh->envp_l, "PWD", pwd);
 		return (0);
 	}
-	free(pwd);
-	return (0);
 }

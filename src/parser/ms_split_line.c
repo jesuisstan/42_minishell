@@ -81,7 +81,8 @@ static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
 				lstadd_back_arg(arg, lstnew_arg(str, msh));
-			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, end, flag), msh));
+			str = ft_substr(line, end, flag);
+			lstadd_back_arg(arg, lstnew_arg(str, msh));
 			line += flag;
 			flag = 0;
 		}
@@ -94,5 +95,7 @@ static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
 t_arg	*ms_split_line(t_msh *msh)
 {
 	cut_arguments(msh->line, &(msh->arg), msh);
+	free(msh->line);
+	msh->line = NULL;
 	return (msh->arg);
 }

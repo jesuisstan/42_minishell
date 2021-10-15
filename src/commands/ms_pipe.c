@@ -8,6 +8,12 @@ void	ms_error(char *str)
 		perror("Error");
 	//exit(128); //хер знает какая тут статуса - версия mshmelly
 }
+//void	ms_not_pipe(void)
+//{
+//	ft_putstr_fd(MSH, STDERR_FILENO);
+//	ft_putendl_fd("fork: Resource temporarily unavailable", STDERR_FILENO);
+//	g_status.exit = 1;
+//}
 
 static void init_for_pipe(t_msh *msh, t_cmd *cmd)
 {

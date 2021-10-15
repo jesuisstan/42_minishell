@@ -14,6 +14,8 @@ char	**get_path(t_msh *msh)
 	char	**paths;
 
 	lst_path = ms_find_envp_l(&msh->envp_l, "PATH");
+	if (!lst_path)
+		return (NULL);
 	paths = ft_split(lst_path, ':');
 	return (paths);
 }
@@ -29,14 +31,16 @@ char	*done_path(t_msh *msh, char *name)
 	paths = get_path(msh);
 	if (is_path(name))
 		return(name);
+	if (!paths)
+		return (NULL);
 	while(paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, name);
 		free(tmp);
-		if (!access(path, F_OK))
+		if (!access(path, F_OK | X_OK))
 			return (path);
-//		free(paths[i]);
+		free(paths[i]);
 		i++;
 	}
 	free(paths);

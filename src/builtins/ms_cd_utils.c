@@ -13,7 +13,7 @@ int	ms_cd_oldpwd(t_msh *msh)
 	}
 	else
 	{
-		free(value);
+//		free(value);
 		return (ms_change_dir(msh, value));
 	}
 }

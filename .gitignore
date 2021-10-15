@@ -51,7 +51,7 @@
 *.dSYM/i
 .idea/
 /cmake-build-debug/
-msh_tester/
+/msh_tester/
 *.su
 *.idb
 *.pdb

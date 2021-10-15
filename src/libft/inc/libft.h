@@ -57,13 +57,11 @@ size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		get_next_line(int fd, char **line);
-
 int		ft_putnchar(char c, int n);
 int		**ft_malloc_int_array(int height, int width);
 char	*ft_strrev(char *str);
 void	ft_free_array(char ***array);
 void	ft_putnbr_uns_fd(unsigned int n, int fd);
 int		ft_strcmp(const char *s1, const char *s2);
-
 
 #endif

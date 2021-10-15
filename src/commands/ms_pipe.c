@@ -7,7 +7,6 @@ void	ms_error(char *str)
 	else
 		perror("Error");
 	g_status.exit = 128;
-	//exit(128); //хер знает какая тут статуса - версия mshmelly
 }
 
 int	ms_not_pipe(t_cmd *start)
@@ -78,9 +77,9 @@ static void	wail_all(t_cmd *start)
 	}
 	while (cmd)
 	{
-		waitpid(cmd->pid, &status, 0);//g_status.exit
+		waitpid(cmd->pid, &status, 0);
 		g_status.exit = WEXITSTATUS(status);
-		if (!g_status.exit && WIFSIGNALED(status))//интерактив статус
+		if (!g_status.exit && WIFSIGNALED(status))
 		{
 			g_status.exit = 128 + WTERMSIG(status);
 		}
@@ -102,9 +101,7 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 	while (cmd->next)
 	{
 		if (pipe(cmd->pipe_fd) < 0)
-		{
 			return (ms_not_pipe(start));
-		}
 		cmd = cmd->next;
 	}
 	cmd = start;
@@ -114,13 +111,12 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 		cmd->pid = fork();
 		cmd->is_fork = 1;
 		if (cmd->pid < 0)
-			ms_error(NULL);//заменить
+			ms_error("bash: fork: Resource temporarily unavailable");
 		else if (cmd->pid == 0)
 			child_proc(msh, cmd, start);
 		msh->old_out = cmd->pipe_fd[0];
 		cmd = cmd->next;
 	}
-	cmd = start;
-	wail_all(cmd);
+	wail_all(start);
 	return (0);
 }

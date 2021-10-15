@@ -5,6 +5,7 @@ static void	free_lst(t_envp	*lst)
 	free(lst->value);
 	free(lst->key);
 	free(lst->content);
+	free(lst);
 }
 
 static void	del_elem(t_envp **head)
@@ -53,9 +54,7 @@ int	ms_find_envp_l_ind(t_envp *lst, char *key)
 		while (tmp)
 		{
 			if (!ft_strcmp(tmp->key, key))
-			{
 				return (index);
-			}
 			index++;
 			tmp = tmp->next;
 		}
@@ -66,13 +65,19 @@ int	ms_find_envp_l_ind(t_envp *lst, char *key)
 int	ms_unset(t_msh *msh, char **argv)
 {
 	int	ind_del;
+	int	i;
 
+	i = 1;
 	if (ms_arrlen(argv) == 1)
 		return (0);
 	else
 	{
-		ind_del = ms_find_envp_l_ind(msh->envp_l, argv[1]);
-		del_nth(&(msh->envp_l), ind_del);
+		while (argv[i])
+		{
+			ind_del = ms_find_envp_l_ind(msh->envp_l, argv[i]);
+			del_nth(&(msh->envp_l), ind_del);
+			i++;
+		}
 	}
 	return (0);
 }

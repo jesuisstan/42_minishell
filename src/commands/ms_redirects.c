@@ -1,15 +1,5 @@
 #include "../../inc/minishell.h"
 
-static void	ms_error(char *str)
-{
-	if (str)
-		ft_putendl_fd(str, STDERR_FILENO);
-	else
-		perror("Error");
-	g_status.exit = 1;
-	exit(g_status.exit);
-}
-
 void	rdr_right(t_cmd *cmd, char *file, int mod)
 {
 	if (mod == RDR_R1)
@@ -17,7 +7,11 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
 	else if (mod == RDR_R2)
 		cmd->out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (cmd->out == -1)
-		ms_error(NULL);
+	{
+		perror("Error");
+		g_status.exit = 1;
+		exit(g_status.exit);
+	}
 	dup2(cmd->out, STDOUT_FILENO);
 	close(cmd->out);
 }
@@ -30,7 +24,11 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
 			close(cmd->in);
 		cmd->in = open(file, O_RDONLY);
 		if (cmd->in == -1)
-			ms_error(NULL);
+		{
+			perror("Error");
+			g_status.exit = 1;
+			exit(g_status.exit);
+		}
 	}
 }
 
@@ -55,8 +53,12 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 	int	fd[2];
 	int	pid;
 
-	if (pipe(fd) == -1)
-		ms_error(NULL);
+	if (pipe(fd) < 0)
+	{
+		perror("Error");
+		g_status.exit = 1;
+		exit (g_status.exit);
+	}
 	pid = fork();
 	if (pid == 0)
 	{

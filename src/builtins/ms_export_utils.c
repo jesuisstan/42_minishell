@@ -1,9 +1,9 @@
 #include "../../inc/minishell.h"
 
-void	print_env_l(t_envp *lst)
+int	print_env_l(t_envp *lst)
 {
 	if (!lst)
-		return ;
+		return (0);
 	while (lst)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
@@ -18,6 +18,7 @@ void	print_env_l(t_envp *lst)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		lst = lst->next;
 	}
+	return (0);
 }
 
 int	is_key_exist(t_envp **env, char *key)

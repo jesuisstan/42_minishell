@@ -33,7 +33,6 @@ char	*ms_find_envp_l(t_envp **lst, char *key);
 char	*ms_find_envp_m(char **envp, char *key);
 int		ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
 int		ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val);
-void	print_env_l(t_envp *lst);
 void	ms_cp_envp(t_msh *msh, char **envp);
 int	ms_redirects(t_cmd *cmd);
 char	*get_key(char *content);
@@ -65,7 +64,7 @@ int		ms_unset(t_msh *msh, char **argv);
 
 //export
 int		ms_export(t_msh *msh, char **argv);
-void	print_env_l(t_envp *lst);
+int		print_env_l(t_envp *lst);
 int		is_key_exist(t_envp **env, char *key);
 
 

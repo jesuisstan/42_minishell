@@ -13,14 +13,14 @@ static void	swap_action(t_envp **lst)
 	}
 }
 
-static void	sorting(t_envp **lst)
+static int	sorting(t_envp **lst)
 {
 	int		flag;
 	t_envp	*cur;
 
 	flag = 0;
 	if (!(*lst) || !(*lst)->next)
-		return ;
+		return (0);
 	if (ft_strcmp((*lst)->key, (*lst)->next->key) > 0)
 		swap_action(lst);
 	cur = (*lst);
@@ -35,6 +35,7 @@ static void	sorting(t_envp **lst)
 	}
 	if (flag)
 		sorting(lst);
+	return (0);
 }
 
 int	not_valid(char *agr)
@@ -68,31 +69,24 @@ int	ms_export(t_msh *msh, char **argv)
 {
 	char	*key;
 	char	*value;
-	int		i;
 
-	i = 1;
 	if (ms_arrlen(argv) == 1)
-	{
-		sorting(&msh->envp_l);
-		print_env_l(msh->envp_l);
-		return (0);
-	}
+		return (sorting(&msh->envp_l) + print_env_l(msh->envp_l));
 	else
 	{
-		while(argv[i])
+		while (*++argv)
 		{
-			if (check_export(argv[i]))
+			if (check_export(*argv))
 				return (1);
-			key = get_key(argv[i]);
-			value = get_value(argv[i]);
+			key = get_key(*argv);
+			value = get_value(*argv);
 			if (is_key_exist(&msh->envp_l, key))
 				ms_find_envp_l_and_replace_val(&msh->envp_l, key, value);
 			else
-				lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[i]));
+				lstadd_back_envp(&msh->envp_l, lstnew_envp(*argv));
 			free(key);
 			if (value)
 				free(value);
-			i++;
 		}
 	}
 	return (0);

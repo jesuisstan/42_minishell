@@ -5,20 +5,26 @@ static char	*manage_quotes(char *line, int *i, t_msh *msh)
 	int		j;
 	char	*line_new;
 	char	*tail;
-	char	*tmp;
+	char	*tmp_one;
+	char	*tmp_two;
+	char	*tmp_three;
 
 	(void)msh;
 	j = *i;
 	while (line[++(*i)])
 		if (line[*i] == '\"')
 			break ;
-	tmp = ft_strjoin(ft_substr(line, 0, j),
-			ft_substr(line, j + 1, *i - j - 1));
+	tmp_one = ft_substr(line, 0, j);
+	tmp_two = ft_substr(line, j + 1, *i - j - 1);
+	tmp_three = ft_strjoin(tmp_one, tmp_two);;
 	tail = ft_strdup(&line[*i + 1]);
-	line_new = ft_strjoin(tmp, tail);
+	line_new = ft_strjoin(tmp_three, tail);
 	*i -= 2;
-	free (tmp);
-	free (tail);
+	free(tmp_one);
+	free(tmp_two);
+	free(tmp_three);
+	free(tail);
+	free(line);
 	return (line_new);
 }
 
@@ -29,19 +35,23 @@ static char	*manage_apostrophe(char *line, int *i)
 	char	*tail;
 	char	*tmp_one;
 	char	*tmp_two;
+	char	*tmp_three;
 
 	j = *i;
 	while (line[++(*i)])
 		if (line[*i] == '\'')
 			break ;
 	tmp_one = ft_substr(line, 0, j);
-	tmp_two = ft_strjoin(tmp_one, ft_substr(line, j + 1, *i - j - 1));
+	tmp_two = ft_substr(line, j + 1, *i - j - 1);
+	tmp_three = ft_strjoin(tmp_one, tmp_two);
 	tail = ft_strdup(&line[*i + 1]);
-	line_new = ft_strjoin(tmp_two, tail);
+	line_new = ft_strjoin(tmp_three, tail);
 	*i -= 2;
-	free (tmp_one);
-	free (tmp_two);
-	free (tail);
+	free(tmp_one);
+	free(tmp_two);
+	free(tmp_three);
+	free(tail);
+	free(line);
 	return (line_new);
 }
 

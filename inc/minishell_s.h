@@ -60,7 +60,7 @@ typedef struct s_envp
 typedef struct	s_status
 {
 	int				exit;
-	int				status_flag;
+	int				status_flag;//todo
 }				t_status;
 
 t_status	g_status;

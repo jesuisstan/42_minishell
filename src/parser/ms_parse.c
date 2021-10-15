@@ -46,8 +46,15 @@ void	ms_parse(t_msh *msh, t_envp *envp_l)
 	{
 		msh->line = replace_dollars(msh->line, envp_l);
 		msh->arg = ms_split_line(msh);
+		//while (msh->arg) //todo распечатывает связ. список с аргументами line
+		//{
+		//	printf("arg rare = %s\n", msh->arg->arg_rare);
+		//	printf("arg pure = %s\n", msh->arg->arg_pure);
+		//	printf("\n");
+		//	msh->arg = msh->arg->next;
+		//}
 		msh->cmd_l = ms_get_commands(msh);
 	}
-	free(msh->line);
 	ms_lstfree_arg(&(msh->arg));
+	free(msh->line);
 }

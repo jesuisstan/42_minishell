@@ -33,6 +33,18 @@ static t_rdr	*lstnew_rdr(char *content)
 	return (list);
 }
 
+//experiment
+//static void	lstdelone_arg_spec(t_arg *arg)
+//{
+//	if (!arg)
+//		return ;
+//	free(arg->arg_rare);
+//	arg->arg_rare = NULL;
+//	free(arg->arg_pure);
+//	arg->arg_pure = NULL;
+//}
+//experiment
+
 static void	lstremove_node_arg(t_arg **arg)
 {
 	t_arg	*tmp;
@@ -41,6 +53,8 @@ static void	lstremove_node_arg(t_arg **arg)
 		return ;
 	tmp = (*arg)->next;
 	lstdelone_arg(*arg);
+	if ((*arg)->next)
+		free (*arg);
 	*arg = tmp;
 }
 

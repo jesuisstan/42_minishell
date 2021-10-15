@@ -1,25 +1,5 @@
 #include "../../inc/minishell.h"
 
-void	print_env_l(t_envp *lst)
-{
-	if (!lst)
-		return ;
-	while (lst)
-	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(lst->key, STDOUT_FILENO);
-		if (lst->value)
-		{
-			ft_putstr_fd("=", STDOUT_FILENO);
-			ft_putchar_fd('"', STDOUT_FILENO);
-			ft_putstr_fd(lst->value, STDOUT_FILENO);
-			ft_putchar_fd('"', STDOUT_FILENO);
-		}
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		lst = lst->next;
-	}
-}
-
 static void	swap_action(t_envp **lst)
 {
 	t_envp	*tmp;
@@ -35,9 +15,10 @@ static void	swap_action(t_envp **lst)
 
 static void	sorting(t_envp **lst)
 {
-	int flag = 0;
+	int		flag;
 	t_envp	*cur;
-	
+
+	flag = 0;
 	if (!(*lst) || !(*lst)->next)
 		return ;
 	if (ft_strcmp((*lst)->key, (*lst)->next->key) > 0)
@@ -65,10 +46,10 @@ int	not_valid(char *agr)
 	return (1);
 }
 
-int	check_export(char *arg)
+static int	check_export(char *arg)
 {
 	int	i;
-	
+
 	i = 0;
 	if (arg[0] == '=')
 		return (not_valid(arg));
@@ -80,29 +61,13 @@ int	check_export(char *arg)
 			return (not_valid(arg));
 		i++;
 	}
-	return 0;
-}
-
-int	is_key_exist(t_envp **env, char *key)
-{
-	t_envp	*tmp;
-
-	tmp = (*env);
-	while (tmp->next)
-	{
-		if (!ft_strcmp(tmp->key, key))
-		{
-			return (1);
-		}
-		tmp = tmp->next;
-	}
 	return (0);
 }
 
 int	ms_export(t_msh *msh, char **argv)
 {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 
 	if (ms_arrlen(argv) == 1)
 	{

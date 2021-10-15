@@ -30,10 +30,10 @@ char	*done_path(t_msh *msh, char *name)
 	i = 0;
 	paths = get_path(msh);
 	if (is_path(name))
-		return(name);
+		return (name);
 	if (!paths)
 		return (NULL);
-	while(paths[i])
+	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, name);
@@ -45,35 +45,4 @@ char	*done_path(t_msh *msh, char *name)
 	}
 	free(paths);
 	return (NULL);
-}
-
-
-int	gen_next_path(char **argv, char **paths, char *name)
-{
-	static int	i;
-	char		*tmp;
-
-	if (i > 1)
-		free(argv[0]);
-	if (i > ms_arrlen(paths) || (!paths[0] && !is_path(name)))
-	{
-		i = 0;
-		argv[0] = name;
-		return (0);
-	}
-	if (!i && !is_path(name))
-		i++;
-	if (i)
-	{
-		tmp = ft_strjoin(paths[i - 1], "/");
-		argv[0] = ft_strjoin(tmp, name);
-		if (!tmp || !argv[0])
-		{
-			perror(NULL);
-			exit(errno);
-		}
-		free(tmp);
-	}
-	i++;
-	return (1);
 }

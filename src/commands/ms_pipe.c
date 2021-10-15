@@ -6,6 +6,7 @@ void	ms_error(char *str)
 		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror("Error");
+	g_status.exit = 128;
 	//exit(128); //хер знает какая тут статуса - версия mshmelly
 }
 //void	ms_not_pipe(void)
@@ -15,7 +16,7 @@ void	ms_error(char *str)
 //	g_status.exit = 1;
 //}
 
-static void init_for_pipe(t_msh *msh, t_cmd *cmd)
+static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
 {
 	cmd->is_fork = 0;
 	cmd->in = 0;
@@ -51,10 +52,12 @@ static void	child_proc(t_msh *msh, t_cmd *cmd, t_cmd *start)
 	ms_command(msh, cmd);
 }
 
-static void wail_all(t_cmd *start)
+static void	wail_all(t_cmd *start)
 {
 	t_cmd	*cmd;
-	
+	int		status;
+
+	status = 0;
 	cmd = start;
 	while (start->next)
 	{
@@ -64,8 +67,12 @@ static void wail_all(t_cmd *start)
 	}
 	while (cmd)
 	{
-		waitpid(cmd->pid, &g_status.exit, 0);//g_status.exit
-		g_status.exit = WEXITSTATUS(g_status.exit); // интерактив статус
+		waitpid(cmd->pid, &status, 0);//g_status.exit
+		g_status.exit = WEXITSTATUS(status);
+		if (!g_status.exit && WIFSIGNALED(status))//интерактив статус
+		{
+			g_status.exit = 128 + WTERMSIG(status);
+		}
 		cmd = cmd->next;
 	}
 }
@@ -84,7 +91,10 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 	while (cmd->next)
 	{
 		if (pipe(cmd->pipe_fd) == -1)
+		{
 			ms_error(NULL);
+			len_cmd = 0;
+		}
 		cmd = cmd->next;
 	}
 	cmd = start;
@@ -94,7 +104,7 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 		cmd->pid = fork();
 		cmd->is_fork = 1;
 		if (cmd->pid < 0)
-			ms_error(NULL);
+			ms_error(NULL);//заменить
 		else if (cmd->pid == 0)
 			child_proc(msh, cmd, start);
 		msh->old_out = cmd->pipe_fd[0];

@@ -12,28 +12,27 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 {
 	char	*file;
 	int		err;
+
 	if (is_builtins(cmd->cmd[0]))
 	{
 		ms_builtins(msh, cmd);
 		if (cmd->is_fork)
-			exit (0); //продумать статус
+			exit (g_status.exit);
 		return ;
 	}
 	else
 	{
-		file = done_path(msh,cmd->cmd[0]);
+		file = done_path(msh, cmd->cmd[0]);
 		if (!file)
-			execve(cmd->cmd[0], cmd->cmd, ms_envplist_to_array(msh->envp_l));// заменить на листы
+			execve(cmd->cmd[0], cmd->cmd, ms_envplist_to_array(msh->envp_l));
 		else
 			execve(file, cmd->cmd, ms_envplist_to_array(msh->envp_l));
 		err = errno;
-		ms_no_such(cmd->cmd[0]);// туту наме нул
+		ms_no_such(cmd->cmd[0]);
 		free(file);
-		if (err == 13) //Permission denied
+		if (err == 13)
 			exit(126);
-		else if (err == 2 || err == 14 || err == 20) //bad address
-			exit(127);
 		else
-			exit(0);
+			exit(127);
 	}
 }

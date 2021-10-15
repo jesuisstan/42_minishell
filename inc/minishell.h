@@ -65,6 +65,9 @@ int		ms_unset(t_msh *msh, char **argv);
 
 //export
 int		ms_export(t_msh *msh, char **argv);
+void	print_env_l(t_envp *lst);
+int		is_key_exist(t_envp **env, char *key);
+
 
 void	ms_builtins(t_msh *msh, t_cmd *cmd);
 

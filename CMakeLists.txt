@@ -14,7 +14,7 @@ FILE(GLOB SRC
         "src/signals/*.c")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Wall")
-add_executable(minishell ${SRC})
+add_executable(minishell ${SRC} src/builtins/ms_export_utils.c)
 target_link_libraries (minishell ${CMAKE_CURRENT_SOURCE_DIR}/src/libft/libft.a)
 target_link_libraries (minishell readline)
 

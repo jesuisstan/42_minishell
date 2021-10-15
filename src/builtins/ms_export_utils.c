@@ -25,7 +25,7 @@ int	is_key_exist(t_envp **env, char *key)
 	t_envp	*tmp;
 
 	tmp = (*env);
-	while (tmp->next)
+	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, key))
 			return (1);

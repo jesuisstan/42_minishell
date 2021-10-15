@@ -63,40 +63,39 @@ static int	find_end(char *line, int *flag)
 	return (i);
 }
 
-static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
+static void	cut_arguments(char *line, t_arg **arg, t_msh *msh, int *flag)
 {
 	int		end;
-	int		flag;
 	char	*str;
 
-	flag = 0;
 	while (*line)
 	{
 		line += ms_pass_whitespaces(line);
 		if (!*line)
 			return ;
-		end = find_end(line, &flag);
-		if (flag != 0)
+		end = find_end(line, flag);
+		if ((*flag) != 0)
 		{
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
 				lstadd_back_arg(arg, lstnew_arg(str, msh));
-			str = ft_substr(line, end, flag);
-			lstadd_back_arg(arg, lstnew_arg(str, msh));
-			line += flag;
-			flag = 0;
+			else
+				free(str);
+			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, end, *flag), msh));
+			line += *flag;
+			*flag = 0;
 		}
 		else
-		{
-			str = ft_substr(line, 0, end);
-			lstadd_back_arg(arg, lstnew_arg(str, msh));
-		}
+			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, 0, end), msh));
 		line += end;
 	}
 }
 
 t_arg	*ms_split_line(t_msh *msh)
 {
-	cut_arguments(msh->line, &(msh->arg), msh);
+	int	flag;
+
+	flag = 0;
+	cut_arguments(msh->line, &(msh->arg), msh, &flag);
 	return (msh->arg);
 }

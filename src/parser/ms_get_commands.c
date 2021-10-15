@@ -63,21 +63,22 @@ static void	lstadd_back_cmd(t_cmd **lst, t_cmd *new_node)
 t_cmd	*ms_get_commands(t_msh *msh)
 {
 	t_arg	*head;
+	t_arg	*tmp;
 
 	if (msh->arg == NULL)
 		return (NULL);
-	head = msh->arg;
-	while (msh->arg != NULL)
+	tmp = msh->arg;
+	head = tmp;
+	while (tmp != NULL)
 	{
-		if (ft_strcmp(msh->arg->arg_pure, "|") == 0)
+		if (ft_strcmp(tmp->arg_pure, "|") == 0)
 		{
 			lstadd_back_cmd(&msh->cmd_l, lstnew_cmd(head));
-			head = msh->arg->next;
+			head = tmp->next;
 		}
-		msh->arg = msh->arg->next;
-		if (msh->arg == NULL)
+		tmp = tmp->next;
+		if (tmp == NULL)
 			lstadd_back_cmd(&msh->cmd_l, lstnew_cmd(head));
 	}
-	ms_lstfree_arg(&head);
 	return (msh->cmd_l);
 }

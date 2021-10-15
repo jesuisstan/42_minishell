@@ -9,12 +9,23 @@ void	ms_error(char *str)
 	g_status.exit = 128;
 	//exit(128); //хер знает какая тут статуса - версия mshmelly
 }
-//void	ms_not_pipe(void)
-//{
-//	ft_putstr_fd(MSH, STDERR_FILENO);
-//	ft_putendl_fd("fork: Resource temporarily unavailable", STDERR_FILENO);
-//	g_status.exit = 1;
-//}
+
+int	ms_not_pipe(t_cmd *start)
+{
+	ft_putstr_fd(MSH, STDERR_FILENO);
+	ft_putendl_fd("fork: Resource temporarily unavailable", STDERR_FILENO);
+	g_status.exit = 128;
+	(void)start;
+	while (start->next)
+	{
+		if (!start->pipe_fd[0] || !start->pipe_fd[1])
+			break ;
+		close(start->pipe_fd[0]);
+		close(start->pipe_fd[1]);
+		start = start->next;
+	}
+	return (1);
+}
 
 static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
 {
@@ -90,10 +101,9 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 	}
 	while (cmd->next)
 	{
-		if (pipe(cmd->pipe_fd) == -1)
+		if (pipe(cmd->pipe_fd) < 0)
 		{
-			ms_error(NULL);
-			len_cmd = 0;
+			return (ms_not_pipe(start));
 		}
 		cmd = cmd->next;
 	}

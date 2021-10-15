@@ -34,8 +34,9 @@ int	ms_change_dir(t_msh *msh, char *path)
 	char	*oldpwd;
 
 	oldpwd = getcwd(NULL, 2048);
-	if (!oldpwd)
-		oldpwd = ms_find_envp_l(&msh->envp_l, "HOME");
+	if (!oldpwd) {
+		oldpwd = ft_strdup(ms_find_envp_l(&msh->envp_l, "HOME"));
+	}
 	if (chdir(path))
 	{
 		ft_putstr_fd(MSH, STDERR_FILENO);

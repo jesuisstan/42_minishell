@@ -30,12 +30,12 @@ int	ms_msg(t_msh *msh, char *argv1, char *str)
 	if (argv1 != NULL)
 	{
 		ms_shlvl_down(msh);
+		g_status.exit = 255;
 		exit(255);
 	}
 	else
 	{
-		ms_shlvl_down(msh);
-		exit (1);
+		return (1);
 	}
 	return (0);
 }

@@ -81,7 +81,6 @@ static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
 			str = ft_substr(line, 0, end);
 			if (ft_strcmp(str, "\0"))
 				lstadd_back_arg(arg, lstnew_arg(str, msh));
-			free(str); //mshmelly_fux
 			str = ft_substr(line, end, flag);
 			lstadd_back_arg(arg, lstnew_arg(str, msh));
 			line += flag;

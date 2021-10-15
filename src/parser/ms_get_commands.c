@@ -58,7 +58,6 @@ static void	lstadd_back_cmd(t_cmd **lst, t_cmd *new_node)
 	}
 	else if (*lst == NULL)
 		*lst = new_node;
-//	free(new_node); //mshmelly
 }
 
 t_cmd	*ms_get_commands(t_msh *msh)
@@ -73,8 +72,6 @@ t_cmd	*ms_get_commands(t_msh *msh)
 		if (ft_strcmp(msh->arg->arg_pure, "|") == 0)
 		{
 			lstadd_back_cmd(&msh->cmd_l, lstnew_cmd(head));
-			//if (head)//mshmelly
-				free(head); //mshmelly
 			head = msh->arg->next;
 		}
 		msh->arg = msh->arg->next;

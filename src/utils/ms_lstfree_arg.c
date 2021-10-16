@@ -6,7 +6,7 @@ void	lstdelone_arg(t_arg *arg)
 		return ;
 	free(arg->arg_pure);
 	arg->arg_pure = NULL;
-	//free(arg);
+	free(arg);
 }
 
 void	ms_lstfree_arg(t_arg **arg)

@@ -9,6 +9,7 @@ static t_arg	*lstnew_arg(char *content, t_msh *msh)
 		return (NULL);
 	arg->arg_rare = ft_strdup(content);
 	arg->arg_pure = ms_purify_argument(arg->arg_rare, msh);
+	arg->flag_isredirect = 0;
 	arg->next = NULL;
 	free(content);
 	return (arg);
@@ -96,5 +97,6 @@ t_arg	*ms_split_line(t_msh *msh)
 
 	flag = 0;
 	cut_arguments(msh->line, &(msh->arg), msh, &flag);
+	ms_set_redirect_flags(&(msh->arg));
 	return (msh->arg);
 }

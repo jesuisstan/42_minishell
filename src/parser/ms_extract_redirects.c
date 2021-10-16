@@ -33,31 +33,6 @@ static t_rdr	*lstnew_rdr(char *content)
 	return (list);
 }
 
-//experiment
-//static void	lstdelone_arg_spec(t_arg *arg)
-//{
-//	if (!arg)
-//		return ;
-//	free(arg->arg_rare);
-//	arg->arg_rare = NULL;
-//	free(arg->arg_pure);
-//	arg->arg_pure = NULL;
-//}
-//experiment
-
-static void	lstremove_node_arg(t_arg **arg)
-{
-	t_arg	*tmp;
-
-	if (!arg || !(*arg))
-		return ;
-	tmp = (*arg)->next;
-	lstdelone_arg(*arg);
-	if ((*arg)->next)
-		free (*arg);
-	*arg = tmp;
-}
-
 static int	manage_front_redirect(t_arg **arg, t_rdr **rdr)
 {
 	char	*content;
@@ -71,8 +46,6 @@ static int	manage_front_redirect(t_arg **arg, t_rdr **rdr)
 			lstadd_back_rdr(rdr, lstnew_rdr(content));
 			if (!(*arg)->next->next)
 			{
-				lstremove_node_arg(&((*arg)->next));
-				lstremove_node_arg(arg);
 				return (1);
 			}
 			*arg = (*arg)->next->next;
@@ -104,8 +77,7 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 		{
 			str = ft_strjoin(tmp->next->arg_pure, tmp->next->next->arg_pure);
 			lstadd_back_rdr(&rdr, lstnew_rdr(str));
-			lstremove_node_arg(&(tmp->next));
-			lstremove_node_arg(&(tmp->next));
+			tmp = tmp->next->next;
 		}
 		else if (tmp->next)
 			tmp = tmp->next;

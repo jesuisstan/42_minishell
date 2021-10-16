@@ -8,7 +8,9 @@ static int	get_cmd_size(t_arg *arg)
 	if (!arg)
 		return (0);
 	tmp = arg;
-	i = 1;
+	i = 0;
+	if (tmp->flag_isredirect == 0)
+		i = 1;
 	while (tmp->next)
 	{
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
@@ -19,7 +21,8 @@ static int	get_cmd_size(t_arg *arg)
 		tmp = tmp->next;
 		if (ft_strcmp(tmp->arg_pure, "|") == 0)
 			break ;
-		i++;
+		if (tmp->flag_isredirect == 0)
+			i++;
 	}
 	return (i);
 }

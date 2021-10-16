@@ -16,6 +16,7 @@ typedef struct s_msh
 {
 	int				first_cmd;
 	int				old_out;
+	int				old_in;
 	char			*line;
 	char			**envp_m;
 	char			*name;

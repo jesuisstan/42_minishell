@@ -1,5 +1,7 @@
 #include "../../inc/minishell.h"
 
+static int ms_dups(t_cmd *cmd);
+
 void	ms_error(char *str)
 {
 	if (str)
@@ -28,42 +30,48 @@ int	ms_not_pipe(t_cmd *start)
 
 static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
 {
-	cmd->is_fork = 0;
-	cmd->in = 0;
-	cmd->out = 1;
-	cmd->pipe_fd[0] = 0;
-	cmd->pipe_fd[1] = 0;
-	msh->old_out = 0;
-	msh->old_in = 0;
-	msh->first_cmd = 0;
+	while (cmd)
+	{
+		cmd->in = STDIN_FILENO;
+		cmd->out = STDOUT_FILENO;
+		cmd->is_fork = 0;
+		cmd->pipe_fd[0] = 0;
+		cmd->pipe_fd[1] = 0;
+		cmd = cmd->next;
+	}
 }
 
 static void	child_proc(t_msh *msh, t_cmd *cmd, t_cmd *start)
 {
-	if (msh->first_cmd == 1 && cmd->pipe_fd[1])
-	{
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-	}
-	if (!cmd->next && msh->old_out)
-	{
-		dup2(msh->old_out, STDIN_FILENO);
-		close(msh->old_out);
-	}
-	else if (cmd->next && msh->first_cmd > 1)
-	{
-		dup2(msh->old_out, STDIN_FILENO);
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
-	}
+	ms_redirects(cmd);
+	if (ms_dups(cmd))
+		ft_putendl_fd("dups", 2);
 	while (start->next)
 	{
 		close(start->pipe_fd[0]);
 		close(start->pipe_fd[1]);
 		start = start->next;
 	}
-	if (cmd->rdr)
-		ms_redirects(cmd);
 	ms_command(msh, cmd);
 }
+
+static int ms_dups(t_cmd *cmd)
+{
+	if (cmd->in != STDIN_FILENO)
+	{
+		if (dup2(cmd->in, STDIN_FILENO) < 0)
+			return (1);
+		close(cmd->in);
+	}
+	if (cmd->out != STDOUT_FILENO)
+	{
+		if (dup2(cmd->out, STDOUT_FILENO) < 0)
+			return (1);
+		close(cmd->out);
+	}
+	return (0);
+}
+
 
 static void	wail_all(t_cmd *start)
 {
@@ -93,7 +101,7 @@ static void	wail_all(t_cmd *start)
 int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 {
 	t_cmd	*start;
-
+	
 	init_for_pipe(msh, cmd);
 	start = cmd;
 	if (!cmd->next && is_builtins(cmd->cmd[0]) && !cmd->rdr)
@@ -112,15 +120,12 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 	cmd = start;
 	while (len_cmd--)
 	{
-		msh->first_cmd++;
 		cmd->pid = fork();
 		cmd->is_fork = 1;
 		if (cmd->pid < 0)
 			ms_error("bash: fork: Resource temporarily unavailable");
 		else if (cmd->pid == 0)
 			child_proc(msh, cmd, start);
-		msh->old_out = cmd->pipe_fd[0];
-		msh->old_in = cmd->pipe_fd[1];
 		cmd = cmd->next;
 	}
 	wail_all(start);

@@ -14,9 +14,6 @@ typedef struct s_lst
 
 typedef struct s_msh
 {
-	int				first_cmd;
-	int				old_out;
-	int				old_in;
 	char			*line;
 	char			**envp_m;
 	char			*name;
@@ -34,6 +31,7 @@ typedef struct s_cmd
 	int 			is_fork;
 	pid_t			pid;
 	struct s_rdr	*rdr;
+	int				rdr_error;
 	struct s_cmd	*next;
 }				t_cmd;
 

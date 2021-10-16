@@ -2,12 +2,17 @@
 
 static char	*handle_numberfull(char *line, char *key, int j, int *i)
 {
-	char	*line_new = NULL;
-	char	*tmp_one = NULL;
-	char	*tmp_two = NULL;
-	char	*tmp_three = NULL;
-	char	*tmp_four = NULL;
+	char	*line_new;
+	char	*tmp_one;
+	char	*tmp_two;
+	char	*tmp_three;
+	char	*tmp_four;
 
+	line_new = NULL;
+	tmp_one = NULL;
+	tmp_two = NULL;
+	tmp_three = NULL;
+	tmp_four = NULL;
 	tmp_one = ft_substr(line, 0, j);
 	tmp_two = ft_strdup(&key[1]);
 	tmp_three = ft_strjoin(tmp_one, tmp_two);
@@ -23,12 +28,17 @@ static char	*handle_numberfull(char *line, char *key, int j, int *i)
 
 static char	*handle_zero(char *line, char *key, int j, int *i)
 {
-	char	*line_new = NULL;
-	char	*tmp_one = NULL;
-	char	*tmp_two = NULL;
-	char	*tmp_three = NULL;
-	char	*tmp_four = NULL;
+	char	*line_new;
+	char	*tmp_one;
+	char	*tmp_two;
+	char	*tmp_three;
+	char	*tmp_four;
 
+	line_new = NULL;
+	tmp_one = NULL;
+	tmp_two = NULL;
+	tmp_three = NULL;
+	tmp_four = NULL;
 	tmp_one = ft_substr(line, 0, j);
 	tmp_two = ft_strjoin("minishell", &key[1]);
 	tmp_three = ft_strjoin(tmp_one, tmp_two);

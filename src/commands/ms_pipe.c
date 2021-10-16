@@ -30,6 +30,7 @@ int	ms_not_pipe(t_cmd *start)
 
 static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
 {
+	(void)msh;
 	while (cmd)
 	{
 		cmd->in = STDIN_FILENO;

@@ -1,4 +1,11 @@
 // case $? (результат д.б. 0): echo $? | grep 1 | echo $? | cat -e
+
+// CASE: (из папки msh, где лежат CMakeLists и Makefile)
+// действие 1: ls -la > f1
+// действие 2: < f1 cat | grep ake | cat -e  >f2
+// в результате в файле f2 должны оказаться 2 строчки:
+//      -rw-r--r--   1 acaren  4221     1423 Oct 15 21:15 CMakeLists.txt$
+//      -rw-------   1 acaren  4221     1022 Oct 13 13:02 Makefile$
 #include "./../inc/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -29,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 //		ft_putstr_fd(tmp_cmd->cmd[k], 1);
 //		//ft_putendl_fd(tmp_cmd->cmd[k], 1);
 //	}
-//	ft_putstr_fd("redirects:\n", 1);
+//	ft_putstr_fd("\nredirects:\n", 1);
 //	t_rdr *tmp_r = tmp_cmd->rdr;	
 //	while (tmp_r)
 //	{

@@ -62,6 +62,7 @@ static int	manage_front_redirect(t_arg **arg, t_rdr **rdr)
 {
 	char	*content;
 
+	content = NULL;
 	while (*arg)
 	{
 		if (ms_isredirect((*arg)->arg_pure) == 1)
@@ -91,6 +92,7 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 	if (!arg || !(*arg))
 		return (NULL);
 	rdr = NULL;
+	str = NULL;
 	if (manage_front_redirect(arg, &rdr) == 1)
 		return (rdr);
 	tmp = *arg;

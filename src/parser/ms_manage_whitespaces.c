@@ -7,6 +7,7 @@ char	*ms_clear_endwhitespaces(char *line)
 	int		end;
 
 	i = -1;
+	line_new = NULL;
 	while (line[++i])
 	{
 		if (ft_strchr(" \t", line[i]))

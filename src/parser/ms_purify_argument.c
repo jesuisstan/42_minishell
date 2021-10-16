@@ -4,7 +4,6 @@ static char	*manage_quotes(char *line, int *i, t_msh *msh)
 {
 	int		j;
 	char	*line_new;
-	char	*tail;
 	char	*tmp_one;
 	char	*tmp_two;
 	char	*tmp_three;
@@ -16,14 +15,14 @@ static char	*manage_quotes(char *line, int *i, t_msh *msh)
 			break ;
 	tmp_one = ft_substr(line, 0, j);
 	tmp_two = ft_substr(line, j + 1, *i - j - 1);
-	tmp_three = ft_strjoin(tmp_one, tmp_two);;
-	tail = ft_strdup(&line[*i + 1]);
-	line_new = ft_strjoin(tmp_three, tail);
+	tmp_three = ft_strjoin(tmp_one, tmp_two);
+	free(tmp_one);
+	tmp_one = ft_strdup(&line[*i + 1]);
+	line_new = ft_strjoin(tmp_three, tmp_one);
 	*i -= 2;
 	free(tmp_one);
 	free(tmp_two);
 	free(tmp_three);
-	free(tail);
 	free(line);
 	return (line_new);
 }
@@ -32,7 +31,6 @@ static char	*manage_apostrophe(char *line, int *i)
 {
 	int		j;
 	char	*line_new;
-	char	*tail;
 	char	*tmp_one;
 	char	*tmp_two;
 	char	*tmp_three;
@@ -44,13 +42,13 @@ static char	*manage_apostrophe(char *line, int *i)
 	tmp_one = ft_substr(line, 0, j);
 	tmp_two = ft_substr(line, j + 1, *i - j - 1);
 	tmp_three = ft_strjoin(tmp_one, tmp_two);
-	tail = ft_strdup(&line[*i + 1]);
-	line_new = ft_strjoin(tmp_three, tail);
+	free(tmp_one);
+	tmp_one = ft_strdup(&line[*i + 1]);
+	line_new = ft_strjoin(tmp_three, tmp_one);
 	*i -= 2;
 	free(tmp_one);
 	free(tmp_two);
 	free(tmp_three);
-	free(tail);
 	free(line);
 	return (line_new);
 }

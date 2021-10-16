@@ -8,7 +8,6 @@ static t_arg	*lstnew_arg(char *content, t_msh *msh)
 	if (!arg)
 		return (NULL);
 	arg->arg_rare = ft_strdup(content);
-	//arg->arg_pure = ft_strdup(content);
 	arg->arg_pure = ms_purify_argument(arg->arg_rare, msh);
 	arg->next = NULL;
 	free(content);

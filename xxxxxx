@@ -1,5 +1,5 @@
-total 2752
-drwxr-xr-x  20 acaren  4221      680 Oct 16 17:11 .
+total 2744
+drwxr-xr-x  19 acaren  4221      646 Oct 16 17:11 .
 drwxr-xr-x  12 acaren  4221      408 Oct 15 21:08 ..
 -rw-r--r--@  1 acaren  4221     6148 Oct 16 17:05 .DS_Store
 drwxr-xr-x  15 acaren  4221      510 Oct 16 16:19 .git
@@ -9,7 +9,6 @@ drwxr-xr-x  15 acaren  4221      510 Oct 16 16:19 .git
 -rw-------   1 acaren  4221      450 Oct 10 17:46 check_leaks.sh
 -rw-r--r--@  1 acaren  4221    17837 Oct 16 16:21 diffgit
 -rw-------   1 acaren  4221  1273353 Oct 10 16:59 en.subject.pdf
--rw-r--r--   1 acaren  4221        0 Oct 16 17:11 file
 -rw-------   1 acaren  4221      313 Oct 11 21:00 git_ignore.sh
 drwxr-xr-x   5 acaren  4221      170 Oct 16 16:19 inc
 -rwxr-xr-x@  1 acaren  4221     8560 Oct 15 21:15 ls
@@ -18,4 +17,4 @@ drwxr-xr-x   5 acaren  4221      170 Oct 15 19:13 msh_tester
 drwxr-xr-x  10 acaren  4221      340 Oct 16 16:50 src
 -rw-r--r--   1 acaren  4221      121 Oct 15 21:15 test.c
 -rw-r--r--@  1 acaren  4221     1780 Oct 15 21:15 update
--rw-r--r--   1 acaren  4221     1121 Oct 16 17:11 xxxxxx
+-rw-r--r--   1 acaren  4221        0 Oct 16 17:11 xxxxxx

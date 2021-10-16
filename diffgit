@@ -1,0 +1,689 @@
+diff --git a/.gitignore b/.gitignore
+index fb80fe3..6240435 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -51,7 +51,7 @@
+ *.dSYM/i
+ .idea/
+ /cmake-build-debug/
+-msh_tester/
++/msh_tester/
+ *.su
+ *.idb
+ *.pdb
+diff --git a/a b/a
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/file b/file
+new file mode 100644
+index 0000000..a03c47f
+--- /dev/null
++++ b/file
+@@ -0,0 +1,21 @@
++total 2704
++drwxr-xr-x  20 mshmelly  4221      680 Oct 16 15:45 .
++drwxr-xr-x  13 mshmelly  4221      442 Oct 15 14:54 ..
++-rw-r--r--@  1 mshmelly  4221     6148 Oct 15 21:38 .DS_Store
++drwxr-xr-x  15 mshmelly  4221      510 Oct 16 15:45 .git
++-rw-r--r--   1 mshmelly  4221      772 Oct 15 22:37 .gitignore
++drwxr-xr-x   9 mshmelly  4221      306 Oct 16 15:42 .idea
++-rw-r--r--   1 mshmelly  4221     1423 Oct 15 14:54 CMakeLists.txt
++-rw-r--r--   1 mshmelly  4221     1022 Oct 15 14:54 Makefile
++-rw-r--r--   1 mshmelly  4221      450 Oct 15 14:54 check_leaks.sh
++drwxr-xr-x  10 mshmelly  4221      340 Oct 16 00:30 cmake-build-debug
++-rw-r--r--   1 mshmelly  4221  1273353 Oct 15 14:54 en.subject.pdf
++-rw-r--r--   1 mshmelly  4221        0 Oct 16 15:55 file
++-rw-r--r--   1 mshmelly  4221      313 Oct 15 14:54 git_ignore.sh
++drwxr-xr-x   5 mshmelly  4221      170 Oct 16 14:41 inc
++-rwxr-xr-x   1 mshmelly  4221     8560 Oct 15 15:02 ls
++-rwxr-xr-x   1 mshmelly  4221    59572 Oct 16 15:45 minishell
++drwxr-xr-x   6 mshmelly  4221      204 Oct 16 01:35 msh_tester
++drwxr-xr-x  10 mshmelly  4221      340 Oct 15 22:56 src
++-rw-r--r--   1 mshmelly  4221      121 Oct 15 15:02 test.c
++-rw-r--r--   1 mshmelly  4221     1780 Oct 15 14:54 update
+diff --git a/inc/minishell.h b/inc/minishell.h
+index 7cc1f42..233eca1 100644
+--- a/inc/minishell.h
++++ b/inc/minishell.h
+@@ -18,7 +18,6 @@
+ 
+ void	*ms_malloc_x(size_t size);
+ int		ms_arrlen(char **arr);
+-int		gen_next_path(char **argv, char **paths, char *name);
+ void	ms_command(t_msh *msh, t_cmd *cmd);
+ char	**get_path(t_msh *msh);
+ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd);
+@@ -33,7 +32,6 @@ char	*ms_find_envp_l(t_envp **lst, char *key);
+ char	*ms_find_envp_m(char **envp, char *key);
+ int		ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
+ int		ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val);
+-void	print_env_l(t_envp *lst);
+ void	ms_cp_envp(t_msh *msh, char **envp);
+ int	ms_redirects(t_cmd *cmd);
+ char	*get_key(char *content);
+@@ -65,7 +63,7 @@ int		ms_unset(t_msh *msh, char **argv);
+ 
+ //export
+ int		ms_export(t_msh *msh, char **argv);
+-void	print_env_l(t_envp *lst);
++int		print_env_l(t_envp *lst);
+ int		is_key_exist(t_envp **env, char *key);
+ 
+ 
+diff --git a/inc/minishell_s.h b/inc/minishell_s.h
+index 8e079f8..ca67239 100644
+--- a/inc/minishell_s.h
++++ b/inc/minishell_s.h
+@@ -16,6 +16,7 @@ typedef struct s_msh
+ {
+ 	int				first_cmd;
+ 	int				old_out;
++	int				old_in;
+ 	char			*line;
+ 	char			**envp_m;
+ 	char			*name;
+@@ -60,7 +61,7 @@ typedef struct s_envp
+ typedef struct	s_status
+ {
+ 	int				exit;
+-	int				status_flag;
++	int				status_flag;//todo
+ }				t_status;
+ 
+ t_status	g_status;
+diff --git a/src/builtins/ms_cd_utils.c b/src/builtins/ms_cd_utils.c
+index c336f71..c940bd1 100644
+--- a/src/builtins/ms_cd_utils.c
++++ b/src/builtins/ms_cd_utils.c
+@@ -12,10 +12,7 @@ int	ms_cd_oldpwd(t_msh *msh)
+ 		return (1);
+ 	}
+ 	else
+-	{
+-//		free(value);
+ 		return (ms_change_dir(msh, value));
+-	}
+ }
+ 
+ int	ms_new_pwd(t_msh *msh)
+diff --git a/src/builtins/ms_export.c b/src/builtins/ms_export.c
+index c576182..da0bd4e 100644
+--- a/src/builtins/ms_export.c
++++ b/src/builtins/ms_export.c
+@@ -13,14 +13,14 @@ static void	swap_action(t_envp **lst)
+ 	}
+ }
+ 
+-static void	sorting(t_envp **lst)
++static int	sorting(t_envp **lst)
+ {
+ 	int		flag;
+ 	t_envp	*cur;
+ 
+ 	flag = 0;
+ 	if (!(*lst) || !(*lst)->next)
+-		return ;
++		return (0);
+ 	if (ft_strcmp((*lst)->key, (*lst)->next->key) > 0)
+ 		swap_action(lst);
+ 	cur = (*lst);
+@@ -35,6 +35,7 @@ static void	sorting(t_envp **lst)
+ 	}
+ 	if (flag)
+ 		sorting(lst);
++	return (0);
+ }
+ 
+ int	not_valid(char *agr)
+@@ -68,31 +69,24 @@ int	ms_export(t_msh *msh, char **argv)
+ {
+ 	char	*key;
+ 	char	*value;
+-	int		i;
+ 
+-	i = 1;
+ 	if (ms_arrlen(argv) == 1)
+-	{
+-		sorting(&msh->envp_l);
+-		print_env_l(msh->envp_l);
+-		return (0);
+-	}
++		return (sorting(&msh->envp_l) + print_env_l(msh->envp_l));
+ 	else
+ 	{
+-		while(argv[i])
++		while (*++argv)
+ 		{
+-			if (check_export(argv[i]))
++			if (check_export(*argv))
+ 				return (1);
+-			key = get_key(argv[i]);
+-			value = get_value(argv[i]);
++			key = get_key(*argv);
++			value = get_value(*argv);
+ 			if (is_key_exist(&msh->envp_l, key))
+ 				ms_find_envp_l_and_replace_val(&msh->envp_l, key, value);
+ 			else
+-				lstadd_back_envp(&msh->envp_l, lstnew_envp(argv[i]));
++				lstadd_back_envp(&msh->envp_l, lstnew_envp(*argv));
+ 			free(key);
+ 			if (value)
+ 				free(value);
+-			i++;
+ 		}
+ 	}
+ 	return (0);
+diff --git a/src/builtins/ms_export_utils.c b/src/builtins/ms_export_utils.c
+index dbcc79e..e7cf463 100644
+--- a/src/builtins/ms_export_utils.c
++++ b/src/builtins/ms_export_utils.c
+@@ -1,9 +1,9 @@
+ #include "../../inc/minishell.h"
+ 
+-void	print_env_l(t_envp *lst)
++int	print_env_l(t_envp *lst)
+ {
+ 	if (!lst)
+-		return ;
++		return (0);
+ 	while (lst)
+ 	{
+ 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+@@ -18,6 +18,7 @@ void	print_env_l(t_envp *lst)
+ 		ft_putchar_fd('\n', STDOUT_FILENO);
+ 		lst = lst->next;
+ 	}
++	return (0);
+ }
+ 
+ int	is_key_exist(t_envp **env, char *key)
+diff --git a/src/builtins/ms_unset.c b/src/builtins/ms_unset.c
+index d73fa84..bb2ba02 100644
+--- a/src/builtins/ms_unset.c
++++ b/src/builtins/ms_unset.c
+@@ -5,6 +5,7 @@ static void	free_lst(t_envp	*lst)
+ 	free(lst->value);
+ 	free(lst->key);
+ 	free(lst->content);
++	free(lst);
+ }
+ 
+ static void	del_elem(t_envp **head)
+@@ -66,15 +67,16 @@ int	ms_unset(t_msh *msh, char **argv)
+ 	int	ind_del;
+ 	int	i;
+ 
+-	i = 0;
++	i = 1;
+ 	if (ms_arrlen(argv) == 1)
+ 		return (0);
+ 	else
+ 	{
+-		while (argv[i++])
++		while (argv[i])
+ 		{
+ 			ind_del = ms_find_envp_l_ind(msh->envp_l, argv[i]);
+ 			del_nth(&(msh->envp_l), ind_del);
++			i++;
+ 		}
+ 	}
+ 	return (0);
+diff --git a/src/commands/ms_pipe.c b/src/commands/ms_pipe.c
+index 72ca01b..0cba19d 100644
+--- a/src/commands/ms_pipe.c
++++ b/src/commands/ms_pipe.c
+@@ -7,7 +7,6 @@ void	ms_error(char *str)
+ 	else
+ 		perror("Error");
+ 	g_status.exit = 128;
+-	//exit(128); //хер знает какая тут статуса - версия mshmelly
+ }
+ 
+ int	ms_not_pipe(t_cmd *start)
+@@ -31,10 +30,11 @@ static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
+ {
+ 	cmd->is_fork = 0;
+ 	cmd->in = 0;
+-	cmd->out = 0;
++	cmd->out = 1;
+ 	cmd->pipe_fd[0] = 0;
+ 	cmd->pipe_fd[1] = 0;
+ 	msh->old_out = 0;
++	msh->old_in = 0;
+ 	msh->first_cmd = 0;
+ }
+ 
+@@ -43,7 +43,10 @@ static void	child_proc(t_msh *msh, t_cmd *cmd, t_cmd *start)
+ 	if (cmd->rdr)
+ 		ms_redirects(cmd);
+ 	if (msh->first_cmd == 1 && cmd->pipe_fd[1])
+-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
++	{
++		if (!cmd->rdr)
++			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
++	}
+ 	if (!cmd->next && msh->old_out)
+ 	{
+ 		dup2(msh->old_out, STDIN_FILENO);
+@@ -78,9 +81,9 @@ static void	wail_all(t_cmd *start)
+ 	}
+ 	while (cmd)
+ 	{
+-		waitpid(cmd->pid, &status, 0);//g_status.exit
++		waitpid(cmd->pid, &status, 0);
+ 		g_status.exit = WEXITSTATUS(status);
+-		if (!g_status.exit && WIFSIGNALED(status))//интерактив статус
++		if (!g_status.exit && WIFSIGNALED(status))
+ 		{
+ 			g_status.exit = 128 + WTERMSIG(status);
+ 		}
+@@ -102,9 +105,9 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
+ 	while (cmd->next)
+ 	{
+ 		if (pipe(cmd->pipe_fd) < 0)
+-		{
+ 			return (ms_not_pipe(start));
+-		}
++		cmd->out = cmd->pipe_fd[1];
++		cmd->next->in = cmd->pipe_fd[0];
+ 		cmd = cmd->next;
+ 	}
+ 	cmd = start;
+@@ -114,13 +117,13 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
+ 		cmd->pid = fork();
+ 		cmd->is_fork = 1;
+ 		if (cmd->pid < 0)
+-			ms_error(NULL);//заменить
++			ms_error("bash: fork: Resource temporarily unavailable");
+ 		else if (cmd->pid == 0)
+ 			child_proc(msh, cmd, start);
+ 		msh->old_out = cmd->pipe_fd[0];
++		msh->old_in = cmd->pipe_fd[1];
+ 		cmd = cmd->next;
+ 	}
+-	cmd = start;
+-	wail_all(cmd);
++	wail_all(start);
+ 	return (0);
+ }
+diff --git a/src/commands/ms_redirects.c b/src/commands/ms_redirects.c
+index 2652f51..073be8e 100644
+--- a/src/commands/ms_redirects.c
++++ b/src/commands/ms_redirects.c
+@@ -1,15 +1,5 @@
+ #include "../../inc/minishell.h"
+ 
+-static void	ms_error(char *str)
+-{
+-	if (str)
+-		ft_putendl_fd(str, STDERR_FILENO);
+-	else
+-		perror("Error");
+-	g_status.exit = 1;
+-	exit(g_status.exit);
+-}
+-
+ void	rdr_right(t_cmd *cmd, char *file, int mod)
+ {
+ 	if (mod == RDR_R1)
+@@ -17,7 +7,11 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
+ 	else if (mod == RDR_R2)
+ 		cmd->out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+ 	if (cmd->out == -1)
+-		ms_error(NULL);
++	{
++		perror("Error");
++		g_status.exit = 1;
++		exit(g_status.exit);
++	}
+ 	dup2(cmd->out, STDOUT_FILENO);
+ 	close(cmd->out);
+ }
+@@ -30,7 +24,11 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
+ 			close(cmd->in);
+ 		cmd->in = open(file, O_RDONLY);
+ 		if (cmd->in == -1)
+-			ms_error(NULL);
++		{
++			perror("Error");
++			g_status.exit = 1;
++			exit(g_status.exit);
++		}
+ 	}
+ }
+ 
+@@ -55,8 +53,12 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
+ 	int	fd[2];
+ 	int	pid;
+ 
+-	if (pipe(fd) == -1)
+-		ms_error(NULL);
++	if (pipe(fd) < 0)
++	{
++		perror("Error");
++		g_status.exit = 1;
++		exit (g_status.exit);
++	}
+ 	pid = fork();
+ 	if (pid == 0)
+ 	{
+diff --git a/src/libft/inc/libft.h b/src/libft/inc/libft.h
+index 73a7a1b..a6e2813 100644
+--- a/src/libft/inc/libft.h
++++ b/src/libft/inc/libft.h
+@@ -57,7 +57,6 @@ size_t	ft_strlen(const char *str);
+ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+ size_t	ft_strlcat(char *dst, const char *src, size_t size);
+ int		get_next_line(int fd, char **line);
+-
+ int		ft_putnchar(char c, int n);
+ int		**ft_malloc_int_array(int height, int width);
+ char	*ft_strrev(char *str);
+@@ -65,5 +64,4 @@ void	ft_free_array(char ***array);
+ void	ft_putnbr_uns_fd(unsigned int n, int fd);
+ int		ft_strcmp(const char *s1, const char *s2);
+ 
+-
+ #endif
+diff --git a/src/main.c b/src/main.c
+index 0a8aa28..a14bced 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -18,11 +18,34 @@ int	main(int argc, char **argv, char **envp)
+ 	{
+ 		ms_signals_interactive_shell();
+ 		ms_parse(msh, msh->envp_l);
++
++//		t_cmd *tmp_cmd = msh->cmd_l;
++//while (tmp_cmd) //todo
++//{
++//	int	k = -1;
++//	ft_putstr_fd("cmd:\n", 1);
++//	while (tmp_cmd->cmd[++k])
++//	{
++//		ft_putstr_fd(tmp_cmd->cmd[k], 1);
++//		//ft_putendl_fd(tmp_cmd->cmd[k], 1);
++//	}
++//	ft_putstr_fd("redirects:\n", 1);
++//	t_rdr *tmp_r = tmp_cmd->rdr;	
++//	while (tmp_r)
++//	{
++//		printf("%s\n", tmp_r->name);
++//		tmp_r = tmp_r->next;
++//	}
++//	printf("--------\n");
++//	tmp_cmd = tmp_cmd->next;
++//}
++
+ 		ms_signals_non_interactive_shell();
+ 		if (msh->cmd_l)
+ 			ms_pipex(msh, msh->cmd_l, ms_lstsize(msh->cmd_l));
+ 		ms_signals_interactive_shell();
+-		ms_lstfree_cmd(&(msh->cmd_l));
++		if (msh->cmd_l)
++			ms_lstfree_cmd(&(msh->cmd_l));
+ 	}
+ 	return (0);
+ }
+diff --git a/src/parser/ms_extract_redirects.c b/src/parser/ms_extract_redirects.c
+index 1a0439c..39480b5 100644
+--- a/src/parser/ms_extract_redirects.c
++++ b/src/parser/ms_extract_redirects.c
+@@ -33,6 +33,18 @@ static t_rdr	*lstnew_rdr(char *content)
+ 	return (list);
+ }
+ 
++//experiment
++//static void	lstdelone_arg_spec(t_arg *arg)
++//{
++//	if (!arg)
++//		return ;
++//	free(arg->arg_rare);
++//	arg->arg_rare = NULL;
++//	free(arg->arg_pure);
++//	arg->arg_pure = NULL;
++//}
++//experiment
++
+ static void	lstremove_node_arg(t_arg **arg)
+ {
+ 	t_arg	*tmp;
+@@ -41,6 +53,8 @@ static void	lstremove_node_arg(t_arg **arg)
+ 		return ;
+ 	tmp = (*arg)->next;
+ 	lstdelone_arg(*arg);
++	if ((*arg)->next)
++		free (*arg);
+ 	*arg = tmp;
+ }
+ 
+diff --git a/src/parser/ms_get_commands.c b/src/parser/ms_get_commands.c
+index 1362278..008205a 100644
+--- a/src/parser/ms_get_commands.c
++++ b/src/parser/ms_get_commands.c
+@@ -63,21 +63,22 @@ static void	lstadd_back_cmd(t_cmd **lst, t_cmd *new_node)
+ t_cmd	*ms_get_commands(t_msh *msh)
+ {
+ 	t_arg	*head;
++	t_arg	*tmp;
+ 
+ 	if (msh->arg == NULL)
+ 		return (NULL);
+-	head = msh->arg;
+-	while (msh->arg != NULL)
++	tmp = msh->arg;
++	head = tmp;
++	while (tmp != NULL)
+ 	{
+-		if (ft_strcmp(msh->arg->arg_pure, "|") == 0)
++		if (ft_strcmp(tmp->arg_pure, "|") == 0)
+ 		{
+ 			lstadd_back_cmd(&msh->cmd_l, lstnew_cmd(head));
+-			head = msh->arg->next;
++			head = tmp->next;
+ 		}
+-		msh->arg = msh->arg->next;
+-		if (msh->arg == NULL)
++		tmp = tmp->next;
++		if (tmp == NULL)
+ 			lstadd_back_cmd(&msh->cmd_l, lstnew_cmd(head));
+ 	}
+-	ms_lstfree_arg(&head);
+ 	return (msh->cmd_l);
+ }
+diff --git a/src/parser/ms_parse.c b/src/parser/ms_parse.c
+index a824555..9303fc1 100644
+--- a/src/parser/ms_parse.c
++++ b/src/parser/ms_parse.c
+@@ -46,6 +46,13 @@ void	ms_parse(t_msh *msh, t_envp *envp_l)
+ 	{
+ 		msh->line = replace_dollars(msh->line, envp_l);
+ 		msh->arg = ms_split_line(msh);
++		//while (msh->arg) //todo распечатывает связ. список с аргументами line
++		//{
++		//	printf("arg rare = %s\n", msh->arg->arg_rare);
++		//	printf("arg pure = %s\n", msh->arg->arg_pure);
++		//	printf("\n");
++		//	msh->arg = msh->arg->next;
++		//}
+ 		msh->cmd_l = ms_get_commands(msh);
+ 	}
+ 	ms_lstfree_arg(&(msh->arg));
+diff --git a/src/parser/ms_purify_argument.c b/src/parser/ms_purify_argument.c
+index c1706fc..f735b67 100644
+--- a/src/parser/ms_purify_argument.c
++++ b/src/parser/ms_purify_argument.c
+@@ -5,20 +5,26 @@ static char	*manage_quotes(char *line, int *i, t_msh *msh)
+ 	int		j;
+ 	char	*line_new;
+ 	char	*tail;
+-	char	*tmp;
++	char	*tmp_one;
++	char	*tmp_two;
++	char	*tmp_three;
+ 
+ 	(void)msh;
+ 	j = *i;
+ 	while (line[++(*i)])
+ 		if (line[*i] == '\"')
+ 			break ;
+-	tmp = ft_strjoin(ft_substr(line, 0, j),
+-			ft_substr(line, j + 1, *i - j - 1));
++	tmp_one = ft_substr(line, 0, j);
++	tmp_two = ft_substr(line, j + 1, *i - j - 1);
++	tmp_three = ft_strjoin(tmp_one, tmp_two);;
+ 	tail = ft_strdup(&line[*i + 1]);
+-	line_new = ft_strjoin(tmp, tail);
++	line_new = ft_strjoin(tmp_three, tail);
+ 	*i -= 2;
+-	free (tmp);
+-	free (tail);
++	free(tmp_one);
++	free(tmp_two);
++	free(tmp_three);
++	free(tail);
++	free(line);
+ 	return (line_new);
+ }
+ 
+@@ -29,19 +35,23 @@ static char	*manage_apostrophe(char *line, int *i)
+ 	char	*tail;
+ 	char	*tmp_one;
+ 	char	*tmp_two;
++	char	*tmp_three;
+ 
+ 	j = *i;
+ 	while (line[++(*i)])
+ 		if (line[*i] == '\'')
+ 			break ;
+ 	tmp_one = ft_substr(line, 0, j);
+-	tmp_two = ft_strjoin(tmp_one, ft_substr(line, j + 1, *i - j - 1));
++	tmp_two = ft_substr(line, j + 1, *i - j - 1);
++	tmp_three = ft_strjoin(tmp_one, tmp_two);
+ 	tail = ft_strdup(&line[*i + 1]);
+-	line_new = ft_strjoin(tmp_two, tail);
++	line_new = ft_strjoin(tmp_three, tail);
+ 	*i -= 2;
+-	free (tmp_one);
+-	free (tmp_two);
+-	free (tail);
++	free(tmp_one);
++	free(tmp_two);
++	free(tmp_three);
++	free(tail);
++	free(line);
+ 	return (line_new);
+ }
+ 
+diff --git a/src/parser/ms_split_line.c b/src/parser/ms_split_line.c
+index 1ac97ea..4388c08 100644
+--- a/src/parser/ms_split_line.c
++++ b/src/parser/ms_split_line.c
+@@ -8,8 +8,8 @@ static t_arg	*lstnew_arg(char *content, t_msh *msh)
+ 	if (!arg)
+ 		return (NULL);
+ 	arg->arg_rare = ft_strdup(content);
+-	arg->arg_pure = ft_strdup(content);
+-	arg->arg_pure = ms_purify_argument(arg->arg_pure, msh);
++	//arg->arg_pure = ft_strdup(content);
++	arg->arg_pure = ms_purify_argument(arg->arg_rare, msh);
+ 	arg->next = NULL;
+ 	free(content);
+ 	return (arg);
+@@ -63,40 +63,39 @@ static int	find_end(char *line, int *flag)
+ 	return (i);
+ }
+ 
+-static void	cut_arguments(char *line, t_arg **arg, t_msh *msh)
++static void	cut_arguments(char *line, t_arg **arg, t_msh *msh, int *flag)
+ {
+ 	int		end;
+-	int		flag;
+ 	char	*str;
+ 
+-	flag = 0;
+ 	while (*line)
+ 	{
+ 		line += ms_pass_whitespaces(line);
+ 		if (!*line)
+ 			return ;
+-		end = find_end(line, &flag);
+-		if (flag != 0)
++		end = find_end(line, flag);
++		if ((*flag) != 0)
+ 		{
+ 			str = ft_substr(line, 0, end);
+ 			if (ft_strcmp(str, "\0"))
+ 				lstadd_back_arg(arg, lstnew_arg(str, msh));
+-			str = ft_substr(line, end, flag);
+-			lstadd_back_arg(arg, lstnew_arg(str, msh));
+-			line += flag;
+-			flag = 0;
++			else
++				free(str);
++			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, end, *flag), msh));
++			line += *flag;
++			*flag = 0;
+ 		}
+ 		else
+-		{
+-			str = ft_substr(line, 0, end);
+-			lstadd_back_arg(arg, lstnew_arg(str, msh));
+-		}
++			lstadd_back_arg(arg, lstnew_arg(ft_substr(line, 0, end), msh));
+ 		line += end;
+ 	}
+ }
+ 
+ t_arg	*ms_split_line(t_msh *msh)
+ {
+-	cut_arguments(msh->line, &(msh->arg), msh);
++	int	flag;
++
++	flag = 0;
++	cut_arguments(msh->line, &(msh->arg), msh, &flag);
+ 	return (msh->arg);
+ }
+diff --git a/src/signals/ms_signals_interactive_shell.c b/src/signals/ms_signals_interactive_shell.c
+index 4beda5e..6e533cb 100644
+--- a/src/signals/ms_signals_interactive_shell.c
++++ b/src/signals/ms_signals_interactive_shell.c
+@@ -4,6 +4,7 @@ void	ms_sig_inter_ctrl_c(int sig)
+ {
+ 	(void)sig;
+ 	write (STDERR_FILENO, "\n", 1);
++	rl_replace_line("", 0);
+ 	rl_on_new_line();
+ 	rl_redisplay();
+ 	g_status.exit = 1;
+diff --git a/src/utils/ms_arrlen.c b/src/utils/ms_arrlen.c
+index 4efad2d..5f42080 100644
+--- a/src/utils/ms_arrlen.c
++++ b/src/utils/ms_arrlen.c
+@@ -32,4 +32,4 @@ size_t	ms_lstsize(t_cmd *arg)
+ 		i++;
+ 	}
+ 	return (i);
+-}
+\ No newline at end of file
++}
+diff --git a/src/utils/ms_lstfree_arg.c b/src/utils/ms_lstfree_arg.c
+index c5a3c0d..5248c6f 100644
+--- a/src/utils/ms_lstfree_arg.c
++++ b/src/utils/ms_lstfree_arg.c
+@@ -4,12 +4,11 @@ void	lstdelone_arg(t_arg *arg)
+ {
+ 	if (!arg)
+ 		return ;
+-	free(arg->arg_rare);
+-	arg->arg_rare = NULL;
++//	free(arg->arg_rare);
++//	arg->arg_rare = NULL;
+ 	free(arg->arg_pure);
+-	arg->arg_pure = NULL;
++//	arg->arg_pure = NULL;
+ 	free(arg);
+-	arg = NULL;
+ }
+ 
+ void	ms_lstfree_arg(t_arg **arg)

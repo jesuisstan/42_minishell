@@ -40,12 +40,9 @@ static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
 
 static void	child_proc(t_msh *msh, t_cmd *cmd, t_cmd *start)
 {
-	if (cmd->rdr)
-		ms_redirects(cmd);
 	if (msh->first_cmd == 1 && cmd->pipe_fd[1])
 	{
-		if (!cmd->rdr)
-			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
 	}
 	if (!cmd->next && msh->old_out)
 	{
@@ -63,6 +60,8 @@ static void	child_proc(t_msh *msh, t_cmd *cmd, t_cmd *start)
 		close(start->pipe_fd[1]);
 		start = start->next;
 	}
+	if (cmd->rdr)
+		ms_redirects(cmd);
 	ms_command(msh, cmd);
 }
 

@@ -12,16 +12,12 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
 		g_status.exit = 1;
 		exit(g_status.exit);
 	}
-	dup2(cmd->out, STDOUT_FILENO);
-	close(cmd->out);
 }
 
 void	rdr_left(t_cmd *cmd, char *file, int mod)
 {
 	if (mod == RDR_L1)
 	{
-		if (cmd->in != STDIN_FILENO)
-			close(cmd->in);
 		cmd->in = open(file, O_RDONLY);
 		if (cmd->in == -1)
 		{
@@ -68,9 +64,9 @@ void	rdr_double_left(t_cmd *cmd, char *stop)
 	}
 	else
 	{
+		close(fd[1]);
 		waitpid(pid, NULL, 0);
 		cmd->in = fd[0];
-		close(fd[1]);
 	}
 }
 
@@ -90,11 +86,6 @@ int	ms_redirects(t_cmd *cmd)
 		else if (!ft_strncmp(rdr->name, "<", 1))
 			rdr_left(cmd, (rdr->name + 1), RDR_L1);
 		rdr = rdr->next;
-	}
-	if (cmd->in != STDIN_FILENO)
-	{
-		dup2(cmd->in, STDIN_FILENO);
-		close(cmd->in);
 	}
 	return (0);
 }

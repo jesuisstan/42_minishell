@@ -1,0 +1,21 @@
+total 2696
+drwxr-xr-x  20 mshmelly  4221      680 Oct 16 20:04 .
+drwxr-xr-x  13 mshmelly  4221      442 Oct 15 14:54 ..
+-rw-r--r--@  1 mshmelly  4221     6148 Oct 15 21:38 .DS_Store
+drwxr-xr-x  15 mshmelly  4221      510 Oct 16 19:26 .git
+-rw-r--r--   1 mshmelly  4221      772 Oct 15 22:37 .gitignore
+drwxr-xr-x   9 mshmelly  4221      306 Oct 16 20:04 .idea
+-rw-r--r--   1 mshmelly  4221     1423 Oct 15 14:54 CMakeLists.txt
+-rw-r--r--   1 mshmelly  4221     1022 Oct 15 14:54 Makefile
+-rw-r--r--   1 mshmelly  4221      450 Oct 15 14:54 check_leaks.sh
+drwxr-xr-x  12 mshmelly  4221      408 Oct 16 19:25 cmake-build-debug
+-rw-r--r--   1 mshmelly  4221  1273353 Oct 15 14:54 en.subject.pdf
+-rw-r--r--   1 mshmelly  4221        0 Oct 16 20:04 file
+-rw-r--r--   1 mshmelly  4221      313 Oct 15 14:54 git_ignore.sh
+drwxr-xr-x   5 mshmelly  4221      170 Oct 16 16:13 inc
+-rwxr-xr-x   1 mshmelly  4221     8560 Oct 15 15:02 ls
+-rwxr-xr-x   1 mshmelly  4221    59508 Oct 16 20:04 minishell
+drwxr-xr-x   6 mshmelly  4221      204 Oct 16 01:35 msh_tester
+drwxr-xr-x  10 mshmelly  4221      340 Oct 16 19:16 src
+-rw-r--r--   1 mshmelly  4221        0 Oct 16 19:21 t
+-rw-r--r--   1 mshmelly  4221      121 Oct 15 15:02 test.c

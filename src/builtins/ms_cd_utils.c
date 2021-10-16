@@ -12,7 +12,10 @@ int	ms_cd_oldpwd(t_msh *msh)
 		return (1);
 	}
 	else
+	{
+		ft_putendl_fd(value, 1);
 		return (ms_change_dir(msh, value));
+	}
 }
 
 int	ms_new_pwd(t_msh *msh)

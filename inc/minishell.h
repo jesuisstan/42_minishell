@@ -18,7 +18,6 @@
 
 void	*ms_malloc_x(size_t size);
 int		ms_arrlen(char **arr);
-int		gen_next_path(char **argv, char **paths, char *name);
 void	ms_command(t_msh *msh, t_cmd *cmd);
 char	**get_path(t_msh *msh);
 int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd);

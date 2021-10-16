@@ -30,10 +30,11 @@ static void	init_for_pipe(t_msh *msh, t_cmd *cmd)
 {
 	cmd->is_fork = 0;
 	cmd->in = 0;
-	cmd->out = 0;
+	cmd->out = 1;
 	cmd->pipe_fd[0] = 0;
 	cmd->pipe_fd[1] = 0;
 	msh->old_out = 0;
+	msh->old_in = 0;
 	msh->first_cmd = 0;
 }
 
@@ -42,7 +43,10 @@ static void	child_proc(t_msh *msh, t_cmd *cmd, t_cmd *start)
 	if (cmd->rdr)
 		ms_redirects(cmd);
 	if (msh->first_cmd == 1 && cmd->pipe_fd[1])
-		dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+	{
+		if (!cmd->rdr)
+			dup2(cmd->pipe_fd[1], STDOUT_FILENO);
+	}
 	if (!cmd->next && msh->old_out)
 	{
 		dup2(msh->old_out, STDIN_FILENO);
@@ -102,6 +106,8 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 	{
 		if (pipe(cmd->pipe_fd) < 0)
 			return (ms_not_pipe(start));
+		cmd->out = cmd->pipe_fd[1];
+		cmd->next->in = cmd->pipe_fd[0];
 		cmd = cmd->next;
 	}
 	cmd = start;
@@ -115,6 +121,7 @@ int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd)
 		else if (cmd->pid == 0)
 			child_proc(msh, cmd, start);
 		msh->old_out = cmd->pipe_fd[0];
+		msh->old_in = cmd->pipe_fd[1];
 		cmd = cmd->next;
 	}
 	wail_all(start);

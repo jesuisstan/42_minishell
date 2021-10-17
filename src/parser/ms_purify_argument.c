@@ -53,13 +53,48 @@ static char	*manage_apostrophe(char *line, int *i)
 	return (line_new);
 }
 
+static char	*make_new_str(char *str, int size)
+{
+	char	*str_new;
+
+	str_new = ft_substr(str, 0, size);
+	free(str);
+	str = NULL;
+	return (str_new);
+}
+
+static char	*ms_kill_blanc(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\"')
+		{
+			++i;
+			while (str[i] != '\"' && str[i])
+				i++;
+		}
+		else if (str[i] == '\'')
+		{
+			++i;
+			while (str[i] != '\'' && str[i])
+				i++;
+		}
+		else if (ft_strchr(" \t", str[i]))
+			return (make_new_str(str, i));
+	}
+	return (str);
+}
+
 char	*ms_purify_argument(char *arg, t_msh *msh)
 {
 	int		i;
 	char	*arg_pure;
 
 	arg += ms_pass_whitespaces(arg);
-	arg = ms_clear_endwhitespaces(arg);
+	arg = ms_kill_blanc(arg);
 	i = -1;
 	while (arg[++i])
 	{

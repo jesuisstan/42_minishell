@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 //	while (tmp_cmd->cmd[++k])
 //	{
 //		ft_putstr_fd(tmp_cmd->cmd[k], 1);
+//		ft_putstr_fd("±", 1);
 //		//ft_putendl_fd(tmp_cmd->cmd[k], 1);
 //	}
 //	ft_putstr_fd("\nredirects:\n", 1);

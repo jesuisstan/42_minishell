@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	rdr_right(t_cmd *cmd, char *file, int mod)
+static void	rdr_right(t_cmd *cmd, char *file, int mod)
 {
 	if (mod == RDR_R1)
 		cmd->out = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -14,7 +14,7 @@ void	rdr_right(t_cmd *cmd, char *file, int mod)
 	}
 }
 
-void	rdr_left(t_cmd *cmd, char *file, int mod)
+static void	rdr_left(t_cmd *cmd, char *file, int mod)
 {
 	if (mod == RDR_L1)
 	{
@@ -28,7 +28,7 @@ void	rdr_left(t_cmd *cmd, char *file, int mod)
 	}
 }
 
-void	heredoc(t_cmd *cmd, char *stop)
+static void	heredoc(t_cmd *cmd, char *stop)
 {
 	char	*line;
 
@@ -44,7 +44,7 @@ void	heredoc(t_cmd *cmd, char *stop)
 	exit(0);
 }
 
-void	rdr_double_left(t_cmd *cmd, char *stop)
+static void	rdr_double_left(t_cmd *cmd, char *stop)
 {
 	int	fd[2];
 	int	pid;

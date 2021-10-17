@@ -16,57 +16,46 @@
 # include "./minishell_a.h"
 # include "./minishell_s.h"
 
+//utils
 void	*ms_malloc_x(size_t size);
 int		ms_arrlen(char **arr);
-void	ms_command(t_msh *msh, t_cmd *cmd);
-char	**get_path(t_msh *msh);
-int	ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd);
-int		is_builtins(char *key);
-
 t_envp	*lstnew_envp(char *content);
 void	lstadd_back_envp(t_envp **envp_l, t_envp *new);
-void	lstadd_front_envp(t_envp **envp_l, t_envp *new);
-void	lstremove_node_envp(t_envp **envp_l, char *key);
-void	lstfree_envp(t_envp **envp_l);
 char	*ms_find_envp_l(t_envp **lst, char *key);
-char	*ms_find_envp_m(char **envp, char *key);
-int		ms_find_envp_m_and_replace_val(char **envp, char *key, char *val);
-int		ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val);
-void	ms_cp_envp(t_msh *msh, char **envp);
-int	ms_redirects(t_cmd *cmd);
+void	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val);
 char	*get_key(char *content);
 char	*get_value(char *content);
-char	*done_path(t_msh *msh, char *name);
-int		is_key_exist(t_envp **env, char *key);
 size_t	ms_lstsize(t_cmd *arg);
 
-//cd
+//commands
+void	ms_builtins(t_msh *msh, t_cmd *cmd);
+int		is_builtins(char *key);
+void	ms_command(t_msh *msh, t_cmd *cmd);
+int		ms_dups(t_cmd *cmd);
+int		ms_error(char *str);
+int		ms_not_pipe(t_cmd *start);
+int		is_path(char *name);
+char	*done_path(t_msh *msh, char *name);
+int		ms_pipex(t_msh *msh, t_cmd *cmd, int len_cmd);
+int		ms_redirects(t_cmd *cmd);
+
+//builtins
 int		ms_cd(t_msh *msh, char **argv);
 int		ms_cd_oldpwd(t_msh *msh);
 int		ms_change_dir(t_msh *msh, char *path);
 int		ms_new_pwd(t_msh *msh);
-
-//echo
 int		ms_echo(char **arr);
-
-// env
 int		ms_env(t_envp *lst);
-
-//exit
-int	ms_exit(t_msh *msh, char **argv);
-
-//pwd
+int		ms_exit(t_msh *msh, char **argv);
 int		ms_pwd(void);
-
-//unset
 int		ms_unset(t_msh *msh, char **argv);
-
-//export
 int		ms_export(t_msh *msh, char **argv);
 int		print_env_l(t_envp *lst);
 int		is_key_exist(t_envp **env, char *key);
 
 
-void	ms_builtins(t_msh *msh, t_cmd *cmd);
+
+
+
 
 #endif

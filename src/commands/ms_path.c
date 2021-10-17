@@ -8,7 +8,7 @@ int	is_path(char *name)
 	return (0);
 }
 
-char	**get_path(t_msh *msh)
+static char	**get_path(t_msh *msh)
 {
 	char	*lst_path;
 	char	**paths;

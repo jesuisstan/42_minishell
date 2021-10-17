@@ -87,14 +87,14 @@ void	lstremove_node_envp(t_envp **envp_l, char *key)
 	}
 }
 
-int	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
+void	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
 {
 	t_envp	*head;
 	t_envp	*tmp;
 	char	*tmp_str;
 
 	if (!envp_l || !key || !val)
-		return (1);
+		return ;
 	tmp = *envp_l;
 	head = tmp;
 	while (tmp)
@@ -110,9 +110,8 @@ int	ms_find_envp_l_and_replace_val(t_envp **envp_l, char *key, char *val)
 			tmp->value = ft_strdup(val);
 			*envp_l = head;
 			free(tmp_str);
-			return (0);
+			return ;
 		}
 		tmp = tmp->next;
 	}
-	return (1);
 }

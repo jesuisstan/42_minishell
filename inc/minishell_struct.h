@@ -5,12 +5,6 @@
 
 int				g_status;
 
-typedef struct s_lst
-{
-	struct s_lst	*next;
-	char			*val;
-}				t_lst;
-
 typedef struct s_msh
 {
 	char			*line;

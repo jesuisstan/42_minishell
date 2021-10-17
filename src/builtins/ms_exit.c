@@ -31,12 +31,11 @@ int	ms_msg(t_msh *msh, char *argv1, char *str)
 	{
 		ms_shlvl_down(msh);
 		g_status.exit = 255;
+		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(255);
 	}
 	else
-	{
 		return (1);
-	}
 	return (0);
 }
 
@@ -77,6 +76,7 @@ int	ms_exit(t_msh *msh, char **argv)
 	if (len == 1)
 	{
 		ms_shlvl_down(msh);
+		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(g_status.exit);
 	}
 	if (ms_isdigit_str(argv[1]))
@@ -87,6 +87,7 @@ int	ms_exit(t_msh *msh, char **argv)
 	{
 		g_status.exit = ms_atoi_char(msh, argv[1]);
 		ms_shlvl_down(msh);
+		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(g_status.exit);
 	}
 	return (0);

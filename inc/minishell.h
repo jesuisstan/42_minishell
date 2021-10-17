@@ -53,9 +53,4 @@ int		ms_export(t_msh *msh, char **argv);
 int		print_env_l(t_envp *lst);
 int		is_key_exist(t_envp **env, char *key);
 
-
-
-
-
-
 #endif

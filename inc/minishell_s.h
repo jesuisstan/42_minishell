@@ -31,7 +31,6 @@ typedef struct s_cmd
 	int 			is_fork;
 	pid_t			pid;
 	struct s_rdr	*rdr;
-	int				rdr_error;
 	struct s_cmd	*next;
 }				t_cmd;
 

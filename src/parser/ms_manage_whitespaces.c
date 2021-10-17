@@ -1,5 +1,15 @@
 #include "../../inc/minishell.h"
 
+int	ms_pass_whitespaces(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strchr("\t ", line[i]) && ft_isprint(line[i]))
+		i++;
+	return (i);
+}
+
 char	*ms_clear_endwhitespaces(char *line)
 {
 	char	*line_new;
@@ -24,14 +34,4 @@ char	*ms_clear_endwhitespaces(char *line)
 		}
 	}
 	return (line);
-}
-
-int	ms_pass_whitespaces(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (ft_strchr("\t ", line[i]) && ft_isprint(line[i]))
-		i++;
-	return (i);
 }

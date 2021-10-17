@@ -2,10 +2,10 @@
 
 static char	*handle_char_key(char *line, char *value, int j, int *i)
 {
-	char	*line_new = NULL;
-	char	*tmp_one = NULL;
-	char	*tmp_two = NULL;
-	void	*tmp_three = NULL;
+	char	*line_new;
+	char	*tmp_one;
+	char	*tmp_two;
+	void	*tmp_three;
 
 	if (!value)
 	{
@@ -38,11 +38,11 @@ static int	if_key(char c)
 
 static char	*handle_question_mark(char *line, int j, int *i)
 {
-	char	*line_new = NULL;
-	char	*tmp_one = NULL;
-	char	*tmp_two = NULL;
-	char	*nbr_val = NULL;
-	char	*tail = NULL;
+	char	*line_new;
+	char	*tmp_one;
+	char	*tmp_two;
+	char	*nbr_val;
+	char	*tail;
 
 	nbr_val = ft_itoa(g_status.exit);
 	tmp_one = ft_substr(line, 0, j);

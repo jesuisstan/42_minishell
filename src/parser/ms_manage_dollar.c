@@ -44,7 +44,7 @@ static char	*handle_question_mark(char *line, int j, int *i)
 	char	*nbr_val;
 	char	*tail;
 
-	nbr_val = ft_itoa(g_status.exit);
+	nbr_val = ft_itoa(g_status);
 	tmp_one = ft_substr(line, 0, j);
 	tmp_two = ft_strjoin(tmp_one, nbr_val);
 	tail = ft_strdup(&line[*i]);
@@ -54,7 +54,7 @@ static char	*handle_question_mark(char *line, int j, int *i)
 	free(tmp_two);
 	free(tail);
 	free(line);
-	g_status.exit = 0;
+	g_status = 0;
 	return (line_new);
 }
 

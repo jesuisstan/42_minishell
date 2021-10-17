@@ -17,7 +17,7 @@ void	ms_command(t_msh *msh, t_cmd *cmd)
 	{
 		ms_builtins(msh, cmd);
 		if (cmd->is_fork)
-			exit (g_status.exit);
+			exit (g_status);
 		return ;
 	}
 	else

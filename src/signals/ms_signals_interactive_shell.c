@@ -7,7 +7,7 @@ void	ms_sig_inter_ctrl_c(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_status.exit = 1;
+	g_status = 1;
 }
 
 void	ms_signals_interactive_shell(void)

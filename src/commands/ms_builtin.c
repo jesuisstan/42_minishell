@@ -3,19 +3,19 @@
 void	ms_builtins(t_msh *msh, t_cmd *cmd)
 {
 	if (!ft_strcmp(cmd->cmd[0], "echo"))
-		g_status.exit = ms_echo(cmd->cmd);
+		g_status = ms_echo(cmd->cmd);
 	else if (!ft_strcmp(cmd->cmd[0], "cd"))
-		g_status.exit = ms_cd(msh, cmd->cmd);
+		g_status = ms_cd(msh, cmd->cmd);
 	else if (!ft_strcmp(cmd->cmd[0], "pwd"))
-		g_status.exit = ms_pwd();
+		g_status = ms_pwd();
 	else if (!ft_strcmp(cmd->cmd[0], "export"))
-		g_status.exit = ms_export(msh, cmd->cmd);
+		g_status = ms_export(msh, cmd->cmd);
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
-		g_status.exit = ms_unset(msh, cmd->cmd);
+		g_status = ms_unset(msh, cmd->cmd);
 	else if (!ft_strcmp(cmd->cmd[0], "env"))
-		g_status.exit = ms_env(msh->envp_l);
+		g_status = ms_env(msh->envp_l);
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
-		g_status.exit = ms_exit(msh, cmd->cmd);
+		g_status = ms_exit(msh, cmd->cmd);
 	return ;
 }
 

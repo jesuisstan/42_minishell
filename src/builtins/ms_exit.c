@@ -30,7 +30,7 @@ int	ms_msg(t_msh *msh, char *argv1, char *str)
 	if (argv1 != NULL)
 	{
 		ms_shlvl_down(msh);
-		g_status.exit = 255;
+		g_status = 255;
 		exit(255);
 	}
 	else
@@ -75,7 +75,7 @@ int	ms_exit(t_msh *msh, char **argv)
 	if (len == 1)
 	{
 		ms_shlvl_down(msh);
-		exit(g_status.exit);
+		exit(g_status);
 	}
 	if (ms_isdigit_str(argv[1]))
 		return (ms_msg(msh, argv[1], "numeric argument required"));
@@ -83,9 +83,9 @@ int	ms_exit(t_msh *msh, char **argv)
 		return (ms_msg(msh, NULL, "too many arguments"));
 	if (len == 2)
 	{
-		g_status.exit = ms_atoi_char(msh, argv[1]);
+		g_status = ms_atoi_char(msh, argv[1]);
 		ms_shlvl_down(msh);
-		exit(g_status.exit);
+		exit(g_status);
 	}
 	return (0);
 }

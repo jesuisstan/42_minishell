@@ -9,8 +9,8 @@ static void	rdr_right(t_cmd *cmd, char *file, int mod)
 	if (cmd->out == -1)
 	{
 		perror("Error");
-		g_status.exit = 1;
-		exit(g_status.exit);
+		g_status = 1;
+		exit(g_status);
 	}
 }
 
@@ -22,8 +22,8 @@ static void	rdr_left(t_cmd *cmd, char *file, int mod)
 		if (cmd->in == -1)
 		{
 			perror("Error");
-			g_status.exit = 1;
-			exit(g_status.exit);
+			g_status = 1;
+			exit(g_status);
 		}
 	}
 }
@@ -52,8 +52,8 @@ static void	rdr_double_left(t_cmd *cmd, char *stop)
 	if (pipe(fd) < 0)
 	{
 		perror("Error");
-		g_status.exit = 1;
-		exit (g_status.exit);
+		g_status = 1;
+		exit (g_status);
 	}
 	pid = fork();
 	if (pid == 0)

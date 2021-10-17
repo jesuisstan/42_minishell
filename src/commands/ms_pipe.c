@@ -59,10 +59,10 @@ static void	wail_all(t_cmd *start)
 	while (cmd)
 	{
 		waitpid(cmd->pid, &status, 0);
-		g_status.exit = WEXITSTATUS(status);
-		if (!g_status.exit && WIFSIGNALED(status))
+		g_status = WEXITSTATUS(status);
+		if (!g_status && WIFSIGNALED(status))
 		{
-			g_status.exit = 128 + WTERMSIG(status);
+			g_status = 128 + WTERMSIG(status);
 		}
 		cmd = cmd->next;
 	}

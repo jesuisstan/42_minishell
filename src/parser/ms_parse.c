@@ -32,7 +32,7 @@ static char	*read_line_safely(char *line)
 	line = NULL;
 	line = readline("minishell § ");
 	if (!line)
-		exit(g_status.exit);
+		exit(g_status);
 	if (*line)
 		add_history(line);
 	return (line);

@@ -18,7 +18,7 @@ static int	check_quote(char *line, int *index)
 		if (str[i] == '\"')
 			return (EXIT_SUCCESS);
 	}
-	g_status.exit = 258;
+	g_status = 258;
 	return (ms_return_nbr(1, "syntax error with unclosed quotes"));
 }
 
@@ -40,7 +40,7 @@ static int	check_apostrophe(char *line, int *index)
 		if (str[i] == '\'')
 			return (EXIT_SUCCESS);
 	}
-	g_status.exit = 258;
+	g_status = 258;
 	return (ms_return_nbr(1, "syntax error with unclosed quotes"));
 }
 
@@ -56,7 +56,7 @@ static int	check_pipe(char *line, int index)
 	i += n;
 	if (str[i] == '|')
 	{
-		g_status.exit = 258;
+		g_status = 258;
 		if (str[i + 1] == '|')
 			return (ms_return_nbr(1,
 					"syntax error near unexpected token `||'"));
@@ -64,7 +64,7 @@ static int	check_pipe(char *line, int index)
 	}
 	if ((str[i] == '|' && str[i + 1] == '|') || str[i] == '\0')
 	{
-		g_status.exit = 258;
+		g_status = 258;
 		return (ms_return_nbr(1, "syntax error near unexpected token `|'"));
 	}
 	return (EXIT_SUCCESS);
@@ -80,7 +80,7 @@ int	ms_protoparse(char *line)
 	if (line[i] == '|')
 	{
 		ft_putendl_fd("minishell: syntax error near unexpected token `|'", 2);
-		g_status.exit = 258;
+		g_status = 258;
 		return (EXIT_FAILURE);
 	}
 	while (line[i])

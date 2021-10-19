@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_split_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/17 18:58:18 by mshmelly         ###   ########.fr       */
+/*   Updated: 2021/10/19 19:50:28 by acaren           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_arg	*ms_split_line(t_msh *msh)
 	int	flag;
 
 	flag = 0;
+	msh->arg = NULL;
 	cut_arguments(msh->line, &(msh->arg), msh, &flag);
 	ms_set_redirect_flags(&(msh->arg));
 	return (msh->arg);

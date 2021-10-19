@@ -6,7 +6,7 @@
 /*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/19 17:52:54 by acaren           ###   ########.fr       */
+/*   Updated: 2021/10/19 20:11:38 by acaren           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ms_parse(t_msh *msh, t_envp *envp_l)
 		msh->arg = ms_split_line(msh);
 		msh->cmd_l = ms_get_commands(msh);
 	}
-	ms_lstfree_arg(&(msh->arg));
+	if (ft_strcmp(msh->line, "") && msh->cmd_l->cmd[0])
+		ms_lstfree_arg(&(msh->arg));
 	free(msh->line);
 }

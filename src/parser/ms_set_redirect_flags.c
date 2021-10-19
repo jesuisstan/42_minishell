@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ms_set_redirect_flags.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
+/*   Updated: 2021/10/17 18:58:18 by mshmelly         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ms_isredirect(char *str)
@@ -20,7 +32,7 @@ void	ms_set_redirect_flags(t_arg **arg)
 		if (ms_isredirect((*arg)->arg_pure) == 1)
 		{
 			(*arg)->flag_isredirect = 1;
-			(*arg)->next->flag_isredirect = 1;
+			(*arg)->next->flag_isredirect = 2;
 			(*arg) = (*arg)->next->next;
 		}
 		else if (*arg)

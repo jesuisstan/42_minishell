@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ms_extract_redirects.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/19 18:20:08 by acaren            #+#    #+#             */
+/*   Updated: 2021/10/19 18:21:05 by acaren           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static void	lstadd_back_rdr(t_rdr **rdr_l, t_rdr *new)
@@ -33,6 +45,17 @@ static t_rdr	*lstnew_rdr(char *content)
 	return (list);
 }
 
+static void	lstremove_node_arg(t_arg **arg)
+{
+	t_arg	*tmp;
+
+	if (!arg || !(*arg))
+		return ;
+	tmp = (*arg)->next;
+	lstdelone_arg(*arg);
+	*arg = tmp;
+}
+
 static int	manage_front_redirect(t_arg **arg, t_rdr **rdr)
 {
 	char	*content;
@@ -46,6 +69,8 @@ static int	manage_front_redirect(t_arg **arg, t_rdr **rdr)
 			lstadd_back_rdr(rdr, lstnew_rdr(content));
 			if (!(*arg)->next->next)
 			{
+				lstremove_node_arg(&((*arg)->next));
+				lstremove_node_arg(arg);
 				return (1);
 			}
 			*arg = (*arg)->next->next;
@@ -65,7 +90,6 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 	if (!arg || !(*arg))
 		return (NULL);
 	rdr = NULL;
-	str = NULL;
 	if (manage_front_redirect(arg, &rdr) == 1)
 		return (rdr);
 	tmp = *arg;
@@ -77,7 +101,8 @@ t_rdr	*ms_extract_redirects(t_arg **arg)
 		{
 			str = ft_strjoin(tmp->next->arg_pure, tmp->next->next->arg_pure);
 			lstadd_back_rdr(&rdr, lstnew_rdr(str));
-			tmp = tmp->next->next;
+			lstremove_node_arg(&(tmp->next));
+			lstremove_node_arg(&(tmp->next));
 		}
 		else if (tmp->next)
 			tmp = tmp->next;

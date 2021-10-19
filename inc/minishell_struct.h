@@ -1,15 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_struct.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/17 19:00:11 by mshmelly          #+#    #+#             */
+/*   Updated: 2021/10/19 18:12:42 by acaren           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_STRUCT_H
 # define MINISHELL_STRUCT_H
 
 # include <stdlib.h>
 
 int				g_status;
-
-typedef struct s_lst
-{
-	struct s_lst	*next;
-	char			*val;
-}				t_lst;
+int				g_flag;
 
 typedef struct s_msh
 {

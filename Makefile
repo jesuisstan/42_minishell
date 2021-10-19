@@ -44,7 +44,7 @@ all:			$(NAME)
 %.o:			%.c
 				$(CC) $(CFLAGS) -c -g $< -o $@ $(HEADERS)
 
-$(NAME):		$(OBJS)
+$(NAME):		$(OBJS) ./inc/minishell.h ./inc/minishell_struct.h ./src/libft/inc/libft.h
 				cd ./src/libft/ && $(MAKE)
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(HEADERS) $(RDL_MAC)
 

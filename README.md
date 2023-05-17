@@ -1,35 +1,43 @@
 # 42_minishell
 ## Foreword
 This is one of the Ecole 42 common core projects.\
-It is about create a simple shell (bash).\
-The project is written with holly C language and \
-provides good understanding of processes and file descriptors.
+It is about implementing a simple shell (bash) in team of 2 students.\
+The project is written with holly C language and provides good understanding of processes, file descriptors and popular bash commands.
 
 ## Description
-The following containers implemented and turned in the necessary `<container>.hpp` files with
-a `Makefile`:
-- vector
-- map
-- stack
-- set (Red-Black tree)
+The final 42_minishell includes:
+- Show a prompt when waiting for a new command.
+- Have a working History.
+- Search and launch the right executable (based on the PATH variable)
+- Implemented the builtins:
+1. `echo` with option -n
+2. `cd`
+3. `pwd` with no options
+4. `export` with no options
+5. `unset` with no options
+6. `env` with no options or arguments
+7. `exit` with no options
+- `’` inhibit all interpretation of a sequence of characters.
+- `"` inhibit all interpretation of a sequence of characters except for $.
+- Redirections:
+1. `<` redirects input.
+2. `>` redirects output.
+3. `<<` reads input from the current source until a line containing only the delimiter is seen.
+4. `>>` redirects output with append mode.
+- Pipes | The output of each command in the pipeline is connected via a pipe to the input of the next command.
+- Environment variables ($ followed by characters) expands to their values.
+- `$?` expands to the exit status of the most recently executed foreground pipeline.
+- `ctrl-C` `ctrl-D` `ctrl-\` works like in bash.
 
-Also implemented:
-- std::iterator_traits
-- std::reverse_iterator
-- std::enable_if
-- std::is_integral
-- std::equal and/or std::lexicographical_compare
-- std::pair
-- std::make_pair
-
-Full project description you can find in `en.subject.pdf`
+Full project description you can find in `en.subject.pdf`.
 
 ## Requirements
-- installed clang++
-- installed Makefile
+- installed `clang++`
+- installed `Makefile`
 
 ## How to use
 In project directory:
-1. Run the `test.sh` to difference between STL and my containers performance\
-(the content of performed test can be checked in `main_ft.cpp` and `main_stl.cpp` files).
-2. Run `make fclean` to delete all created files.
+1. Run `make` to compile the project.
+2. Execute `./minishell` to run 42_minishell.
+3. Try any common bash commands from the list above to test 42_minishell.
+4. Run `make fclean` to delete all created files.

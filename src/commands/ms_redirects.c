@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/17 18:58:18 by mshmelly         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:06:22 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
+
+extern int g_status;
 
 static void	rdr_right(t_cmd *cmd, char *file, int mod)
 {

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:17 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/17 18:58:17 by mshmelly         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:04:52 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+extern int g_status;
 
 static int	ms_isdigit_str(char *str)
 {

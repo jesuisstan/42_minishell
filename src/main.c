@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/19 20:04:40 by acaren           ###   ########.fr       */
+/*   Updated: 2023/05/17 20:03:10 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../inc/minishell.h"
+
+int g_status;
 
 int	main(int argc, char **argv, char **envp)
 {

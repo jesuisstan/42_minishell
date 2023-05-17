@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acaren <acaren@student.42.fr>              +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/19 20:11:38 by acaren           ###   ########.fr       */
+/*   Updated: 2023/05/17 20:05:45 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+extern int g_status;
 
 static char	*replace_dollars(char *line, t_envp *envp_l)
 {

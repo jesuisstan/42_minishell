@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_signals_non_interactive_shell.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/17 18:58:18 by mshmelly         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:04:24 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+extern int g_status;
 
 static void	sig_noninter_quit(int sig)
 {

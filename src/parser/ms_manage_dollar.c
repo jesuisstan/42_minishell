@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_manage_dollar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/17 18:58:18 by mshmelly         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:05:31 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+extern int g_status;
 
 static char	*handle_char_key(char *line, char *value, int j, int *i)
 {

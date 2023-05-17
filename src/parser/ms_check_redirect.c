@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_redirect.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshmelly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: St.Krivtsov <stan.krivtsov@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 18:58:18 by mshmelly          #+#    #+#             */
-/*   Updated: 2021/10/17 18:58:18 by mshmelly         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:05:15 by St.Krivtsov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+extern int g_status;
 
 static int	handle_left(char *str, int i, int spaces_passed, int *index)
 {

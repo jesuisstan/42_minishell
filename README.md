@@ -1,7 +1,7 @@
 # 42_minishell
 ## Foreword
 This is one of the Ecole 42 common core projects.\
-It is about implementing a simple shell (bash) in team of 2 students.\
+It is about implementing a shell (bash) in team of 2 students.\
 The project is written with holly C language and provides good understanding of processes, file descriptors and popular bash commands.
 
 ## Description
